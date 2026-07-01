@@ -162,7 +162,7 @@ export default function LearnPage() {
         <Navbar />
 
         <section className="flex min-h-screen items-center justify-center px-6 py-32">
-          <p className="text-xl font-bold text-slate-300">
+          <p className="text-lg font-bold text-slate-300 md:text-xl">
             Loading your adventure...
           </p>
         </section>
@@ -176,60 +176,64 @@ export default function LearnPage() {
     <main className="min-h-screen bg-[#101827] text-white">
       <Navbar />
 
-      <section className="px-6 pb-40 pt-10">
-        <div className="mx-auto max-w-5xl pt-24">
-          <div className="mb-10 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+      <section className="px-6 pb-24 pt-28 md:pb-32 md:pt-36">
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-8 flex flex-col gap-6 sm:mb-10 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <p className="font-bold text-emerald-300">World 1</p>
 
-              <h1 className="text-4xl font-extrabold">Robo Lab</h1>
+              <h1 className="mt-2 text-4xl font-extrabold md:text-5xl">
+                Robo Lab
+              </h1>
 
-              <p className="mt-2 text-slate-300">
+              <p className="mt-2 text-sm leading-6 text-slate-300 md:text-base">
                 Complete quests and unlock new coding powers.
               </p>
 
               {!isLoggedIn && (
-                <p className="mt-3 rounded-2xl border border-yellow-400/30 bg-yellow-400/10 px-4 py-3 text-sm font-bold text-yellow-200">
+                <p className="mt-4 rounded-2xl border border-yellow-400/30 bg-yellow-400/10 px-4 py-3 text-sm font-bold leading-6 text-yellow-200">
                   Demo mode: your progress is saved only on this device. Sign up
                   to save it forever.
                 </p>
               )}
             </div>
 
-            <div className="flex flex-wrap gap-3">
-              <div className="rounded-2xl bg-white/5 px-5 py-3 font-bold">
+            <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap">
+              <div className="rounded-2xl bg-white/5 px-4 py-3 text-center text-sm font-bold md:px-5 md:text-base">
                 🔥 {streak} day streak
               </div>
 
-              <div className="rounded-2xl bg-white/5 px-5 py-3 font-bold">
+              <div className="rounded-2xl bg-white/5 px-4 py-3 text-center text-sm font-bold md:px-5 md:text-base">
                 XP: {xp}
               </div>
 
               <button
                 onClick={resetProgress}
-                className="rounded-2xl border border-red-400/30 px-5 py-3 font-bold text-red-300 transition hover:bg-red-400/10"
+                className="col-span-2 rounded-2xl border border-red-400/30 px-5 py-3 text-sm font-bold text-red-300 transition hover:bg-red-400/10 sm:col-span-1 md:text-base"
               >
                 Reset
               </button>
             </div>
           </div>
 
-          <section className="mb-12 rounded-3xl border border-white/10 bg-white/5 p-6">
+          <section className="mb-10 rounded-3xl border border-white/10 bg-white/5 p-5 md:mb-12 md:p-6">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <h2 className="text-2xl font-extrabold">Robo Lab Progress</h2>
+                <h2 className="text-2xl font-extrabold">
+                  Robo Lab Progress
+                </h2>
 
-                <p className="mt-1 text-slate-300">
+                <p className="mt-1 text-sm text-slate-300 md:text-base">
                   {completedCount}/{quests.length} quests completed
                 </p>
               </div>
 
-              <div className="rounded-2xl bg-emerald-400/10 px-5 py-3 font-bold text-emerald-300">
+              <div className="w-full rounded-2xl bg-emerald-400/10 px-5 py-3 text-center font-bold text-emerald-300 sm:w-auto">
                 {roundedProgressPercent}%
               </div>
             </div>
 
-            <div className="mt-5 h-4 overflow-hidden rounded-full bg-white/10">
+            <div className="mt-5 h-3 overflow-hidden rounded-full bg-white/10 md:h-4">
               <div
                 className="h-full rounded-full bg-emerald-400 transition-all"
                 style={{ width: `${progressPercent}%` }}
@@ -237,12 +241,12 @@ export default function LearnPage() {
             </div>
 
             {worldCompleted && (
-              <div className="mt-6 rounded-[2rem] border border-emerald-400/30 bg-emerald-400/10 p-6">
+              <div className="mt-6 rounded-[2rem] border border-emerald-400/30 bg-emerald-400/10 p-5 md:p-6">
                 <div className="grid gap-6 lg:grid-cols-2 lg:items-center">
                   <div>
-                    <div className="text-6xl">🏆</div>
+                    <div className="text-5xl md:text-6xl">🏆</div>
 
-                    <h3 className="mt-4 text-3xl font-extrabold">
+                    <h3 className="mt-4 text-2xl font-extrabold md:text-3xl">
                       Robo Lab Complete!
                     </h3>
 
@@ -271,15 +275,15 @@ export default function LearnPage() {
 
                   <div
                     id="certificate-preview"
-                    className="rounded-[1.5rem] border border-white/10 bg-slate-950 p-6 text-center shadow-2xl"
+                    className="rounded-[1.5rem] border border-white/10 bg-slate-950 p-5 text-center shadow-2xl md:p-6"
                   >
-                    <p className="text-sm font-bold uppercase tracking-[0.3em] text-emerald-300">
+                    <p className="text-xs font-bold uppercase tracking-[0.25em] text-emerald-300 md:text-sm md:tracking-[0.3em]">
                       Certificate Preview
                     </p>
 
-                    <div className="mt-5 text-6xl">🎓</div>
+                    <div className="mt-5 text-5xl md:text-6xl">🎓</div>
 
-                    <h4 className="mt-4 text-3xl font-extrabold">
+                    <h4 className="mt-4 text-2xl font-extrabold md:text-3xl">
                       Robo Lab Graduate
                     </h4>
 
@@ -318,7 +322,7 @@ export default function LearnPage() {
             )}
           </section>
 
-          <div className="relative mx-auto flex max-w-md flex-col items-center gap-8">
+          <div className="relative mx-auto flex max-w-md flex-col items-center gap-6 md:gap-8">
             {quests.map((quest, index) => {
               const isCompleted = completedLessons.includes(quest.id);
               const isUnlocked =
@@ -334,7 +338,7 @@ export default function LearnPage() {
                   {isUnlocked ? (
                     <Link
                       href={`/lesson/${quest.id}`}
-                      className={`w-64 rounded-3xl border p-5 shadow-xl transition hover:scale-105 ${
+                      className={`w-[82%] max-w-72 rounded-3xl border p-5 shadow-xl transition hover:scale-105 sm:w-64 ${
                         isCompleted
                           ? "border-emerald-400/60 bg-emerald-400/20"
                           : "border-emerald-400/30 bg-emerald-400/10 hover:bg-emerald-400/20"
@@ -342,25 +346,29 @@ export default function LearnPage() {
                     >
                       <div className="text-5xl">{quest.emoji}</div>
 
-                      <h2 className="mt-4 text-2xl font-extrabold">
+                      <h2 className="mt-4 text-xl font-extrabold md:text-2xl">
                         {quest.title}
                       </h2>
 
-                      <p className="mt-1 text-emerald-300">{quest.concept}</p>
+                      <p className="mt-1 text-sm text-emerald-300 md:text-base">
+                        {quest.concept}
+                      </p>
 
                       <p className="mt-4 text-sm font-bold text-white">
                         {isCompleted ? "Completed ✅" : "Start Quest →"}
                       </p>
                     </Link>
                   ) : (
-                    <div className="w-64 rounded-3xl border border-white/10 bg-white/5 p-5 opacity-50">
+                    <div className="w-[82%] max-w-72 rounded-3xl border border-white/10 bg-white/5 p-5 opacity-50 sm:w-64">
                       <div className="text-5xl">🔒</div>
 
-                      <h2 className="mt-4 text-2xl font-extrabold">
+                      <h2 className="mt-4 text-xl font-extrabold md:text-2xl">
                         {quest.title}
                       </h2>
 
-                      <p className="mt-1 text-slate-400">{quest.concept}</p>
+                      <p className="mt-1 text-sm text-slate-400 md:text-base">
+                        {quest.concept}
+                      </p>
 
                       <p className="mt-4 text-sm font-bold text-slate-400">
                         Locked
@@ -372,33 +380,33 @@ export default function LearnPage() {
             })}
           </div>
 
-          <section className="mt-16 rounded-[2rem] border border-emerald-400/20 bg-emerald-400/10 p-8 text-center">
+          <section className="mt-14 rounded-[2rem] border border-emerald-400/20 bg-emerald-400/10 p-6 text-center md:mt-16 md:p-8">
             <p className="font-bold text-emerald-300">Coming soon</p>
 
-            <h2 className="mt-3 text-3xl font-extrabold">
+            <h2 className="mt-3 text-2xl font-extrabold md:text-3xl">
               Unlock more coding worlds
             </h2>
 
-            <p className="mx-auto mt-3 max-w-xl text-slate-300">
+            <p className="mx-auto mt-3 max-w-xl leading-7 text-slate-300">
               Robo Lab is just the beginning. Premium worlds will introduce
               debugging, functions, algorithms, game logic, and more.
             </p>
 
             <Link
               href="/upgrade"
-              className="mt-6 inline-block rounded-2xl bg-emerald-400 px-8 py-4 font-bold text-slate-950 transition hover:bg-emerald-300"
+              className="mt-6 inline-block w-full rounded-2xl bg-emerald-400 px-8 py-4 font-bold text-slate-950 transition hover:bg-emerald-300 sm:w-auto"
             >
               Join Early Access
             </Link>
           </section>
 
-          <section className="mt-10 grid gap-6 md:grid-cols-3">
+          <section className="mt-10 grid gap-5 md:grid-cols-3 md:gap-6">
             {premiumWorlds.map((world) => (
               <div
                 key={world.title}
-                className="rounded-3xl border border-white/10 bg-white/5 p-6 opacity-80"
+                className="rounded-3xl border border-white/10 bg-white/5 p-5 opacity-80 md:p-6"
               >
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between gap-4">
                   <div className="text-5xl">{world.emoji}</div>
 
                   <div className="rounded-full bg-white/10 px-3 py-1 text-sm font-bold text-slate-300">
@@ -406,13 +414,17 @@ export default function LearnPage() {
                   </div>
                 </div>
 
-                <h3 className="mt-5 text-2xl font-extrabold">{world.title}</h3>
+                <h3 className="mt-5 text-xl font-extrabold md:text-2xl">
+                  {world.title}
+                </h3>
 
                 <p className="mt-2 font-bold text-emerald-300">
                   {world.concept}
                 </p>
 
-                <p className="mt-3 text-slate-300">{world.description}</p>
+                <p className="mt-3 leading-7 text-slate-300">
+                  {world.description}
+                </p>
               </div>
             ))}
           </section>

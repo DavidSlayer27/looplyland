@@ -127,36 +127,36 @@ export default function Home() {
     <main className="min-h-screen bg-[#101827] text-white">
       <Navbar />
 
-      <section className="relative overflow-hidden px-6 pb-20 pt-36">
+      <section className="relative overflow-hidden px-6 pb-16 pt-28 md:pb-20 md:pt-36">
         <div className="absolute left-1/2 top-24 h-72 w-72 -translate-x-1/2 rounded-full bg-emerald-400/20 blur-3xl" />
 
         <div className="relative mx-auto max-w-6xl">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
+          <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
             <div className="text-center lg:text-left">
-              <div className="mb-6 inline-flex rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-sm font-bold text-emerald-300">
+              <div className="mb-5 inline-flex rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-sm font-bold text-emerald-300 md:mb-6">
                 Coding adventures for kids ages 8–12
               </div>
 
-              <h1 className="text-5xl font-extrabold leading-tight md:text-7xl">
+              <h1 className="text-4xl font-extrabold leading-tight sm:text-5xl md:text-7xl">
                 Kids learn coding through magical adventures.
               </h1>
 
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300 md:text-xl">
+              <p className="mt-5 max-w-2xl text-base leading-7 text-slate-300 md:mt-6 md:text-xl md:leading-8">
                 LooplyLand turns coding basics into quests, puzzles, XP,
                 streaks, and boss fights — so kids learn logic while having fun.
               </p>
 
-              <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center lg:justify-start">
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
                 <Link
                   href="/signup"
-                  className="rounded-2xl bg-emerald-400 px-8 py-4 text-lg font-bold text-slate-950 transition hover:bg-emerald-300"
+                  className="rounded-2xl bg-emerald-400 px-6 py-4 text-base font-bold text-slate-950 transition hover:bg-emerald-300 md:px-8 md:text-lg"
                 >
                   Create Free Account
                 </Link>
 
                 <Link
                   href="/learn"
-                  className="rounded-2xl border border-white/20 px-8 py-4 text-lg font-bold text-white transition hover:bg-white/10"
+                  className="rounded-2xl border border-white/20 px-6 py-4 text-base font-bold text-white transition hover:bg-white/10 md:px-8 md:text-lg"
                 >
                   Try Demo
                 </Link>
@@ -167,44 +167,49 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-2xl">
-              <div className="rounded-[1.5rem] bg-slate-950 p-6">
-                <div className="flex items-center justify-between">
+            <div className="rounded-[2rem] border border-white/10 bg-white/5 p-4 shadow-2xl md:p-6">
+              <div className="rounded-[1.5rem] bg-slate-950 p-4 md:p-6">
+                <div className="flex items-center justify-between gap-4">
                   <div>
                     <p className="text-sm font-bold text-emerald-300">
                       World 1
                     </p>
-                    <h2 className="text-3xl font-extrabold">Robo Lab</h2>
+
+                    <h2 className="text-2xl font-extrabold md:text-3xl">
+                      Robo Lab
+                    </h2>
                   </div>
 
-                  <div className="rounded-2xl bg-emerald-400 px-4 py-2 font-bold text-slate-950 transition-all duration-500">
+                  <div className="rounded-2xl bg-emerald-400 px-4 py-2 text-sm font-bold text-slate-950 transition-all duration-500 md:text-base">
                     XP {demoStep.xp}
                   </div>
                 </div>
 
-                <div className="mt-6 h-4 overflow-hidden rounded-full bg-white/10">
+                <div className="mt-5 h-3 overflow-hidden rounded-full bg-white/10 md:mt-6 md:h-4">
                   <div
                     className="h-full rounded-full bg-emerald-400 transition-all duration-700 ease-out"
                     style={{ width: `${demoStep.progress}%` }}
                   />
                 </div>
 
-                <div className="mt-8 grid gap-4">
+                <div className="mt-6 grid gap-4 md:mt-8">
                   <div
                     key={`${demoStep.title}-${demoStepIndex}`}
-                    className={`rounded-3xl border p-5 transition-all duration-500 ${
+                    className={`rounded-3xl border p-4 transition-all duration-500 md:p-5 ${
                       demoStep.completed
                         ? "border-emerald-400/60 bg-emerald-400/20"
                         : "border-emerald-400/40 bg-emerald-400/10"
                     }`}
                   >
-                    <div className="text-5xl">{demoStep.emoji}</div>
+                    <div className="text-4xl md:text-5xl">
+                      {demoStep.emoji}
+                    </div>
 
-                    <h3 className="mt-3 text-2xl font-extrabold">
+                    <h3 className="mt-3 text-xl font-extrabold md:text-2xl">
                       {demoStep.title}
                     </h3>
 
-                    <p className="mt-1 text-emerald-300">
+                    <p className="mt-1 text-sm text-emerald-300 md:text-base">
                       {demoStep.concept}
                     </p>
 
@@ -213,14 +218,16 @@ export default function Home() {
                     </p>
                   </div>
 
-                  <div className="rounded-3xl border border-emerald-400/30 bg-emerald-400/10 p-5 transition-all duration-500">
-                    <div className="text-5xl">{demoStep.secondEmoji}</div>
+                  <div className="rounded-3xl border border-emerald-400/30 bg-emerald-400/10 p-4 transition-all duration-500 md:p-5">
+                    <div className="text-4xl md:text-5xl">
+                      {demoStep.secondEmoji}
+                    </div>
 
-                    <h3 className="mt-3 text-2xl font-extrabold">
+                    <h3 className="mt-3 text-xl font-extrabold md:text-2xl">
                       {demoStep.secondTitle}
                     </h3>
 
-                    <p className="mt-1 text-emerald-300">
+                    <p className="mt-1 text-sm text-emerald-300 md:text-base">
                       {demoStep.secondConcept}
                     </p>
 
@@ -229,14 +236,16 @@ export default function Home() {
                     </p>
                   </div>
 
-                  <div className="rounded-3xl border border-white/10 bg-white/5 p-5 opacity-60 transition-all duration-500">
-                    <div className="text-5xl">{demoStep.thirdEmoji}</div>
+                  <div className="rounded-3xl border border-white/10 bg-white/5 p-4 opacity-60 transition-all duration-500 md:p-5">
+                    <div className="text-4xl md:text-5xl">
+                      {demoStep.thirdEmoji}
+                    </div>
 
-                    <h3 className="mt-3 text-2xl font-extrabold">
+                    <h3 className="mt-3 text-xl font-extrabold md:text-2xl">
                       {demoStep.thirdTitle}
                     </h3>
 
-                    <p className="mt-1 text-slate-400">
+                    <p className="mt-1 text-sm text-slate-400 md:text-base">
                       {demoStep.thirdConcept}
                     </p>
 
@@ -264,24 +273,24 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-slate-950 px-6 py-24">
+      <section className="bg-slate-950 px-6 py-20 md:py-24">
         <div className="mx-auto max-w-6xl text-center">
           <p className="font-bold text-emerald-300">
             Fun for kids. Valuable for parents.
           </p>
 
-          <h2 className="mt-4 text-4xl font-extrabold md:text-5xl">
+          <h2 className="mt-4 text-3xl font-extrabold md:text-5xl">
             Educational screen time that builds real skills.
           </h2>
 
-          <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-300">
+          <p className="mx-auto mt-5 max-w-3xl text-base leading-7 text-slate-300 md:text-lg md:leading-8">
             LooplyLand helps children learn logic, problem solving, and
             programming basics through short interactive adventures designed for
             ages 8–12.
           </p>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-8 text-left">
+          <div className="mt-10 grid gap-6 md:mt-12 md:grid-cols-3">
+            <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-left md:p-8">
               <div className="text-5xl">🧠</div>
               <h3 className="mt-5 text-2xl font-extrabold">Logic Skills</h3>
               <p className="mt-3 text-slate-300">
@@ -290,7 +299,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-8 text-left">
+            <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-left md:p-8">
               <div className="text-5xl">🎮</div>
               <h3 className="mt-5 text-2xl font-extrabold">
                 Game-like Learning
@@ -301,7 +310,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-8 text-left">
+            <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-left md:p-8">
               <div className="text-5xl">💻</div>
               <h3 className="mt-5 text-2xl font-extrabold">Coding Basics</h3>
               <p className="mt-3 text-slate-300">
@@ -313,32 +322,32 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="px-6 py-24">
+      <section className="px-6 py-20 md:py-24">
         <div className="mx-auto max-w-6xl">
           <div className="grid gap-10 lg:grid-cols-2">
             <div>
               <p className="font-bold text-emerald-300">How it works</p>
 
-              <h2 className="mt-4 text-4xl font-extrabold md:text-5xl">
+              <h2 className="mt-4 text-3xl font-extrabold md:text-5xl">
                 A simple daily adventure system.
               </h2>
 
-              <p className="mt-5 text-lg leading-8 text-slate-300">
+              <p className="mt-5 text-base leading-7 text-slate-300 md:text-lg md:leading-8">
                 Children complete short quests, answer coding puzzles, earn XP,
                 build streaks, and unlock new worlds.
               </p>
 
-              <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href="/parents"
-                  className="rounded-2xl border border-white/20 px-8 py-4 text-center text-lg font-bold text-white transition hover:bg-white/10"
+                  className="rounded-2xl border border-white/20 px-6 py-4 text-center text-base font-bold text-white transition hover:bg-white/10 md:px-8 md:text-lg"
                 >
                   Learn More for Parents
                 </Link>
 
                 <Link
                   href="/signup"
-                  className="rounded-2xl bg-emerald-400 px-8 py-4 text-center text-lg font-bold text-slate-950 transition hover:bg-emerald-300"
+                  className="rounded-2xl bg-emerald-400 px-6 py-4 text-center text-base font-bold text-slate-950 transition hover:bg-emerald-300 md:px-8 md:text-lg"
                 >
                   Start Free
                 </Link>
@@ -382,36 +391,37 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-slate-950 px-6 py-24">
-        <div className="mx-auto max-w-4xl rounded-[2rem] border border-emerald-400/20 bg-emerald-400/10 p-10 text-center">
+      <section className="bg-slate-950 px-6 py-20 md:py-24">
+        <div className="mx-auto max-w-4xl rounded-[2rem] border border-emerald-400/20 bg-emerald-400/10 p-8 text-center md:p-10">
           <p className="font-bold text-emerald-300">Ready to begin?</p>
 
-          <h2 className="mt-4 text-4xl font-extrabold md:text-5xl">
+          <h2 className="mt-4 text-3xl font-extrabold md:text-5xl">
             Give your child a fun first step into coding.
           </h2>
 
-          <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-300">
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-300 md:text-lg md:leading-8">
             Start with the free Robo Lab world and see how LooplyLand turns
             coding into an adventure.
           </p>
 
-          <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <Link
               href="/signup"
-              className="rounded-2xl bg-emerald-400 px-8 py-4 text-lg font-bold text-slate-950 transition hover:bg-emerald-300"
+              className="rounded-2xl bg-emerald-400 px-6 py-4 text-base font-bold text-slate-950 transition hover:bg-emerald-300 md:px-8 md:text-lg"
             >
               Create Free Account
             </Link>
 
             <Link
               href="/parents"
-              className="rounded-2xl border border-white/20 px-8 py-4 text-lg font-bold text-white transition hover:bg-white/10"
+              className="rounded-2xl border border-white/20 px-6 py-4 text-base font-bold text-white transition hover:bg-white/10 md:px-8 md:text-lg"
             >
               For Parents
             </Link>
           </div>
         </div>
       </section>
+
       <Footer />
     </main>
   );

@@ -7,6 +7,7 @@ import { supabase } from "@/lib/supabaseClient";
 export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [checkingUser, setCheckingUser] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     async function checkUser() {
@@ -35,16 +36,25 @@ export default function Navbar() {
   async function handleLogout() {
     await supabase.auth.signOut();
     setIsLoggedIn(false);
+    setMenuOpen(false);
+  }
+
+  function closeMenu() {
+    setMenuOpen(false);
   }
 
   return (
-    <header className="fixed left-0 top-0 z-50 w-full border-b border-white/10 bg-[#101827]/80 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 text-white">
-        <Link href="/" className="text-2xl font-extrabold">
+    <header className="fixed left-0 top-0 z-50 w-full border-b border-white/10 bg-[#101827]/90 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 text-white md:px-6">
+        <Link
+          href="/"
+          onClick={closeMenu}
+          className="text-xl font-extrabold sm:text-2xl"
+        >
           Looply<span className="text-emerald-300">Land</span>
         </Link>
 
-        <nav className="hidden items-center gap-6 font-bold text-slate-300 sm:flex">
+        <nav className="hidden items-center gap-6 font-bold text-slate-300 md:flex">
           <Link href="/learn" className="transition hover:text-white">
             Learn
           </Link>
@@ -58,7 +68,7 @@ export default function Navbar() {
           </Link>
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="hidden items-center gap-3 md:flex">
           {checkingUser ? (
             <div className="rounded-2xl bg-white/5 px-5 py-3 font-bold text-slate-300">
               ...
@@ -83,7 +93,7 @@ export default function Navbar() {
             <>
               <Link
                 href="/login"
-                className="hidden rounded-2xl border border-white/10 px-5 py-3 font-bold text-white transition hover:bg-white/10 sm:inline-block"
+                className="rounded-2xl border border-white/10 px-5 py-3 font-bold text-white transition hover:bg-white/10"
               >
                 Login
               </Link>
@@ -97,7 +107,87 @@ export default function Navbar() {
             </>
           )}
         </div>
+
+        <button
+          onClick={() => setMenuOpen((currentValue) => !currentValue)}
+          className="rounded-2xl border border-white/10 px-4 py-2 text-sm font-bold text-white transition hover:bg-white/10 md:hidden"
+        >
+          {menuOpen ? "Close" : "Menu"}
+        </button>
       </div>
+
+      {menuOpen && (
+        <div className="border-t border-white/10 bg-[#101827] px-5 pb-5 pt-3 text-white md:hidden">
+          <nav className="mx-auto grid max-w-6xl gap-3">
+            <Link
+              href="/learn"
+              onClick={closeMenu}
+              className="rounded-2xl bg-white/5 px-5 py-3 font-bold text-slate-200 transition hover:bg-white/10"
+            >
+              Learn
+            </Link>
+
+            <Link
+              href="/parents"
+              onClick={closeMenu}
+              className="rounded-2xl bg-white/5 px-5 py-3 font-bold text-slate-200 transition hover:bg-white/10"
+            >
+              Parents
+            </Link>
+
+            <Link
+              href="/upgrade"
+              onClick={closeMenu}
+              className="rounded-2xl bg-white/5 px-5 py-3 font-bold text-slate-200 transition hover:bg-white/10"
+            >
+              Premium
+            </Link>
+
+            <div className="mt-2 grid gap-3 border-t border-white/10 pt-4">
+              {checkingUser ? (
+                <div className="rounded-2xl bg-white/5 px-5 py-3 text-center font-bold text-slate-300">
+                  ...
+                </div>
+              ) : isLoggedIn ? (
+                <>
+                  <Link
+                    href="/profile"
+                    onClick={closeMenu}
+                    className="rounded-2xl bg-emerald-400 px-5 py-3 text-center font-bold text-slate-950 transition hover:bg-emerald-300"
+                  >
+                    Profile
+                  </Link>
+
+                  <button
+                    onClick={handleLogout}
+                    className="rounded-2xl border border-white/10 px-5 py-3 text-center font-bold text-white transition hover:bg-white/10"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    onClick={closeMenu}
+                    className="rounded-2xl border border-white/10 px-5 py-3 text-center font-bold text-white transition hover:bg-white/10"
+                  >
+                    Login
+                  </Link>
+
+                  <Link
+                    href="/signup"
+                    onClick={closeMenu}
+                    className="rounded-2xl bg-emerald-400 px-5 py-3 text-center font-bold text-slate-950 transition hover:bg-emerald-300"
+                  >
+                    Sign up
+                  </Link>
+                </>
+              )}
+            </div>
+          </nav>
+        </div>
+      )}
     </header>
   );
 }

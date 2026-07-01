@@ -6,17 +6,21 @@ export default function PrivacyPage() {
     <main className="min-h-screen bg-[#101827] text-white">
       <Navbar />
 
-      <section className="px-6 pb-24 pt-36">
+      <section className="px-6 pb-20 pt-28 md:pb-24 md:pt-36">
         <div className="mx-auto max-w-4xl">
           <p className="font-bold text-emerald-300">LooplyLand</p>
 
-          <h1 className="mt-3 text-5xl font-extrabold">Privacy Policy</h1>
+          <h1 className="mt-3 text-4xl font-extrabold sm:text-5xl">
+            Privacy Policy
+          </h1>
 
-          <p className="mt-4 text-slate-400">Last updated: July 2026</p>
+          <p className="mt-4 text-sm text-slate-400 md:text-base">
+            Last updated: July 2026
+          </p>
 
-          <div className="mt-10 space-y-8 leading-8 text-slate-300">
+          <div className="mt-8 space-y-7 leading-7 text-slate-300 md:mt-10 md:space-y-8 md:leading-8">
             <section>
-              <h2 className="text-2xl font-extrabold text-white">
+              <h2 className="text-xl font-extrabold text-white md:text-2xl">
                 1. What is LooplyLand?
               </h2>
 
@@ -28,7 +32,7 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-extrabold text-white">
+              <h2 className="text-xl font-extrabold text-white md:text-2xl">
                 2. Information we collect
               </h2>
 
@@ -40,7 +44,7 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-extrabold text-white">
+              <h2 className="text-xl font-extrabold text-white md:text-2xl">
                 3. How we use information
               </h2>
 
@@ -52,7 +56,7 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-extrabold text-white">
+              <h2 className="text-xl font-extrabold text-white md:text-2xl">
                 4. Children&apos;s privacy
               </h2>
 
@@ -65,7 +69,7 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-extrabold text-white">
+              <h2 className="text-xl font-extrabold text-white md:text-2xl">
                 5. Third-party services
               </h2>
 
@@ -77,7 +81,7 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-extrabold text-white">
+              <h2 className="text-xl font-extrabold text-white md:text-2xl">
                 6. Analytics
               </h2>
 
@@ -89,7 +93,7 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-extrabold text-white">
+              <h2 className="text-xl font-extrabold text-white md:text-2xl">
                 7. Data security
               </h2>
 
@@ -100,7 +104,7 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-extrabold text-white">
+              <h2 className="text-xl font-extrabold text-white md:text-2xl">
                 8. Contact
               </h2>
 
@@ -109,7 +113,7 @@ export default function PrivacyPage() {
                 us at{" "}
                 <a
                   href="mailto:contact@looplyland.com"
-                  className="font-bold text-emerald-300 hover:text-emerald-200"
+                  className="break-words font-bold text-emerald-300 hover:text-emerald-200"
                 >
                   contact@looplyland.com
                 </a>
@@ -121,7 +125,7 @@ export default function PrivacyPage() {
                 can email us at{" "}
                 <a
                   href="mailto:support@looplyland.com"
-                  className="font-bold text-emerald-300 hover:text-emerald-200"
+                  className="break-words font-bold text-emerald-300 hover:text-emerald-200"
                 >
                   support@looplyland.com
                 </a>
@@ -129,7 +133,7 @@ export default function PrivacyPage() {
               </p>
             </section>
 
-            <p className="rounded-2xl border border-white/10 bg-white/5 p-5 text-sm leading-7 text-slate-400">
+            <p className="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm leading-7 text-slate-400 md:p-5">
               This Privacy Policy is a simple MVP version and may be updated as
               LooplyLand grows.
             </p>

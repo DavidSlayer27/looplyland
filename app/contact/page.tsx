@@ -7,27 +7,27 @@ export default function ContactPage() {
     <main className="min-h-screen bg-[#101827] text-white">
       <Navbar />
 
-      <section className="relative overflow-hidden px-6 pb-24 pt-36">
+      <section className="relative overflow-hidden px-6 pb-20 pt-28 md:pb-24 md:pt-36">
         <div className="absolute left-1/2 top-24 h-72 w-72 -translate-x-1/2 rounded-full bg-emerald-400/20 blur-3xl" />
 
         <div className="relative mx-auto max-w-4xl text-center">
-          <div className="mx-auto mb-6 w-fit rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-sm font-bold text-emerald-300">
+          <div className="mx-auto mb-5 w-fit rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-sm font-bold text-emerald-300 md:mb-6">
             Contact LooplyLand
           </div>
 
-          <h1 className="text-5xl font-extrabold leading-tight md:text-7xl">
+          <h1 className="text-4xl font-extrabold leading-tight sm:text-5xl md:text-7xl">
             Questions, feedback, or early access?
           </h1>
 
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-300">
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-300 md:mt-6 md:text-lg md:leading-8">
             We&apos;d love to hear from parents, educators, and early users who
             want to help shape LooplyLand.
           </p>
 
-          <div className="mx-auto mt-10 max-w-2xl rounded-[2rem] border border-white/10 bg-white/5 p-8 text-left">
+          <div className="mx-auto mt-8 max-w-2xl rounded-[2rem] border border-white/10 bg-white/5 p-6 text-left md:mt-10 md:p-8">
             <p className="font-bold text-emerald-300">Email us</p>
 
-            <h2 className="mt-3 text-3xl font-extrabold">
+            <h2 className="mt-3 break-words text-2xl font-extrabold md:text-3xl">
               contact@looplyland.com
             </h2>
 
@@ -36,7 +36,7 @@ export default function ContactPage() {
               or Premium early access, email us at{" "}
               <a
                 href="mailto:contact@looplyland.com"
-                className="font-bold text-emerald-300 hover:text-emerald-200"
+                className="break-words font-bold text-emerald-300 hover:text-emerald-200"
               >
                 contact@looplyland.com
               </a>
@@ -48,7 +48,7 @@ export default function ContactPage() {
               at{" "}
               <a
                 href="mailto:support@looplyland.com"
-                className="font-bold text-emerald-300 hover:text-emerald-200"
+                className="break-words font-bold text-emerald-300 hover:text-emerald-200"
               >
                 support@looplyland.com
               </a>
@@ -75,7 +75,9 @@ export default function ContactPage() {
           <div className="mt-8 grid gap-5 md:grid-cols-3">
             <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
               <div className="text-4xl">👨‍👩‍👧</div>
+
               <h3 className="mt-4 text-xl font-extrabold">Parents</h3>
+
               <p className="mt-2 text-sm leading-6 text-slate-300">
                 Ask questions about learning progress, safety, or Premium.
               </p>
@@ -83,7 +85,9 @@ export default function ContactPage() {
 
             <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
               <div className="text-4xl">🏫</div>
+
               <h3 className="mt-4 text-xl font-extrabold">Educators</h3>
+
               <p className="mt-2 text-sm leading-6 text-slate-300">
                 Contact us about using LooplyLand with students.
               </p>
@@ -91,7 +95,9 @@ export default function ContactPage() {
 
             <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
               <div className="text-4xl">💡</div>
+
               <h3 className="mt-4 text-xl font-extrabold">Feedback</h3>
+
               <p className="mt-2 text-sm leading-6 text-slate-300">
                 Share ideas for quests, worlds, characters, or features.
               </p>

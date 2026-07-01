@@ -210,10 +210,15 @@ export default function LessonPage() {
 
   if (!lesson) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#101827] px-6 text-white">
+      <main className="flex min-h-screen items-center justify-center bg-[#101827] px-6 py-20 text-white">
         <div className="max-w-xl text-center">
-          <h1 className="text-4xl font-extrabold">Quest not found</h1>
-          <p className="mt-4 text-slate-300">This lesson does not exist yet.</p>
+          <h1 className="text-3xl font-extrabold md:text-4xl">
+            Quest not found
+          </h1>
+
+          <p className="mt-4 text-slate-300">
+            This lesson does not exist yet.
+          </p>
 
           <Link
             href="/learn"
@@ -284,72 +289,72 @@ export default function LessonPage() {
     updateLocalStreak();
   }
 
-async function saveSupabaseProgress(userId: string) {
-  const { data: existingLesson, error: existingLessonError } = await supabase
-    .from("lesson_progress")
-    .select("id")
-    .eq("user_id", userId)
-    .eq("lesson_id", lesson.id)
-    .maybeSingle();
-
-  if (existingLessonError) {
-    throw existingLessonError;
-  }
-
-  const { data: profile, error: profileError } = await supabase
-    .from("profiles")
-    .select("xp, streak, last_streak_date")
-    .eq("id", userId)
-    .single();
-
-  if (profileError) {
-    throw profileError;
-  }
-
-  const today = getTodayDate();
-  const yesterday = getYesterdayDate();
-
-  let newStreak = profile.streak || 0;
-
-  if (profile.last_streak_date !== today) {
-    if (profile.last_streak_date === yesterday) {
-      newStreak = newStreak + 1;
-    } else {
-      newStreak = 1;
-    }
-  }
-
-  let newXp = profile.xp || 0;
-
-  if (!existingLesson) {
-    const { error: progressError } = await supabase
+  async function saveSupabaseProgress(userId: string) {
+    const { data: existingLesson, error: existingLessonError } = await supabase
       .from("lesson_progress")
-      .insert({
-        user_id: userId,
-        lesson_id: lesson.id,
-        completed: true,
-      });
+      .select("id")
+      .eq("user_id", userId)
+      .eq("lesson_id", lesson.id)
+      .maybeSingle();
 
-    if (progressError) {
-      throw progressError;
+    if (existingLessonError) {
+      throw existingLessonError;
     }
 
-    newXp = newXp + lesson.xp;
-  }
+    const { data: profile, error: profileError } = await supabase
+      .from("profiles")
+      .select("xp, streak, last_streak_date")
+      .eq("id", userId)
+      .single();
 
-  const { error: updateProfileError } = await supabase
-    .from("profiles")
-    .update({
-      xp: newXp,
-      streak: newStreak,
-      last_streak_date: today,
-    })
-    .eq("id", userId);
+    if (profileError) {
+      throw profileError;
+    }
 
-  if (updateProfileError) {
-    throw updateProfileError;
+    const today = getTodayDate();
+    const yesterday = getYesterdayDate();
+
+    let newStreak = profile.streak || 0;
+
+    if (profile.last_streak_date !== today) {
+      if (profile.last_streak_date === yesterday) {
+        newStreak = newStreak + 1;
+      } else {
+        newStreak = 1;
+      }
+    }
+
+    let newXp = profile.xp || 0;
+
+    if (!existingLesson) {
+      const { error: progressError } = await supabase
+        .from("lesson_progress")
+        .insert({
+          user_id: userId,
+          lesson_id: lesson.id,
+          completed: true,
+        });
+
+      if (progressError) {
+        throw progressError;
+      }
+
+      newXp = newXp + lesson.xp;
+    }
+
+    const { error: updateProfileError } = await supabase
+      .from("profiles")
+      .update({
+        xp: newXp,
+        streak: newStreak,
+        last_streak_date: today,
+      })
+      .eq("id", userId);
+
+    if (updateProfileError) {
+      throw updateProfileError;
+    }
   }
-}
 
   async function saveProgress() {
     setSaving(true);
@@ -419,42 +424,44 @@ async function saveSupabaseProgress(userId: string) {
   }
 
   return (
-    <main className="min-h-screen bg-[#101827] px-6 py-10 text-white">
+    <main className="min-h-screen bg-[#101827] px-6 py-6 text-white md:py-10">
       <div className="mx-auto max-w-3xl">
-        <div className="mb-8 flex items-center justify-between">
+        <div className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-center sm:justify-between">
           <Link
             href="/learn"
-            className="rounded-2xl border border-white/10 px-4 py-2 font-bold text-slate-300 transition hover:bg-white/10"
+            className="w-full rounded-2xl border border-white/10 px-4 py-3 text-center font-bold text-slate-300 transition hover:bg-white/10 sm:w-auto sm:py-2"
           >
             ← Map
           </Link>
 
-          <div className="flex items-center gap-3">
-            <div className="rounded-2xl bg-white/5 px-5 py-3 font-bold">
+          <div className="grid grid-cols-2 gap-3 sm:flex sm:items-center">
+            <div className="rounded-2xl bg-white/5 px-4 py-3 text-center font-bold md:px-5">
               ❤️ {lives}
             </div>
 
-            <div className="rounded-2xl bg-white/5 px-5 py-3 font-bold">
-              XP earned: {earnedXp}
+            <div className="rounded-2xl bg-white/5 px-4 py-3 text-center font-bold md:px-5">
+              XP: {earnedXp}
             </div>
           </div>
         </div>
 
-        <div className="mb-6 h-4 overflow-hidden rounded-full bg-white/10">
+        <div className="mb-6 h-3 overflow-hidden rounded-full bg-white/10 md:h-4">
           <div
             className="h-full rounded-full bg-emerald-400 transition-all"
             style={{ width: `${progress}%` }}
           />
         </div>
 
-        <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl">
+        <div className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-2xl md:p-8">
           {lessonFailed ? (
             <div className="text-center">
-              <div className="text-8xl">💔</div>
+              <div className="text-7xl md:text-8xl">💔</div>
 
-              <h1 className="mt-6 text-4xl font-extrabold">Out of hearts!</h1>
+              <h1 className="mt-6 text-3xl font-extrabold md:text-4xl">
+                Out of hearts!
+              </h1>
 
-              <p className="mt-4 text-xl text-slate-300">
+              <p className="mt-4 text-base leading-7 text-slate-300 md:text-xl">
                 Don&apos;t worry. Try the quest again and help Robo continue the
                 adventure.
               </p>
@@ -477,20 +484,24 @@ async function saveSupabaseProgress(userId: string) {
             </div>
           ) : !lessonCompleted ? (
             <>
-              <div className="text-7xl">{lesson.emoji}</div>
+              <div className="text-6xl md:text-7xl">{lesson.emoji}</div>
 
-              <div className="mt-6 rounded-full bg-emerald-400/10 px-4 py-2 text-sm font-bold text-emerald-300">
+              <div className="mt-6 w-fit rounded-full bg-emerald-400/10 px-4 py-2 text-sm font-bold text-emerald-300">
                 Quest {lesson.id} · {lesson.concept} · Question{" "}
                 {currentQuestionIndex + 1}/{totalQuestions}
               </div>
 
-              <h1 className="mt-6 text-4xl font-extrabold">{lesson.title}</h1>
+              <h1 className="mt-6 text-3xl font-extrabold md:text-4xl">
+                {lesson.title}
+              </h1>
 
-              <p className="mt-4 text-lg text-slate-300">{lesson.story}</p>
+              <p className="mt-4 text-base leading-7 text-slate-300 md:text-lg">
+                {lesson.story}
+              </p>
 
-              <div className="mt-8 rounded-2xl bg-slate-950 p-5 text-left font-mono text-sm text-emerald-300">
+              <div className="mt-7 overflow-x-auto rounded-2xl bg-slate-950 p-4 text-left font-mono text-sm text-emerald-300 md:mt-8 md:p-5">
                 <p># Complete the code</p>
-                <p>
+                <p className="whitespace-nowrap">
                   {selectedAnswer
                     ? currentQuestion.codePreview.replace(
                         "__________",
@@ -500,11 +511,11 @@ async function saveSupabaseProgress(userId: string) {
                 </p>
               </div>
 
-              <h2 className="mt-8 text-2xl font-bold">
+              <h2 className="mt-7 text-xl font-bold leading-7 md:mt-8 md:text-2xl">
                 {currentQuestion.question}
               </h2>
 
-              <div className="mt-6 grid gap-4">
+              <div className="mt-5 grid gap-3 md:mt-6 md:gap-4">
                 {currentQuestion.answers.map((answer) => {
                   const selected = selectedAnswer === answer;
                   const correct = answer === currentQuestion.correctAnswer;
@@ -523,7 +534,7 @@ async function saveSupabaseProgress(userId: string) {
                     <button
                       key={answer}
                       onClick={() => handleAnswer(answer)}
-                      className={`rounded-2xl px-6 py-4 text-left font-mono text-lg font-bold transition ${buttonStyle}`}
+                      className={`rounded-2xl px-5 py-4 text-left font-mono text-base font-bold transition md:px-6 md:text-lg ${buttonStyle}`}
                     >
                       {answer}
                     </button>
@@ -532,15 +543,17 @@ async function saveSupabaseProgress(userId: string) {
               </div>
 
               {isCorrect && (
-                <div className="mt-8 rounded-2xl bg-emerald-400/10 p-5">
-                  <p className="text-xl font-bold text-emerald-300">Correct!</p>
+                <div className="mt-7 rounded-2xl bg-emerald-400/10 p-5 md:mt-8">
+                  <p className="text-xl font-bold text-emerald-300">
+                    Correct!
+                  </p>
 
-                  <p className="mt-2 text-slate-300">
+                  <p className="mt-2 leading-7 text-slate-300">
                     {currentQuestion.successMessage}
                   </p>
 
                   {saveError && (
-                    <p className="mt-4 rounded-2xl bg-red-400/10 p-4 font-bold text-red-300">
+                    <p className="mt-4 rounded-2xl bg-red-400/10 p-4 text-sm font-bold leading-6 text-red-300">
                       {saveError}
                     </p>
                   )}
@@ -548,7 +561,7 @@ async function saveSupabaseProgress(userId: string) {
                   <button
                     onClick={handleContinue}
                     disabled={saving}
-                    className="mt-5 rounded-2xl bg-emerald-400 px-6 py-3 font-bold text-slate-950 transition hover:bg-emerald-300 disabled:opacity-60"
+                    className="mt-5 w-full rounded-2xl bg-emerald-400 px-6 py-3 font-bold text-slate-950 transition hover:bg-emerald-300 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
                   >
                     {saving ? "Saving..." : "Continue →"}
                   </button>
@@ -556,18 +569,18 @@ async function saveSupabaseProgress(userId: string) {
               )}
 
               {isWrong && !lessonFailed && (
-                <div className="mt-8 rounded-2xl bg-red-400/10 p-5">
+                <div className="mt-7 rounded-2xl bg-red-400/10 p-5 md:mt-8">
                   <p className="text-xl font-bold text-red-300">
                     Not quite. You lost 1 heart.
                   </p>
 
-                  <p className="mt-2 text-slate-300">
+                  <p className="mt-2 leading-7 text-slate-300">
                     Read the question again and choose the best answer.
                   </p>
 
                   <button
                     onClick={tryAgain}
-                    className="mt-5 rounded-2xl bg-red-400 px-6 py-3 font-bold text-slate-950 transition hover:bg-red-300"
+                    className="mt-5 w-full rounded-2xl bg-red-400 px-6 py-3 font-bold text-slate-950 transition hover:bg-red-300 sm:w-auto"
                   >
                     Try Again
                   </button>
@@ -576,20 +589,22 @@ async function saveSupabaseProgress(userId: string) {
             </>
           ) : (
             <div className="text-center">
-              <div className="text-8xl">{isFinalLesson ? "🏆" : "🎉"}</div>
+              <div className="text-7xl md:text-8xl">
+                {isFinalLesson ? "🏆" : "🎉"}
+              </div>
 
-              <h1 className="mt-6 text-4xl font-extrabold">
+              <h1 className="mt-6 text-3xl font-extrabold md:text-4xl">
                 {isFinalLesson ? "Robo Lab Complete!" : "Quest Complete!"}
               </h1>
 
-              <p className="mt-4 text-xl text-slate-300">
+              <p className="mt-4 text-base leading-7 text-slate-300 md:text-xl">
                 {isFinalLesson
                   ? `Amazing! You completed the first LooplyLand world and earned +${lesson.xp} XP.`
                   : `You earned +${lesson.xp} XP and unlocked new coding powers.`}
               </p>
 
               {saveError && (
-                <p className="mt-5 rounded-2xl bg-red-400/10 p-4 font-bold text-red-300">
+                <p className="mt-5 rounded-2xl bg-red-400/10 p-4 text-sm font-bold leading-6 text-red-300">
                   {saveError}
                 </p>
               )}
