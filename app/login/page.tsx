@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import { supabase } from "@/lib/supabaseClient";
 
 export default function LoginPage() {
@@ -37,11 +38,11 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#101827] px-6 py-10 text-white">
+    <main className="min-h-screen bg-[#101827] text-white">
       <Navbar />
 
-      <section className="mx-auto flex min-h-screen max-w-md items-center justify-center pt-24">
-        <div className="w-full rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl">
+      <section className="flex min-h-screen items-center justify-center px-6 py-32">
+        <div className="w-full max-w-md rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl">
           <p className="font-bold text-emerald-300">Welcome back</p>
 
           <h1 className="mt-3 text-4xl font-extrabold">Log in</h1>
@@ -98,6 +99,8 @@ export default function LoginPage() {
           </p>
         </div>
       </section>
+
+      <Footer />
     </main>
   );
 }

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import { useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 
@@ -450,6 +451,7 @@ export default function UpgradePage() {
           )}
         </div>
       </section>
+      <Footer />
     </main>
   );
 }

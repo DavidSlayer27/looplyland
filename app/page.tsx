@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import { useEffect, useState } from "react";
 
 const demoSteps = [
@@ -411,6 +412,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <Footer />
     </main>
   );
 }

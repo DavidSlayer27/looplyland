@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import { supabase } from "@/lib/supabaseClient";
 
 const quests = [
@@ -391,6 +392,7 @@ export default function ProfilePage() {
           </section>
         </div>
       </section>
+      <Footer />
     </main>
   );
 }
