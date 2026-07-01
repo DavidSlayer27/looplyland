@@ -49,8 +49,7 @@ export default function UpgradePage() {
         <div className="absolute left-1/2 top-24 h-72 w-72 -translate-x-1/2 rounded-full bg-emerald-400/20 blur-3xl" />
 
         <div className="relative mx-auto max-w-6xl">
-         
-  <section className="mt-16 text-center">
+          <section className="text-center">
             <div className="mx-auto mb-6 w-fit rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-sm font-bold text-emerald-300">
               LooplyLand Premium · Coming Soon
             </div>
@@ -67,19 +66,23 @@ export default function UpgradePage() {
 
             <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
               <a
-                href="#early-access"
+                href="#pricing"
                 className="rounded-2xl bg-emerald-400 px-8 py-4 text-lg font-bold text-slate-950 transition hover:bg-emerald-300"
+              >
+                View Pricing
+              </a>
+
+              <a
+                href="#early-access"
+                className="rounded-2xl border border-white/20 px-8 py-4 text-lg font-bold text-white transition hover:bg-white/10"
               >
                 Join Early Access
               </a>
-
-              <Link
-                href="/parents"
-                className="rounded-2xl border border-white/20 px-8 py-4 text-lg font-bold text-white transition hover:bg-white/10"
-              >
-                Learn More
-              </Link>
             </div>
+
+            <p className="mt-5 text-sm font-semibold text-slate-400">
+              Premium is not live yet. Join early access to get notified first.
+            </p>
           </section>
         </div>
       </section>
@@ -165,7 +168,151 @@ export default function UpgradePage() {
         </div>
       </section>
 
-      <section className="px-6 py-24">
+      <section id="pricing" className="px-6 py-24">
+        <div className="mx-auto max-w-6xl">
+          <div className="text-center">
+            <p className="font-bold text-emerald-300">Simple pricing</p>
+
+            <h2 className="mt-4 text-4xl font-extrabold md:text-5xl">
+              Start free. Upgrade when your child wants more.
+            </h2>
+
+            <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-300">
+              Pricing is not active yet. These are expected early-access prices
+              to help parents understand the future Premium plan.
+            </p>
+          </div>
+
+          <div className="mt-12 grid gap-8 lg:grid-cols-2">
+            <div className="rounded-[2rem] border border-white/10 bg-white/5 p-8">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="font-bold text-slate-300">Free</p>
+
+                  <h3 className="mt-3 text-4xl font-extrabold">€0</h3>
+
+                  <p className="mt-3 text-slate-300">
+                    Try the first coding world and see if your child enjoys
+                    LooplyLand.
+                  </p>
+                </div>
+
+                <div className="rounded-full bg-white/10 px-4 py-2 text-sm font-bold text-slate-300">
+                  Available now
+                </div>
+              </div>
+
+              <div className="mt-8 grid gap-4">
+                <div className="rounded-2xl bg-slate-950/60 p-5">
+                  ✅ Robo Lab world
+                </div>
+
+                <div className="rounded-2xl bg-slate-950/60 p-5">
+                  ✅ 5 beginner coding quests
+                </div>
+
+                <div className="rounded-2xl bg-slate-950/60 p-5">
+                  ✅ XP and streak tracking
+                </div>
+
+                <div className="rounded-2xl bg-slate-950/60 p-5">
+                  ✅ Basic profile dashboard
+                </div>
+
+                <div className="rounded-2xl bg-slate-950/60 p-5 text-slate-400">
+                  ❌ Premium worlds
+                </div>
+
+                <div className="rounded-2xl bg-slate-950/60 p-5 text-slate-400">
+                  ❌ Printable certificates
+                </div>
+              </div>
+
+              <Link
+                href="/signup"
+                className="mt-8 inline-block w-full rounded-2xl border border-white/20 px-6 py-4 text-center font-bold text-white transition hover:bg-white/10"
+              >
+                Create Free Account
+              </Link>
+            </div>
+
+            <div className="relative rounded-[2rem] border border-emerald-400/40 bg-emerald-400/10 p-8 shadow-2xl">
+              <div className="absolute -top-4 left-8 rounded-full bg-emerald-400 px-4 py-2 text-sm font-extrabold text-slate-950">
+                Best for families
+              </div>
+
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="font-bold text-emerald-300">
+                    Premium · Coming Soon
+                  </p>
+
+                  <h3 className="mt-3 text-4xl font-extrabold">
+                    €7.99
+                    <span className="text-lg font-bold text-slate-300">
+                      /month
+                    </span>
+                  </h3>
+
+                  <p className="mt-2 font-bold text-emerald-300">
+                    or expected €59/year
+                  </p>
+
+                  <p className="mt-3 text-slate-300">
+                    Unlock the full coding adventure with more worlds,
+                    certificates, and parent progress tools.
+                  </p>
+                </div>
+
+                <div className="rounded-full bg-emerald-400 px-4 py-2 text-sm font-bold text-slate-950">
+                  Early access
+                </div>
+              </div>
+
+              <div className="mt-8 grid gap-4">
+                <div className="rounded-2xl bg-slate-950/60 p-5">
+                  ✅ Everything in Free
+                </div>
+
+                <div className="rounded-2xl bg-slate-950/60 p-5">
+                  ✅ More coding worlds
+                </div>
+
+                <div className="rounded-2xl bg-slate-950/60 p-5">
+                  ✅ Boss fights and review challenges
+                </div>
+
+                <div className="rounded-2xl bg-slate-950/60 p-5">
+                  ✅ Printable certificates
+                </div>
+
+                <div className="rounded-2xl bg-slate-950/60 p-5">
+                  ✅ Parent progress dashboard
+                </div>
+
+                <div className="rounded-2xl bg-slate-950/60 p-5">
+                  ✅ Future worlds: debugging, functions, algorithms, game logic
+                </div>
+              </div>
+
+              <a
+                href="#early-access"
+                className="mt-8 inline-block w-full rounded-2xl bg-emerald-400 px-6 py-4 text-center font-bold text-slate-950 transition hover:bg-emerald-300"
+              >
+                Join Early Access
+              </a>
+            </div>
+          </div>
+
+          <p className="mx-auto mt-8 max-w-3xl text-center text-sm leading-6 text-slate-400">
+            Final pricing may change before launch. Early access helps us
+            understand which families are interested in Premium before payments
+            go live.
+          </p>
+        </div>
+      </section>
+
+      <section className="bg-slate-950 px-6 py-24">
         <div className="mx-auto max-w-6xl">
           <div className="grid gap-8 lg:grid-cols-2">
             <div className="rounded-[2rem] border border-white/10 bg-white/5 p-8">
@@ -223,7 +370,7 @@ export default function UpgradePage() {
         </div>
       </section>
 
-      <section id="early-access" className="bg-slate-950 px-6 py-24">
+      <section id="early-access" className="px-6 py-24">
         <div className="mx-auto max-w-3xl rounded-[2rem] border border-emerald-400/20 bg-emerald-400/10 p-8 text-center md:p-10">
           {!submitted ? (
             <>
