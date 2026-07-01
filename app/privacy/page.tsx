@@ -108,10 +108,22 @@ export default function PrivacyPage() {
                 If you have questions about this Privacy Policy, you can contact
                 us at{" "}
                 <a
-                  href="mailto:hello@looplyland.com"
+                  href="mailto:contact@looplyland.com"
                   className="font-bold text-emerald-300 hover:text-emerald-200"
                 >
-                  hello@looplyland.com
+                  contact@looplyland.com
+                </a>
+                .
+              </p>
+
+              <p className="mt-3">
+                For account issues, login problems, or technical support, you
+                can email us at{" "}
+                <a
+                  href="mailto:support@looplyland.com"
+                  className="font-bold text-emerald-300 hover:text-emerald-200"
+                >
+                  support@looplyland.com
                 </a>
                 .
               </p>

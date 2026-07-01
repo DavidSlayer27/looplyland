@@ -28,20 +28,48 @@ export default function ContactPage() {
             <p className="font-bold text-emerald-300">Email us</p>
 
             <h2 className="mt-3 text-3xl font-extrabold">
-              hello@looplyland.com
+              contact@looplyland.com
             </h2>
 
             <p className="mt-4 leading-7 text-slate-300">
-              You can contact us about product feedback, parent questions,
-              education partnerships, or Premium early access.
+              For general questions, parent feedback, education partnerships,
+              or Premium early access, email us at{" "}
+              <a
+                href="mailto:contact@looplyland.com"
+                className="font-bold text-emerald-300 hover:text-emerald-200"
+              >
+                contact@looplyland.com
+              </a>
+              .
             </p>
 
-            <a
-              href="mailto:hello@looplyland.com"
-              className="mt-6 inline-block rounded-2xl bg-emerald-400 px-6 py-3 font-bold text-slate-950 transition hover:bg-emerald-300"
-            >
-              Send Email
-            </a>
+            <p className="mt-4 leading-7 text-slate-300">
+              For account issues, login problems, or technical support, email us
+              at{" "}
+              <a
+                href="mailto:support@looplyland.com"
+                className="font-bold text-emerald-300 hover:text-emerald-200"
+              >
+                support@looplyland.com
+              </a>
+              .
+            </p>
+
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <a
+                href="mailto:contact@looplyland.com"
+                className="rounded-2xl bg-emerald-400 px-6 py-3 text-center font-bold text-slate-950 transition hover:bg-emerald-300"
+              >
+                Contact Us
+              </a>
+
+              <a
+                href="mailto:support@looplyland.com"
+                className="rounded-2xl border border-white/20 px-6 py-3 text-center font-bold text-white transition hover:bg-white/10"
+              >
+                Get Support
+              </a>
+            </div>
           </div>
 
           <div className="mt-8 grid gap-5 md:grid-cols-3">
