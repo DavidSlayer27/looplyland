@@ -38,6 +38,29 @@ const quests = [
   },
 ];
 
+const premiumWorlds = [
+  {
+    title: "Debug Desert",
+    concept: "Debugging",
+    emoji: "🏜️",
+    description: "Find bugs, fix broken code, and help Robo escape the desert.",
+  },
+  {
+    title: "Function Tower",
+    concept: "Functions",
+    emoji: "🗼",
+    description:
+      "Learn how to reuse code and build smarter programs step by step.",
+  },
+  {
+    title: "Game Logic Island",
+    concept: "Game Logic",
+    emoji: "🏝️",
+    description:
+      "Use conditions, variables, and loops to understand how games work.",
+  },
+];
+
 export default function LearnPage() {
   const [completedLessons, setCompletedLessons] = useState<number[]>([]);
   const [xp, setXp] = useState(0);
@@ -129,6 +152,7 @@ export default function LearnPage() {
   ).length;
 
   const progressPercent = (completedCount / quests.length) * 100;
+  const roundedProgressPercent = Math.round(progressPercent);
   const worldCompleted = completedCount === quests.length;
 
   if (loading) {
@@ -153,7 +177,9 @@ export default function LearnPage() {
         <div className="mb-10 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="font-bold text-emerald-300">World 1</p>
+
             <h1 className="text-4xl font-extrabold">Robo Lab</h1>
+
             <p className="mt-2 text-slate-300">
               Complete quests and unlock new coding powers.
             </p>
@@ -188,13 +214,14 @@ export default function LearnPage() {
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h2 className="text-2xl font-extrabold">Robo Lab Progress</h2>
+
               <p className="mt-1 text-slate-300">
                 {completedCount}/{quests.length} quests completed
               </p>
             </div>
 
             <div className="rounded-2xl bg-emerald-400/10 px-5 py-3 font-bold text-emerald-300">
-              {Math.round(progressPercent)}%
+              {roundedProgressPercent}%
             </div>
           </div>
 
@@ -206,22 +233,83 @@ export default function LearnPage() {
           </div>
 
           {worldCompleted && (
-            <div className="mt-6 rounded-2xl border border-emerald-400/30 bg-emerald-400/10 p-5">
-              <div className="text-5xl">🏆</div>
-              <h3 className="mt-3 text-2xl font-extrabold">
-                Robo Lab Complete!
-              </h3>
-              <p className="mt-2 text-slate-300">
-                Amazing work. You completed the first LooplyLand world and
-                learned commands, loops, conditions, and variables.
-              </p>
+            <div className="mt-6 rounded-[2rem] border border-emerald-400/30 bg-emerald-400/10 p-6">
+              <div className="grid gap-6 lg:grid-cols-2 lg:items-center">
+                <div>
+                  <div className="text-6xl">🏆</div>
 
-              <Link
-                href="/upgrade"
-                className="mt-5 inline-block rounded-2xl bg-emerald-400 px-6 py-3 font-bold text-slate-950 transition hover:bg-emerald-300"
-              >
-                Unlock Premium Worlds
-              </Link>
+                  <h3 className="mt-4 text-3xl font-extrabold">
+                    Robo Lab Complete!
+                  </h3>
+
+                  <p className="mt-3 leading-7 text-slate-300">
+                    Amazing work. You completed the first LooplyLand world and
+                    learned commands, loops, conditions, variables, and final
+                    challenge logic.
+                  </p>
+
+                  <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+                    <Link
+                      href="/upgrade"
+                      className="rounded-2xl bg-emerald-400 px-6 py-3 text-center font-bold text-slate-950 transition hover:bg-emerald-300"
+                    >
+                      Unlock Premium Worlds
+                    </Link>
+
+                    <a
+                      href="#certificate-preview"
+                      className="rounded-2xl border border-white/20 px-6 py-3 text-center font-bold text-white transition hover:bg-white/10"
+                    >
+                      View Certificate
+                    </a>
+                  </div>
+                </div>
+
+                <div
+                  id="certificate-preview"
+                  className="rounded-[1.5rem] border border-white/10 bg-slate-950 p-6 text-center shadow-2xl"
+                >
+                  <p className="text-sm font-bold uppercase tracking-[0.3em] text-emerald-300">
+                    Certificate Preview
+                  </p>
+
+                  <div className="mt-5 text-6xl">🎓</div>
+
+                  <h4 className="mt-4 text-3xl font-extrabold">
+                    Robo Lab Graduate
+                  </h4>
+
+                  <p className="mt-3 text-slate-300">
+                    Awarded for completing World 1 in LooplyLand.
+                  </p>
+
+                  <div className="mt-6 grid gap-3 text-left">
+                    <div className="rounded-2xl bg-white/5 p-4 font-bold">
+                      ✅ Commands
+                    </div>
+
+                    <div className="rounded-2xl bg-white/5 p-4 font-bold">
+                      ✅ Loops
+                    </div>
+
+                    <div className="rounded-2xl bg-white/5 p-4 font-bold">
+                      ✅ Conditions
+                    </div>
+
+                    <div className="rounded-2xl bg-white/5 p-4 font-bold">
+                      ✅ Variables
+                    </div>
+
+                    <div className="rounded-2xl bg-white/5 p-4 font-bold">
+                      ✅ Final Challenge
+                    </div>
+                  </div>
+
+                  <p className="mt-6 text-sm text-slate-400">
+                    Printable certificates coming soon with Premium.
+                  </p>
+                </div>
+              </div>
             </div>
           )}
         </section>
@@ -280,25 +368,50 @@ export default function LearnPage() {
           })}
         </div>
 
-        {!worldCompleted && (
-          <div className="mt-16 rounded-3xl border border-emerald-400/20 bg-emerald-400/10 p-8 text-center">
-            <h2 className="text-3xl font-extrabold">
-              Unlock more coding worlds
-            </h2>
+        <section className="mt-16 rounded-[2rem] border border-emerald-400/20 bg-emerald-400/10 p-8 text-center">
+          <p className="font-bold text-emerald-300">Coming soon</p>
 
-            <p className="mx-auto mt-3 max-w-xl text-slate-300">
-              Continue the adventure with new quests, boss fights,
-              certificates, and a parent progress dashboard.
-            </p>
+          <h2 className="mt-3 text-3xl font-extrabold">
+            Unlock more coding worlds
+          </h2>
 
-            <Link
-              href="/upgrade"
-              className="mt-6 inline-block rounded-2xl bg-emerald-400 px-8 py-4 font-bold text-slate-950 transition hover:bg-emerald-300"
+          <p className="mx-auto mt-3 max-w-xl text-slate-300">
+            Robo Lab is just the beginning. Premium worlds will introduce
+            debugging, functions, algorithms, game logic, and more.
+          </p>
+
+          <Link
+            href="/upgrade"
+            className="mt-6 inline-block rounded-2xl bg-emerald-400 px-8 py-4 font-bold text-slate-950 transition hover:bg-emerald-300"
+          >
+            Join Early Access
+          </Link>
+        </section>
+
+        <section className="mt-10 grid gap-6 md:grid-cols-3">
+          {premiumWorlds.map((world) => (
+            <div
+              key={world.title}
+              className="rounded-3xl border border-white/10 bg-white/5 p-6 opacity-80"
             >
-              Unlock Premium Worlds
-            </Link>
-          </div>
-        )}
+              <div className="flex items-center justify-between">
+                <div className="text-5xl">{world.emoji}</div>
+
+                <div className="rounded-full bg-white/10 px-3 py-1 text-sm font-bold text-slate-300">
+                  Locked
+                </div>
+              </div>
+
+              <h3 className="mt-5 text-2xl font-extrabold">{world.title}</h3>
+
+              <p className="mt-2 font-bold text-emerald-300">
+                {world.concept}
+              </p>
+
+              <p className="mt-3 text-slate-300">{world.description}</p>
+            </div>
+          ))}
+        </section>
       </div>
     </main>
   );
