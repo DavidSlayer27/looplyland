@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState } from "react";
+import { supabase } from "@/lib/supabaseClient";
 
 const lessons = {
   "1": {
@@ -105,6 +106,92 @@ const lessons = {
       },
     ],
   },
+  "4": {
+    id: 4,
+    title: "Energy Crystals",
+    concept: "Variables",
+    emoji: "💎",
+    story:
+      "Robo finds energy crystals. To keep track of his power, he needs to store numbers using variables.",
+    xp: 25,
+    questions: [
+      {
+        question: "What is a variable used for?",
+        codePreview: "energy = 10",
+        answers: [
+          "To store information",
+          "To delete the game",
+          "To make Robo sleep",
+        ],
+        correctAnswer: "To store information",
+        successMessage:
+          "Correct! A variable stores information like numbers or text.",
+      },
+      {
+        question: "Which variable stores Robo's energy?",
+        codePreview: "energy = 10",
+        answers: ["energy", "sleep", "gate"],
+        correctAnswer: "energy",
+        successMessage: "Nice! energy is the variable name.",
+      },
+      {
+        question: "What value is stored inside energy?",
+        codePreview: "energy = 10",
+        answers: ["10", "energy", "robot"],
+        correctAnswer: "10",
+        successMessage: "Exactly! The variable energy stores the value 10.",
+      },
+    ],
+  },
+  "5": {
+    id: 5,
+    title: "Boss Fight",
+    concept: "Final Challenge",
+    emoji: "👾",
+    story:
+      "The Bug King blocks the exit. Robo must use commands, loops, conditions, and variables to win the final battle.",
+    xp: 50,
+    questions: [
+      {
+        question: "Robo needs to move forward. Which command should he use?",
+        codePreview: "robot.__________",
+        answers: ["move_forward()", "sleep()", "hide()"],
+        correctAnswer: "move_forward()",
+        successMessage: "Great! Robo moves closer to the Bug King.",
+      },
+      {
+        question: "Robo needs to attack 3 times. What helps repeat actions?",
+        codePreview: "__________(3): attack()",
+        answers: ["repeat", "if", "energy"],
+        correctAnswer: "repeat",
+        successMessage: "Correct! Loops help Robo repeat attacks.",
+      },
+      {
+        question:
+          "Robo can open the shield only if energy is greater than 5. Which keyword checks this?",
+        codePreview: "___ energy > 5: open_shield()",
+        answers: ["if", "sleep", "move"],
+        correctAnswer: "if",
+        successMessage: "Yes! Conditions help Robo make decisions.",
+      },
+      {
+        question: "Which line stores Robo's energy?",
+        codePreview: "__________",
+        answers: ["energy = 10", "repeat(3)", "move_forward()"],
+        correctAnswer: "energy = 10",
+        successMessage:
+          "Perfect! Variables help Robo remember important values.",
+      },
+      {
+        question: "Final move: which concept repeats code?",
+        codePreview: "repeat(3): attack()",
+        answers: ["Loop", "Variable", "Condition"],
+        correctAnswer: "Loop",
+        successMessage:
+          "Amazing! You defeated the Bug King and completed Robo Lab.",
+      },
+    ],
+  },
 };
 
 export default function LessonPage() {
@@ -118,6 +205,8 @@ export default function LessonPage() {
   const [lessonCompleted, setLessonCompleted] = useState(false);
   const [lives, setLives] = useState(3);
   const [lessonFailed, setLessonFailed] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState("");
 
   if (!lesson) {
     return (
@@ -147,8 +236,39 @@ export default function LessonPage() {
 
   const nextLessonId = lesson.id + 1;
   const hasNextLesson = lessons[String(nextLessonId) as keyof typeof lessons];
+  const isFinalLesson = lesson.id === 5;
 
-  function saveProgress() {
+  function getTodayDate() {
+    return new Date().toISOString().split("T")[0];
+  }
+
+  function getYesterdayDate() {
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    return yesterday.toISOString().split("T")[0];
+  }
+
+  function updateLocalStreak() {
+    const today = getTodayDate();
+    const yesterday = getYesterdayDate();
+
+    const lastStreakDate = localStorage.getItem("lastStreakDate");
+    const currentStreak = Number(localStorage.getItem("streak") || "0");
+
+    if (lastStreakDate === today) {
+      return;
+    }
+
+    if (lastStreakDate === yesterday) {
+      localStorage.setItem("streak", String(currentStreak + 1));
+    } else {
+      localStorage.setItem("streak", "1");
+    }
+
+    localStorage.setItem("lastStreakDate", today);
+  }
+
+  async function saveLocalProgress() {
     const completedLessons = JSON.parse(
       localStorage.getItem("completedLessons") || "[]"
     );
@@ -159,6 +279,97 @@ export default function LessonPage() {
 
       const currentXp = Number(localStorage.getItem("xp") || "0");
       localStorage.setItem("xp", String(currentXp + lesson.xp));
+    }
+
+    updateLocalStreak();
+  }
+
+async function saveSupabaseProgress(userId: string) {
+  const { data: existingLesson, error: existingLessonError } = await supabase
+    .from("lesson_progress")
+    .select("id")
+    .eq("user_id", userId)
+    .eq("lesson_id", lesson.id)
+    .maybeSingle();
+
+  if (existingLessonError) {
+    throw existingLessonError;
+  }
+
+  const { data: profile, error: profileError } = await supabase
+    .from("profiles")
+    .select("xp, streak, last_streak_date")
+    .eq("id", userId)
+    .single();
+
+  if (profileError) {
+    throw profileError;
+  }
+
+  const today = getTodayDate();
+  const yesterday = getYesterdayDate();
+
+  let newStreak = profile.streak || 0;
+
+  if (profile.last_streak_date !== today) {
+    if (profile.last_streak_date === yesterday) {
+      newStreak = newStreak + 1;
+    } else {
+      newStreak = 1;
+    }
+  }
+
+  let newXp = profile.xp || 0;
+
+  if (!existingLesson) {
+    const { error: progressError } = await supabase
+      .from("lesson_progress")
+      .insert({
+        user_id: userId,
+        lesson_id: lesson.id,
+        completed: true,
+      });
+
+    if (progressError) {
+      throw progressError;
+    }
+
+    newXp = newXp + lesson.xp;
+  }
+
+  const { error: updateProfileError } = await supabase
+    .from("profiles")
+    .update({
+      xp: newXp,
+      streak: newStreak,
+      last_streak_date: today,
+    })
+    .eq("id", userId);
+
+  if (updateProfileError) {
+    throw updateProfileError;
+  }
+}
+
+  async function saveProgress() {
+    setSaving(true);
+    setSaveError("");
+
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    try {
+      if (!user) {
+        await saveLocalProgress();
+      } else {
+        await saveSupabaseProgress(user.id);
+      }
+    } catch (error) {
+      console.error(error);
+      setSaveError("Progress could not be saved. Please try again.");
+    } finally {
+      setSaving(false);
     }
   }
 
@@ -177,15 +388,15 @@ export default function LessonPage() {
     }
   }
 
-  function handleContinue() {
-    if (!isCorrect) return;
+  async function handleContinue() {
+    if (!isCorrect || saving) return;
 
     const isLastQuestion = currentQuestionIndex === totalQuestions - 1;
 
     if (isLastQuestion) {
       setEarnedXp(lesson.xp);
       setLessonCompleted(true);
-      saveProgress();
+      await saveProgress();
       return;
     }
 
@@ -200,6 +411,7 @@ export default function LessonPage() {
     setLessonCompleted(false);
     setLives(3);
     setLessonFailed(false);
+    setSaveError("");
   }
 
   function tryAgain() {
@@ -327,11 +539,18 @@ export default function LessonPage() {
                     {currentQuestion.successMessage}
                   </p>
 
+                  {saveError && (
+                    <p className="mt-4 rounded-2xl bg-red-400/10 p-4 font-bold text-red-300">
+                      {saveError}
+                    </p>
+                  )}
+
                   <button
                     onClick={handleContinue}
-                    className="mt-5 rounded-2xl bg-emerald-400 px-6 py-3 font-bold text-slate-950 transition hover:bg-emerald-300"
+                    disabled={saving}
+                    className="mt-5 rounded-2xl bg-emerald-400 px-6 py-3 font-bold text-slate-950 transition hover:bg-emerald-300 disabled:opacity-60"
                   >
-                    Continue →
+                    {saving ? "Saving..." : "Continue →"}
                   </button>
                 </div>
               )}
@@ -357,13 +576,23 @@ export default function LessonPage() {
             </>
           ) : (
             <div className="text-center">
-              <div className="text-8xl">🎉</div>
+              <div className="text-8xl">{isFinalLesson ? "🏆" : "🎉"}</div>
 
-              <h1 className="mt-6 text-4xl font-extrabold">Quest Complete!</h1>
+              <h1 className="mt-6 text-4xl font-extrabold">
+                {isFinalLesson ? "Robo Lab Complete!" : "Quest Complete!"}
+              </h1>
 
               <p className="mt-4 text-xl text-slate-300">
-                You earned +{lesson.xp} XP and unlocked new coding powers.
+                {isFinalLesson
+                  ? `Amazing! You completed the first LooplyLand world and earned +${lesson.xp} XP.`
+                  : `You earned +${lesson.xp} XP and unlocked new coding powers.`}
               </p>
+
+              {saveError && (
+                <p className="mt-5 rounded-2xl bg-red-400/10 p-4 font-bold text-red-300">
+                  {saveError}
+                </p>
+              )}
 
               <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
                 {hasNextLesson ? (
@@ -375,10 +604,10 @@ export default function LessonPage() {
                   </Link>
                 ) : (
                   <Link
-                    href="/learn"
+                    href="/upgrade"
                     className="rounded-2xl bg-emerald-400 px-6 py-3 text-center font-bold text-slate-950 transition hover:bg-emerald-300"
                   >
-                    Finish World
+                    Unlock Premium Worlds
                   </Link>
                 )}
 
