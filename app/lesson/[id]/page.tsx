@@ -425,7 +425,7 @@ export default function LessonPage() {
 
  return (
   <main className="min-h-screen bg-[#101827] px-5 pb-10 pt-5 text-white md:px-6 md:py-8">
-    <div className="mx-auto max-w-2xl">
+    <div className="mx-auto max-w-xl">
       <div className="mb-5 flex items-center justify-between gap-3">
         <Link
           href="/learn"
@@ -536,7 +536,7 @@ export default function LessonPage() {
                   <button
                     key={answer}
                     onClick={() => handleAnswer(answer)}
-                    className={`rounded-2xl px-5 py-4 text-left font-mono text-base font-bold transition md:text-lg ${buttonStyle}`}
+                   className={`rounded-2xl px-5 py-3 text-left font-mono text-base font-bold transition md:text-base ${buttonStyle}`}
                   >
                     {answer}
                   </button>
@@ -544,29 +544,33 @@ export default function LessonPage() {
               })}
             </div>
 
-            {isCorrect && (
-              <div className="mt-6 rounded-2xl bg-emerald-400/10 p-5">
-                <p className="text-lg font-bold text-emerald-300">Correct!</p>
+           {isCorrect && (
+  <div className="mt-5 rounded-2xl bg-emerald-400/10 p-4">
+    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <p className="font-bold text-emerald-300">Correct!</p>
 
-                <p className="mt-2 leading-7 text-slate-300">
-                  {currentQuestion.successMessage}
-                </p>
+        <p className="mt-1 text-sm leading-6 text-slate-300">
+          {currentQuestion.successMessage}
+        </p>
+      </div>
 
-                {saveError && (
-                  <p className="mt-4 rounded-2xl bg-red-400/10 p-4 text-sm font-bold leading-6 text-red-300">
-                    {saveError}
-                  </p>
-                )}
+      <button
+        onClick={handleContinue}
+        disabled={saving}
+        className="rounded-2xl bg-emerald-400 px-6 py-3 font-bold text-slate-950 transition hover:bg-emerald-300 disabled:cursor-not-allowed disabled:opacity-60"
+      >
+        {saving ? "Saving..." : "Continue →"}
+      </button>
+    </div>
 
-                <button
-                  onClick={handleContinue}
-                  disabled={saving}
-                  className="mt-5 w-full rounded-2xl bg-emerald-400 px-6 py-3 font-bold text-slate-950 transition hover:bg-emerald-300 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
-                >
-                  {saving ? "Saving..." : "Continue →"}
-                </button>
-              </div>
-            )}
+    {saveError && (
+      <p className="mt-4 rounded-2xl bg-red-400/10 p-4 text-sm font-bold leading-6 text-red-300">
+        {saveError}
+      </p>
+    )}
+  </div>
+)}
 
             {isWrong && !lessonFailed && (
               <div className="mt-6 rounded-2xl bg-red-400/10 p-5">
