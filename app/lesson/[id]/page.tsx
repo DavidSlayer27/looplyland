@@ -573,23 +573,27 @@ export default function LessonPage() {
 )}
 
             {isWrong && !lessonFailed && (
-              <div className="mt-6 rounded-2xl bg-red-400/10 p-5">
-                <p className="text-lg font-bold text-red-300">
-                  Not quite. You lost 1 heart.
-                </p>
+  <div className="mt-5 rounded-2xl bg-red-400/10 p-4">
+    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <p className="font-bold text-red-300">
+          Not quite. You lost 1 heart.
+        </p>
 
-                <p className="mt-2 leading-7 text-slate-300">
-                  Read the question again and choose the best answer.
-                </p>
+        <p className="mt-1 text-sm leading-6 text-slate-300">
+          Try again and choose the best answer.
+        </p>
+      </div>
 
-                <button
-                  onClick={tryAgain}
-                  className="mt-5 w-full rounded-2xl bg-red-400 px-6 py-3 font-bold text-slate-950 transition hover:bg-red-300 sm:w-auto"
-                >
-                  Try Again
-                </button>
-              </div>
-            )}
+      <button
+        onClick={tryAgain}
+        className="rounded-2xl bg-red-400 px-6 py-3 font-bold text-slate-950 transition hover:bg-red-300"
+      >
+        Try Again
+      </button>
+    </div>
+  </div>
+)}
           </>
         ) : (
           <div className="text-center">
