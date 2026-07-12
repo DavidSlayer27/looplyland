@@ -133,38 +133,62 @@ export default function Home() {
         <div className="relative mx-auto max-w-6xl">
           <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
             <div className="text-center lg:text-left">
-              <div className="mb-5 inline-flex rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-sm font-bold text-emerald-300 md:mb-6">
-                Coding adventures for kids ages 8–12
-              </div>
+             <div className="mb-5 inline-flex rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-sm font-bold text-emerald-300 md:mb-6">
+  Coding game for kids ages 8–12
+</div>
 
-              <h1 className="text-4xl font-extrabold leading-tight sm:text-5xl md:text-7xl">
-                Kids learn coding through magical adventures.
-              </h1>
+<h1 className="text-4xl font-extrabold leading-tight sm:text-5xl md:text-7xl">
+  Kids learn coding by completing short quests.
+</h1>
 
-              <p className="mt-5 max-w-2xl text-base leading-7 text-slate-300 md:mt-6 md:text-xl md:leading-8">
-                LooplyLand turns coding basics into quests, puzzles, XP,
-                streaks, and boss fights — so kids learn logic while having fun.
-              </p>
+<p className="mt-5 max-w-2xl text-base leading-7 text-slate-300 md:mt-6 md:text-xl md:leading-8">
+  LooplyLand helps kids practice coding basics like commands, loops,
+  conditions, and variables through game-like lessons, XP, streaks, and boss
+  fights.
+</p>
 
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
-                <Link
-                  href="/signup"
-                  className="rounded-2xl bg-emerald-400 px-6 py-4 text-base font-bold text-slate-950 transition hover:bg-emerald-300 md:px-8 md:text-lg"
-                >
-                  Create Free Account
-                </Link>
+<div className="mt-7 grid gap-3 sm:flex sm:justify-center lg:justify-start">
+  <Link
+    href="/learn"
+    className="rounded-2xl bg-emerald-400 px-6 py-4 text-center text-base font-bold text-slate-950 transition hover:bg-emerald-300 md:px-8 md:text-lg"
+  >
+    Try Free Demo
+  </Link>
 
-                <Link
-                  href="/learn"
-                  className="rounded-2xl border border-white/20 px-6 py-4 text-base font-bold text-white transition hover:bg-white/10 md:px-8 md:text-lg"
-                >
-                  Try Demo
-                </Link>
-              </div>
+  <Link
+    href="/signup"
+    className="rounded-2xl border border-white/20 px-6 py-4 text-center text-base font-bold text-white transition hover:bg-white/10 md:px-8 md:text-lg"
+  >
+    Create Free Account
+  </Link>
+</div>
 
-              <p className="mt-5 text-sm font-semibold text-slate-400">
-                No prior coding experience needed.
-              </p>
+<div className="mt-6 grid gap-3 text-left sm:grid-cols-3">
+  <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+    <p className="font-bold text-emerald-300">1. Pick a quest</p>
+    <p className="mt-1 text-sm leading-6 text-slate-400">
+      Kids start with Robo Lab.
+    </p>
+  </div>
+
+  <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+    <p className="font-bold text-emerald-300">2. Solve puzzles</p>
+    <p className="mt-1 text-sm leading-6 text-slate-400">
+      They answer coding questions.
+    </p>
+  </div>
+
+  <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+    <p className="font-bold text-emerald-300">3. Earn XP</p>
+    <p className="mt-1 text-sm leading-6 text-slate-400">
+      Progress, streaks, and rewards.
+    </p>
+  </div>
+</div>
+
+<p className="mt-5 text-sm font-semibold text-slate-400">
+  No coding experience needed. Starts with Robo Lab.
+</p>
             </div>
 
             <div className="rounded-[2rem] border border-white/10 bg-white/5 p-4 shadow-2xl md:p-6">
