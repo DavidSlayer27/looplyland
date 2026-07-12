@@ -423,220 +423,221 @@ export default function LessonPage() {
     setSelectedAnswer(null);
   }
 
-  return (
-    <main className="min-h-screen bg-[#101827] px-6 py-6 text-white md:py-10">
-      <div className="mx-auto max-w-3xl">
-        <div className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-center sm:justify-between">
-          <Link
-            href="/learn"
-            className="w-full rounded-2xl border border-white/10 px-4 py-3 text-center font-bold text-slate-300 transition hover:bg-white/10 sm:w-auto sm:py-2"
-          >
-            ← Map
-          </Link>
+ return (
+  <main className="min-h-screen bg-[#101827] px-5 pb-10 pt-5 text-white md:px-6 md:py-8">
+    <div className="mx-auto max-w-2xl">
+      <div className="mb-5 flex items-center justify-between gap-3">
+        <Link
+          href="/learn"
+          className="rounded-2xl border border-white/10 px-4 py-2 text-sm font-bold text-slate-300 transition hover:bg-white/10 md:text-base"
+        >
+          ← Map
+        </Link>
 
-          <div className="grid grid-cols-2 gap-3 sm:flex sm:items-center">
-            <div className="rounded-2xl bg-white/5 px-4 py-3 text-center font-bold md:px-5">
-              ❤️ {lives}
-            </div>
+        <div className="flex items-center gap-2">
+          <div className="rounded-2xl bg-white/5 px-4 py-2 text-sm font-bold md:text-base">
+            ❤️ {lives}
+          </div>
 
-            <div className="rounded-2xl bg-white/5 px-4 py-3 text-center font-bold md:px-5">
-              XP: {earnedXp}
-            </div>
+          <div className="rounded-2xl bg-white/5 px-4 py-2 text-sm font-bold md:text-base">
+            XP: {earnedXp}
           </div>
         </div>
+      </div>
 
-        <div className="mb-6 h-3 overflow-hidden rounded-full bg-white/10 md:h-4">
-          <div
-            className="h-full rounded-full bg-emerald-400 transition-all"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
+      <div className="mb-5 h-3 overflow-hidden rounded-full bg-white/10">
+        <div
+          className="h-full rounded-full bg-emerald-400 transition-all"
+          style={{ width: `${progress}%` }}
+        />
+      </div>
 
-        <div className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-2xl md:p-8">
-          {lessonFailed ? (
-            <div className="text-center">
-              <div className="text-7xl md:text-8xl">💔</div>
+      <div className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-2xl md:p-6">
+        {lessonFailed ? (
+          <div className="text-center">
+            <div className="text-6xl md:text-7xl">💔</div>
 
-              <h1 className="mt-6 text-3xl font-extrabold md:text-4xl">
-                Out of hearts!
-              </h1>
+            <h1 className="mt-5 text-3xl font-extrabold md:text-4xl">
+              Out of hearts!
+            </h1>
 
-              <p className="mt-4 text-base leading-7 text-slate-300 md:text-xl">
-                Don&apos;t worry. Try the quest again and help Robo continue the
-                adventure.
-              </p>
+            <p className="mt-3 text-base leading-7 text-slate-300">
+              Don&apos;t worry. Try the quest again and help Robo continue the
+              adventure.
+            </p>
 
-              <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-                <button
-                  onClick={restartLesson}
-                  className="rounded-2xl bg-emerald-400 px-6 py-3 text-center font-bold text-slate-950 transition hover:bg-emerald-300"
-                >
-                  Restart Quest
-                </button>
+            <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
+              <button
+                onClick={restartLesson}
+                className="rounded-2xl bg-emerald-400 px-6 py-3 text-center font-bold text-slate-950 transition hover:bg-emerald-300"
+              >
+                Restart Quest
+              </button>
 
-                <Link
-                  href="/learn"
-                  className="rounded-2xl border border-white/10 px-6 py-3 text-center font-bold text-white transition hover:bg-white/10"
-                >
-                  Back to Map
-                </Link>
+              <Link
+                href="/learn"
+                className="rounded-2xl border border-white/10 px-6 py-3 text-center font-bold text-white transition hover:bg-white/10"
+              >
+                Back to Map
+              </Link>
+            </div>
+          </div>
+        ) : !lessonCompleted ? (
+          <>
+            <div className="flex items-center justify-between gap-4">
+              <div className="text-5xl md:text-6xl">{lesson.emoji}</div>
+
+              <div className="rounded-full bg-emerald-400/10 px-4 py-2 text-xs font-bold text-emerald-300 md:text-sm">
+                Quest {lesson.id} · Question {currentQuestionIndex + 1}/
+                {totalQuestions}
               </div>
             </div>
-          ) : !lessonCompleted ? (
-            <>
-              <div className="text-6xl md:text-7xl">{lesson.emoji}</div>
 
-              <div className="mt-6 w-fit rounded-full bg-emerald-400/10 px-4 py-2 text-sm font-bold text-emerald-300">
-                Quest {lesson.id} · {lesson.concept} · Question{" "}
-                {currentQuestionIndex + 1}/{totalQuestions}
-              </div>
+            <h1 className="mt-5 text-3xl font-extrabold md:text-4xl">
+              {lesson.title}
+            </h1>
 
-              <h1 className="mt-6 text-3xl font-extrabold md:text-4xl">
-                {lesson.title}
-              </h1>
+            <p className="mt-3 text-base leading-7 text-slate-300">
+              {lesson.story}
+            </p>
 
-              <p className="mt-4 text-base leading-7 text-slate-300 md:text-lg">
-                {lesson.story}
+            <div className="mt-6 overflow-x-auto rounded-2xl bg-slate-950 p-4 text-left font-mono text-sm text-emerald-300">
+              <p># Complete the code</p>
+              <p className="whitespace-nowrap">
+                {selectedAnswer
+                  ? currentQuestion.codePreview.replace(
+                      "__________",
+                      selectedAnswer
+                    )
+                  : currentQuestion.codePreview}
               </p>
+            </div>
 
-              <div className="mt-7 overflow-x-auto rounded-2xl bg-slate-950 p-4 text-left font-mono text-sm text-emerald-300 md:mt-8 md:p-5">
-                <p># Complete the code</p>
-                <p className="whitespace-nowrap">
-                  {selectedAnswer
-                    ? currentQuestion.codePreview.replace(
-                        "__________",
-                        selectedAnswer
-                      )
-                    : currentQuestion.codePreview}
-                </p>
-              </div>
+            <h2 className="mt-6 text-xl font-bold leading-7 md:text-2xl">
+              {currentQuestion.question}
+            </h2>
 
-              <h2 className="mt-7 text-xl font-bold leading-7 md:mt-8 md:text-2xl">
-                {currentQuestion.question}
-              </h2>
+            <div className="mt-5 grid gap-3">
+              {currentQuestion.answers.map((answer) => {
+                const selected = selectedAnswer === answer;
+                const correct = answer === currentQuestion.correctAnswer;
 
-              <div className="mt-5 grid gap-3 md:mt-6 md:gap-4">
-                {currentQuestion.answers.map((answer) => {
-                  const selected = selectedAnswer === answer;
-                  const correct = answer === currentQuestion.correctAnswer;
+                let buttonStyle = "bg-white/10 text-white hover:bg-white/20";
 
-                  let buttonStyle = "bg-white/10 text-white hover:bg-white/20";
+                if (selected && correct) {
+                  buttonStyle = "bg-emerald-400 text-slate-950";
+                }
 
-                  if (selected && correct) {
-                    buttonStyle = "bg-emerald-400 text-slate-950";
-                  }
+                if (selected && !correct) {
+                  buttonStyle = "bg-red-400 text-slate-950";
+                }
 
-                  if (selected && !correct) {
-                    buttonStyle = "bg-red-400 text-slate-950";
-                  }
-
-                  return (
-                    <button
-                      key={answer}
-                      onClick={() => handleAnswer(answer)}
-                      className={`rounded-2xl px-5 py-4 text-left font-mono text-base font-bold transition md:px-6 md:text-lg ${buttonStyle}`}
-                    >
-                      {answer}
-                    </button>
-                  );
-                })}
-              </div>
-
-              {isCorrect && (
-                <div className="mt-7 rounded-2xl bg-emerald-400/10 p-5 md:mt-8">
-                  <p className="text-xl font-bold text-emerald-300">
-                    Correct!
-                  </p>
-
-                  <p className="mt-2 leading-7 text-slate-300">
-                    {currentQuestion.successMessage}
-                  </p>
-
-                  {saveError && (
-                    <p className="mt-4 rounded-2xl bg-red-400/10 p-4 text-sm font-bold leading-6 text-red-300">
-                      {saveError}
-                    </p>
-                  )}
-
+                return (
                   <button
-                    onClick={handleContinue}
-                    disabled={saving}
-                    className="mt-5 w-full rounded-2xl bg-emerald-400 px-6 py-3 font-bold text-slate-950 transition hover:bg-emerald-300 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+                    key={answer}
+                    onClick={() => handleAnswer(answer)}
+                    className={`rounded-2xl px-5 py-4 text-left font-mono text-base font-bold transition md:text-lg ${buttonStyle}`}
                   >
-                    {saving ? "Saving..." : "Continue →"}
+                    {answer}
                   </button>
-                </div>
-              )}
+                );
+              })}
+            </div>
 
-              {isWrong && !lessonFailed && (
-                <div className="mt-7 rounded-2xl bg-red-400/10 p-5 md:mt-8">
-                  <p className="text-xl font-bold text-red-300">
-                    Not quite. You lost 1 heart.
-                  </p>
+            {isCorrect && (
+              <div className="mt-6 rounded-2xl bg-emerald-400/10 p-5">
+                <p className="text-lg font-bold text-emerald-300">Correct!</p>
 
-                  <p className="mt-2 leading-7 text-slate-300">
-                    Read the question again and choose the best answer.
-                  </p>
-
-                  <button
-                    onClick={tryAgain}
-                    className="mt-5 w-full rounded-2xl bg-red-400 px-6 py-3 font-bold text-slate-950 transition hover:bg-red-300 sm:w-auto"
-                  >
-                    Try Again
-                  </button>
-                </div>
-              )}
-            </>
-          ) : (
-            <div className="text-center">
-              <div className="text-7xl md:text-8xl">
-                {isFinalLesson ? "🏆" : "🎉"}
-              </div>
-
-              <h1 className="mt-6 text-3xl font-extrabold md:text-4xl">
-                {isFinalLesson ? "Robo Lab Complete!" : "Quest Complete!"}
-              </h1>
-
-              <p className="mt-4 text-base leading-7 text-slate-300 md:text-xl">
-                {isFinalLesson
-                  ? `Amazing! You completed the first LooplyLand world and earned +${lesson.xp} XP.`
-                  : `You earned +${lesson.xp} XP and unlocked new coding powers.`}
-              </p>
-
-              {saveError && (
-                <p className="mt-5 rounded-2xl bg-red-400/10 p-4 text-sm font-bold leading-6 text-red-300">
-                  {saveError}
+                <p className="mt-2 leading-7 text-slate-300">
+                  {currentQuestion.successMessage}
                 </p>
-              )}
 
-              <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-                {hasNextLesson ? (
-                  <Link
-                    href={`/lesson/${nextLessonId}`}
-                    className="rounded-2xl bg-emerald-400 px-6 py-3 text-center font-bold text-slate-950 transition hover:bg-emerald-300"
-                  >
-                    Next Quest →
-                  </Link>
-                ) : (
-                  <Link
-                    href="/upgrade"
-                    className="rounded-2xl bg-emerald-400 px-6 py-3 text-center font-bold text-slate-950 transition hover:bg-emerald-300"
-                  >
-                    Unlock Premium Worlds
-                  </Link>
+                {saveError && (
+                  <p className="mt-4 rounded-2xl bg-red-400/10 p-4 text-sm font-bold leading-6 text-red-300">
+                    {saveError}
+                  </p>
                 )}
 
-                <Link
-                  href="/learn"
-                  className="rounded-2xl border border-white/10 px-6 py-3 text-center font-bold text-white transition hover:bg-white/10"
+                <button
+                  onClick={handleContinue}
+                  disabled={saving}
+                  className="mt-5 w-full rounded-2xl bg-emerald-400 px-6 py-3 font-bold text-slate-950 transition hover:bg-emerald-300 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
                 >
-                  Back to Map
-                </Link>
+                  {saving ? "Saving..." : "Continue →"}
+                </button>
               </div>
+            )}
+
+            {isWrong && !lessonFailed && (
+              <div className="mt-6 rounded-2xl bg-red-400/10 p-5">
+                <p className="text-lg font-bold text-red-300">
+                  Not quite. You lost 1 heart.
+                </p>
+
+                <p className="mt-2 leading-7 text-slate-300">
+                  Read the question again and choose the best answer.
+                </p>
+
+                <button
+                  onClick={tryAgain}
+                  className="mt-5 w-full rounded-2xl bg-red-400 px-6 py-3 font-bold text-slate-950 transition hover:bg-red-300 sm:w-auto"
+                >
+                  Try Again
+                </button>
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="text-center">
+            <div className="text-6xl md:text-7xl">
+              {isFinalLesson ? "🏆" : "🎉"}
             </div>
-          )}
-        </div>
+
+            <h1 className="mt-5 text-3xl font-extrabold md:text-4xl">
+              {isFinalLesson ? "Robo Lab Complete!" : "Quest Complete!"}
+            </h1>
+
+            <p className="mt-3 text-base leading-7 text-slate-300 md:text-lg">
+              {isFinalLesson
+                ? `Amazing! You completed the first LooplyLand world and earned +${lesson.xp} XP.`
+                : `You earned +${lesson.xp} XP and unlocked new coding powers.`}
+            </p>
+
+            {saveError && (
+              <p className="mt-5 rounded-2xl bg-red-400/10 p-4 text-sm font-bold leading-6 text-red-300">
+                {saveError}
+              </p>
+            )}
+
+            <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
+              {hasNextLesson ? (
+                <Link
+                  href={`/lesson/${nextLessonId}`}
+                  className="rounded-2xl bg-emerald-400 px-6 py-3 text-center font-bold text-slate-950 transition hover:bg-emerald-300"
+                >
+                  Next Quest →
+                </Link>
+              ) : (
+                <Link
+                  href="/upgrade"
+                  className="rounded-2xl bg-emerald-400 px-6 py-3 text-center font-bold text-slate-950 transition hover:bg-emerald-300"
+                >
+                  Unlock Premium Worlds
+                </Link>
+              )}
+
+              <Link
+                href="/learn"
+                className="rounded-2xl border border-white/10 px-6 py-3 text-center font-bold text-white transition hover:bg-white/10"
+              >
+                Back to Map
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
-    </main>
-  );
+    </div>
+  </main>
+);
+
 }
