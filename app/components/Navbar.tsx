@@ -119,13 +119,17 @@ export default function Navbar() {
       </header>
 
       {menuOpen && (
-        <div className="fixed inset-0 z-40 bg-[#101827] pt-24 text-white md:hidden">
-          <div className="mx-auto flex h-full max-w-6xl flex-col px-5 pb-8">
-            <nav className="grid gap-4">
+        <div className="fixed inset-0 z-40 bg-[#101827] px-5 pt-28 text-white md:hidden">
+          <div className="mx-auto max-w-md">
+            <p className="mb-5 text-sm font-bold uppercase tracking-[0.25em] text-emerald-300">
+              Menu
+            </p>
+
+            <nav className="grid gap-3">
               <Link
                 href="/learn"
                 onClick={closeMenu}
-                className="rounded-3xl border border-white/10 bg-white/5 px-6 py-5 text-2xl font-extrabold text-white transition hover:bg-white/10"
+                className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-lg font-bold text-white transition hover:bg-white/10"
               >
                 Learn
               </Link>
@@ -133,7 +137,7 @@ export default function Navbar() {
               <Link
                 href="/parents"
                 onClick={closeMenu}
-                className="rounded-3xl border border-white/10 bg-white/5 px-6 py-5 text-2xl font-extrabold text-white transition hover:bg-white/10"
+                className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-lg font-bold text-white transition hover:bg-white/10"
               >
                 Parents
               </Link>
@@ -141,40 +145,40 @@ export default function Navbar() {
               <Link
                 href="/upgrade"
                 onClick={closeMenu}
-                className="rounded-3xl border border-white/10 bg-white/5 px-6 py-5 text-2xl font-extrabold text-white transition hover:bg-white/10"
+                className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-lg font-bold text-white transition hover:bg-white/10"
               >
                 Premium
               </Link>
             </nav>
 
-            <div className="mt-6 border-t border-white/10 pt-6">
+            <div className="mt-6 grid gap-3 border-t border-white/10 pt-6">
               {checkingUser ? (
-                <div className="rounded-3xl bg-white/5 px-6 py-4 text-center font-bold text-slate-300">
+                <div className="rounded-2xl bg-white/5 px-5 py-4 text-center font-bold text-slate-300">
                   ...
                 </div>
               ) : isLoggedIn ? (
-                <div className="grid gap-3">
+                <>
                   <Link
                     href="/profile"
                     onClick={closeMenu}
-                    className="rounded-2xl bg-emerald-400 px-6 py-4 text-center text-lg font-bold text-slate-950 transition hover:bg-emerald-300"
+                    className="rounded-2xl bg-emerald-400 px-5 py-4 text-center font-bold text-slate-950 transition hover:bg-emerald-300"
                   >
                     Profile
                   </Link>
 
                   <button
                     onClick={handleLogout}
-                    className="rounded-2xl border border-white/20 px-6 py-4 text-center text-lg font-bold text-white transition hover:bg-white/10"
+                    className="rounded-2xl border border-white/20 px-5 py-4 text-center font-bold text-white transition hover:bg-white/10"
                   >
                     Logout
                   </button>
-                </div>
+                </>
               ) : (
-                <div className="grid gap-3">
+                <>
                   <Link
                     href="/learn"
                     onClick={closeMenu}
-                    className="rounded-2xl bg-emerald-400 px-6 py-4 text-center text-lg font-bold text-slate-950 transition hover:bg-emerald-300"
+                    className="rounded-2xl bg-emerald-400 px-5 py-4 text-center font-bold text-slate-950 transition hover:bg-emerald-300"
                   >
                     Try Free Demo
                   </Link>
@@ -182,7 +186,7 @@ export default function Navbar() {
                   <Link
                     href="/signup"
                     onClick={closeMenu}
-                    className="rounded-2xl border border-white/20 px-6 py-4 text-center text-lg font-bold text-white transition hover:bg-white/10"
+                    className="rounded-2xl border border-white/20 px-5 py-4 text-center font-bold text-white transition hover:bg-white/10"
                   >
                     Create Free Account
                   </Link>
@@ -190,20 +194,19 @@ export default function Navbar() {
                   <Link
                     href="/login"
                     onClick={closeMenu}
-                    className="rounded-2xl bg-white/5 px-6 py-4 text-center text-lg font-bold text-slate-200 transition hover:bg-white/10"
+                    className="rounded-2xl bg-white/5 px-5 py-4 text-center font-bold text-slate-200 transition hover:bg-white/10"
                   >
                     Login
                   </Link>
-                </div>
+                </>
               )}
             </div>
 
-            <div className="mt-auto pt-8">
-              <p className="text-sm font-semibold leading-6 text-slate-400">
-                Coding quests for kids ages 8–12. Turn screen time into learning
-                time.
-              </p>
-            </div>
+            <p className="mt-6 text-center text-sm leading-6 text-slate-400">
+              Coding quests for kids ages 8–12.
+              <br />
+              Turn screen time into learning time.
+            </p>
           </div>
         </div>
       )}
