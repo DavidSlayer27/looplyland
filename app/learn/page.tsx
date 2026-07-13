@@ -1,10 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { supabase } from "@/lib/supabaseClient";
+
 
 const quests = [
   {
@@ -173,265 +175,387 @@ export default function LearnPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#101827] text-white">
-      <Navbar />
+  <main className="min-h-screen bg-[#101827] text-white">
+    <Navbar />
 
-      <section className="px-6 pb-24 pt-28 md:pb-32 md:pt-36">
-        <div className="mx-auto max-w-5xl">
-          <div className="mb-8 flex flex-col gap-6 sm:mb-10 lg:flex-row lg:items-center lg:justify-between">
-            <div>
-              <p className="font-bold text-emerald-300">World 1</p>
+    <section className="relative overflow-hidden px-5 pb-24 pt-24 sm:px-6 md:pb-28 md:pt-28">
+      <div className="absolute left-1/2 top-24 h-80 w-80 -translate-x-1/2 rounded-full bg-emerald-400/10 blur-3xl" />
 
-              <h1 className="mt-2 text-4xl font-extrabold md:text-5xl">
-                Robo Lab
-              </h1>
-
-              <p className="mt-2 text-sm leading-6 text-slate-300 md:text-base">
-                Complete quests and unlock new coding powers.
-              </p>
-
-              {!isLoggedIn && (
-                <p className="mt-4 rounded-2xl border border-yellow-400/30 bg-yellow-400/10 px-4 py-3 text-sm font-bold leading-6 text-yellow-200">
-                  Demo mode: your progress is saved only on this device. Sign up
-                  to save it forever.
-                </p>
-              )}
+      <div className="relative mx-auto max-w-6xl">
+        {/* TOP AREA */}
+        <div className="grid gap-8 lg:grid-cols-[1fr_320px] lg:items-center">
+          <div>
+            <div className="inline-flex rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-sm font-bold text-emerald-300">
+              World 1 · Robo Lab
             </div>
 
-            <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap">
-              <div className="rounded-2xl bg-white/5 px-4 py-3 text-center text-sm font-bold md:px-5 md:text-base">
+            <h1 className="mt-4 text-4xl font-extrabold leading-tight sm:text-5xl">
+              Begin your coding adventure.
+            </h1>
+
+            <p className="mt-4 max-w-2xl text-base leading-7 text-slate-300 sm:text-lg">
+              Complete five short quests with Robo and learn commands, loops,
+              conditions, variables, and beginner problem solving.
+            </p>
+
+            {!isLoggedIn && (
+              <div className="mt-5 max-w-2xl rounded-2xl border border-yellow-400/30 bg-yellow-400/10 px-4 py-3 text-sm font-bold leading-6 text-yellow-200">
+                Demo mode: progress is saved only on this device. Create a free
+                account to keep it permanently.
+              </div>
+            )}
+
+            <div className="mt-6 flex flex-wrap gap-3">
+              <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 font-bold">
                 🔥 {streak} day streak
               </div>
 
-              <div className="rounded-2xl bg-white/5 px-4 py-3 text-center text-sm font-bold md:px-5 md:text-base">
-                XP: {xp}
+              <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 font-bold">
+                ⭐ {xp} XP
               </div>
 
-              <button
-                onClick={resetProgress}
-                className="col-span-2 rounded-2xl border border-red-400/30 px-5 py-3 text-sm font-bold text-red-300 transition hover:bg-red-400/10 sm:col-span-1 md:text-base"
-              >
-                Reset
-              </button>
+              <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 font-bold">
+                ✅ {completedCount}/{quests.length} quests
+              </div>
             </div>
           </div>
 
-          <section className="mb-10 rounded-3xl border border-white/10 bg-white/5 p-5 md:mb-12 md:p-6">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <h2 className="text-2xl font-extrabold">
-                  Robo Lab Progress
+          {/* ROBO GUIDE */}
+          <div className="relative mx-auto flex max-w-xs flex-col items-center">
+            <div className="absolute h-56 w-56 rounded-full bg-emerald-400/15 blur-2xl" />
+
+            <Image
+              src="/mascot/Robo.png"
+              alt="Robo guiding the player through Robo Lab"
+              width={420}
+              height={420}
+              priority
+              className="relative h-auto w-52 object-contain drop-shadow-2xl sm:w-60"
+            />
+
+            <div className="-mt-3 w-full rounded-2xl border border-emerald-400/20 bg-slate-950/90 px-5 py-4 text-center shadow-xl">
+              <p className="font-extrabold text-emerald-300">
+                Ready for your first quest?
+              </p>
+
+              <p className="mt-1 text-sm leading-6 text-slate-300">
+                Start with Move Robo and unlock the path step by step.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* PROGRESS */}
+        <section className="mt-10 rounded-[2rem] border border-white/10 bg-white/[0.04] p-5 sm:p-6">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-sm font-bold uppercase tracking-[0.18em] text-emerald-300">
+                World progress
+              </p>
+
+              <h2 className="mt-2 text-2xl font-extrabold">
+                Robo Lab
+              </h2>
+            </div>
+
+            <div className="rounded-2xl bg-emerald-400/10 px-5 py-3 text-center font-extrabold text-emerald-300">
+              {roundedProgressPercent}% complete
+            </div>
+          </div>
+
+          <div className="mt-5 h-4 overflow-hidden rounded-full bg-white/10">
+            <div
+              className="h-full rounded-full bg-emerald-400 transition-all duration-500"
+              style={{ width: `${progressPercent}%` }}
+            />
+          </div>
+
+          <div className="mt-4 flex items-center justify-between text-sm font-semibold text-slate-400">
+            <span>{completedCount} completed</span>
+            <span>{quests.length - completedCount} remaining</span>
+          </div>
+        </section>
+
+        {/* QUEST PATH */}
+        <section className="mt-12">
+          <div className="text-center">
+            <p className="font-bold text-emerald-300">Quest path</p>
+
+            <h2 className="mt-2 text-3xl font-extrabold sm:text-4xl">
+              Complete the Robo Lab journey
+            </h2>
+          </div>
+
+          <div className="relative mx-auto mt-10 max-w-2xl">
+            <div className="absolute bottom-10 left-1/2 top-10 hidden w-px -translate-x-1/2 bg-gradient-to-b from-emerald-400/70 via-emerald-400/20 to-white/10 sm:block" />
+
+            <div className="relative grid gap-6">
+              {quests.map((quest, index) => {
+                const isCompleted = completedLessons.includes(quest.id);
+                const isUnlocked =
+                  quest.id === 1 || completedLessons.includes(quest.id - 1);
+
+                const sideClass =
+                  index % 2 === 0
+                    ? "sm:mr-auto sm:pr-12"
+                    : "sm:ml-auto sm:pl-12";
+
+                return (
+                  <div
+                    key={quest.id}
+                    className={`relative w-full sm:w-[58%] ${sideClass}`}
+                  >
+                   <div
+  className={`absolute top-1/2 hidden h-4 w-4 -translate-y-1/2 rounded-full border-4 border-[#101827] bg-emerald-400 sm:block ${
+    index % 2 === 0 ? "-right-2" : "-left-2"
+  }`}
+/>
+
+                    {isUnlocked ? (
+                      <Link
+                        href={`/lesson/${quest.id}`}
+                        className={`group block rounded-[1.75rem] border p-5 shadow-xl transition hover:-translate-y-1 hover:shadow-2xl ${
+                          isCompleted
+                            ? "border-emerald-400/50 bg-emerald-400/15"
+                            : "border-emerald-400/25 bg-white/[0.04] hover:bg-emerald-400/10"
+                        }`}
+                      >
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="flex items-center gap-4">
+                            <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-slate-950/80">
+                              {quest.id === 1 ? (
+                                <Image
+                                  src="/mascot/Robo.png"
+                                  alt="Robo"
+                                  width={70}
+                                  height={70}
+                                  className="h-14 w-14 object-contain"
+                                />
+                              ) : (
+                                <span className="text-4xl">{quest.emoji}</span>
+                              )}
+                            </div>
+
+                            <div>
+                              <p className="text-xs font-bold uppercase tracking-[0.15em] text-emerald-300">
+                                Quest {quest.id}
+                              </p>
+
+                              <h3 className="mt-1 text-xl font-extrabold sm:text-2xl">
+                                {quest.title}
+                              </h3>
+
+                              <p className="mt-1 text-sm font-bold text-slate-400">
+                                {quest.concept}
+                              </p>
+                            </div>
+                          </div>
+
+                          <div
+                            className={`rounded-full px-3 py-1 text-xs font-bold ${
+                              isCompleted
+                                ? "bg-emerald-400 text-slate-950"
+                                : "bg-white/10 text-slate-300"
+                            }`}
+                          >
+                            {isCompleted ? "Done" : "Open"}
+                          </div>
+                        </div>
+
+                        <div className="mt-5 flex items-center justify-between border-t border-white/10 pt-4">
+                          <span className="text-sm font-bold text-slate-300">
+                            {isCompleted ? "Replay quest" : "Start quest"}
+                          </span>
+
+                          <span className="font-bold text-emerald-300 transition group-hover:translate-x-1">
+                            →
+                          </span>
+                        </div>
+                      </Link>
+                    ) : (
+                      <div className="rounded-[1.75rem] border border-white/10 bg-white/[0.03] p-5 opacity-50">
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="flex items-center gap-4">
+                            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-slate-950/70 text-3xl">
+                              🔒
+                            </div>
+
+                            <div>
+                              <p className="text-xs font-bold uppercase tracking-[0.15em] text-slate-500">
+                                Quest {quest.id}
+                              </p>
+
+                              <h3 className="mt-1 text-xl font-extrabold sm:text-2xl">
+                                {quest.title}
+                              </h3>
+
+                              <p className="mt-1 text-sm font-bold text-slate-500">
+                                {quest.concept}
+                              </p>
+                            </div>
+                          </div>
+
+                          <div className="rounded-full bg-white/5 px-3 py-1 text-xs font-bold text-slate-500">
+                            Locked
+                          </div>
+                        </div>
+
+                        <p className="mt-5 border-t border-white/10 pt-4 text-sm font-bold text-slate-500">
+                          Complete the previous quest to unlock.
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* WORLD COMPLETE */}
+        {worldCompleted && (
+          <section className="mt-14 overflow-hidden rounded-[2rem] border border-emerald-400/30 bg-emerald-400/10 p-6 sm:p-8">
+            <div className="grid gap-8 lg:grid-cols-[220px_1fr] lg:items-center">
+              <div className="mx-auto">
+                <Image
+                  src="/mascot/Robo.png"
+                  alt="Robo celebrating completion of Robo Lab"
+                  width={260}
+                  height={260}
+                  className="h-auto w-48 object-contain drop-shadow-xl"
+                />
+              </div>
+
+              <div className="text-center lg:text-left">
+                <p className="font-bold text-emerald-300">
+                  World complete
+                </p>
+
+                <h2 className="mt-2 text-3xl font-extrabold sm:text-4xl">
+                  You became a Robo Lab Graduate!
                 </h2>
 
-                <p className="mt-1 text-sm text-slate-300 md:text-base">
-                  {completedCount}/{quests.length} quests completed
+                <p className="mt-4 leading-7 text-slate-300">
+                  You completed all five quests and learned commands, loops,
+                  conditions, variables, and final challenge logic.
                 </p>
-              </div>
 
-              <div className="w-full rounded-2xl bg-emerald-400/10 px-5 py-3 text-center font-bold text-emerald-300 sm:w-auto">
-                {roundedProgressPercent}%
-              </div>
-            </div>
-
-            <div className="mt-5 h-3 overflow-hidden rounded-full bg-white/10 md:h-4">
-              <div
-                className="h-full rounded-full bg-emerald-400 transition-all"
-                style={{ width: `${progressPercent}%` }}
-              />
-            </div>
-
-            {worldCompleted && (
-              <div className="mt-6 rounded-[2rem] border border-emerald-400/30 bg-emerald-400/10 p-5 md:p-6">
-                <div className="grid gap-6 lg:grid-cols-2 lg:items-center">
-                  <div>
-                    <div className="text-5xl md:text-6xl">🏆</div>
-
-                    <h3 className="mt-4 text-2xl font-extrabold md:text-3xl">
-                      Robo Lab Complete!
-                    </h3>
-
-                    <p className="mt-3 leading-7 text-slate-300">
-                      Amazing work. You completed the first LooplyLand world and
-                      learned commands, loops, conditions, variables, and final
-                      challenge logic.
-                    </p>
-
-                    <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-                      <Link
-                        href="/upgrade"
-                        className="rounded-2xl bg-emerald-400 px-6 py-3 text-center font-bold text-slate-950 transition hover:bg-emerald-300"
-                      >
-                        Unlock Premium Worlds
-                      </Link>
-
-                      <a
-                        href="#certificate-preview"
-                        className="rounded-2xl border border-white/20 px-6 py-3 text-center font-bold text-white transition hover:bg-white/10"
-                      >
-                        View Certificate
-                      </a>
-                    </div>
-                  </div>
-
-                  <div
-                    id="certificate-preview"
-                    className="rounded-[1.5rem] border border-white/10 bg-slate-950 p-5 text-center shadow-2xl md:p-6"
+                <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
+                  <a
+                    href="#certificate-preview"
+                    className="rounded-2xl border border-white/20 px-6 py-3 text-center font-bold text-white transition hover:bg-white/10"
                   >
-                    <p className="text-xs font-bold uppercase tracking-[0.25em] text-emerald-300 md:text-sm md:tracking-[0.3em]">
-                      Certificate Preview
-                    </p>
+                    View Certificate
+                  </a>
 
-                    <div className="mt-5 text-5xl md:text-6xl">🎓</div>
-
-                    <h4 className="mt-4 text-2xl font-extrabold md:text-3xl">
-                      Robo Lab Graduate
-                    </h4>
-
-                    <p className="mt-3 text-slate-300">
-                      Awarded for completing World 1 in LooplyLand.
-                    </p>
-
-                    <div className="mt-6 grid gap-3 text-left">
-                      <div className="rounded-2xl bg-white/5 p-4 font-bold">
-                        ✅ Commands
-                      </div>
-
-                      <div className="rounded-2xl bg-white/5 p-4 font-bold">
-                        ✅ Loops
-                      </div>
-
-                      <div className="rounded-2xl bg-white/5 p-4 font-bold">
-                        ✅ Conditions
-                      </div>
-
-                      <div className="rounded-2xl bg-white/5 p-4 font-bold">
-                        ✅ Variables
-                      </div>
-
-                      <div className="rounded-2xl bg-white/5 p-4 font-bold">
-                        ✅ Final Challenge
-                      </div>
-                    </div>
-
-                    <p className="mt-6 text-sm text-slate-400">
-                      Printable certificates coming soon with Premium.
-                    </p>
-                  </div>
+                  <Link
+                    href="/upgrade"
+                    className="rounded-2xl bg-emerald-400 px-6 py-3 text-center font-bold text-slate-950 transition hover:bg-emerald-300"
+                  >
+                    Explore Next Worlds
+                  </Link>
                 </div>
               </div>
-            )}
-          </section>
+            </div>
 
-          <div className="relative mx-auto flex max-w-md flex-col items-center gap-6 md:gap-8">
-            {quests.map((quest, index) => {
-              const isCompleted = completedLessons.includes(quest.id);
-              const isUnlocked =
-                quest.id === 1 || completedLessons.includes(quest.id - 1);
-
-              return (
-                <div
-                  key={quest.id}
-                  className={`flex w-full items-center ${
-                    index % 2 === 0 ? "justify-start" : "justify-end"
-                  }`}
-                >
-                  {isUnlocked ? (
-                    <Link
-                      href={`/lesson/${quest.id}`}
-                      className={`w-[82%] max-w-72 rounded-3xl border p-5 shadow-xl transition hover:scale-105 sm:w-64 ${
-                        isCompleted
-                          ? "border-emerald-400/60 bg-emerald-400/20"
-                          : "border-emerald-400/30 bg-emerald-400/10 hover:bg-emerald-400/20"
-                      }`}
-                    >
-                      <div className="text-5xl">{quest.emoji}</div>
-
-                      <h2 className="mt-4 text-xl font-extrabold md:text-2xl">
-                        {quest.title}
-                      </h2>
-
-                      <p className="mt-1 text-sm text-emerald-300 md:text-base">
-                        {quest.concept}
-                      </p>
-
-                      <p className="mt-4 text-sm font-bold text-white">
-                        {isCompleted ? "Completed ✅" : "Start Quest →"}
-                      </p>
-                    </Link>
-                  ) : (
-                    <div className="w-[82%] max-w-72 rounded-3xl border border-white/10 bg-white/5 p-5 opacity-50 sm:w-64">
-                      <div className="text-5xl">🔒</div>
-
-                      <h2 className="mt-4 text-xl font-extrabold md:text-2xl">
-                        {quest.title}
-                      </h2>
-
-                      <p className="mt-1 text-sm text-slate-400 md:text-base">
-                        {quest.concept}
-                      </p>
-
-                      <p className="mt-4 text-sm font-bold text-slate-400">
-                        Locked
-                      </p>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-
-          <section className="mt-14 rounded-[2rem] border border-emerald-400/20 bg-emerald-400/10 p-6 text-center md:mt-16 md:p-8">
-            <p className="font-bold text-emerald-300">Coming soon</p>
-
-            <h2 className="mt-3 text-2xl font-extrabold md:text-3xl">
-              Unlock more coding worlds
-            </h2>
-
-            <p className="mx-auto mt-3 max-w-xl leading-7 text-slate-300">
-              Robo Lab is just the beginning. Premium worlds will introduce
-              debugging, functions, algorithms, game logic, and more.
-            </p>
-
-            <Link
-              href="/upgrade"
-              className="mt-6 inline-block w-full rounded-2xl bg-emerald-400 px-8 py-4 font-bold text-slate-950 transition hover:bg-emerald-300 sm:w-auto"
+            <div
+              id="certificate-preview"
+              className="mt-8 rounded-[1.5rem] border border-white/10 bg-slate-950/90 p-6 text-center"
             >
-              Join Early Access
-            </Link>
-          </section>
+              <p className="text-xs font-bold uppercase tracking-[0.25em] text-emerald-300">
+                Certificate Preview
+              </p>
 
-          <section className="mt-10 grid gap-5 md:grid-cols-3 md:gap-6">
-            {premiumWorlds.map((world) => (
-              <div
-                key={world.title}
-                className="rounded-3xl border border-white/10 bg-white/5 p-5 opacity-80 md:p-6"
-              >
-                <div className="flex items-center justify-between gap-4">
-                  <div className="text-5xl">{world.emoji}</div>
+              <h3 className="mt-4 text-2xl font-extrabold sm:text-3xl">
+                Robo Lab Graduate
+              </h3>
 
-                  <div className="rounded-full bg-white/10 px-3 py-1 text-sm font-bold text-slate-300">
-                    Locked
+              <p className="mt-3 text-slate-300">
+                Awarded for completing World 1 in LooplyLand.
+              </p>
+
+              <div className="mx-auto mt-6 grid max-w-2xl gap-3 sm:grid-cols-2">
+                {[
+                  "Commands",
+                  "Loops",
+                  "Conditions",
+                  "Variables",
+                  "Final Challenge",
+                ].map((skill) => (
+                  <div
+                    key={skill}
+                    className="rounded-2xl bg-white/5 p-4 text-left font-bold"
+                  >
+                    ✅ {skill}
                   </div>
-                </div>
-
-                <h3 className="mt-5 text-xl font-extrabold md:text-2xl">
-                  {world.title}
-                </h3>
-
-                <p className="mt-2 font-bold text-emerald-300">
-                  {world.concept}
-                </p>
-
-                <p className="mt-3 leading-7 text-slate-300">
-                  {world.description}
-                </p>
+                ))}
               </div>
-            ))}
+            </div>
           </section>
-        </div>
-      </section>
+        )}
 
-      <Footer />
-    </main>
-  );
+        {/* PREMIUM TEASER */}
+        <section className="mt-14 rounded-[2rem] border border-emerald-400/20 bg-gradient-to-br from-emerald-400/10 to-white/[0.03] p-6 sm:p-8">
+          <div className="grid gap-8 lg:grid-cols-[1fr_320px] lg:items-center">
+            <div>
+              <p className="font-bold text-emerald-300">
+                The adventure continues
+              </p>
+
+              <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl">
+                New coding worlds are coming.
+              </h2>
+
+              <p className="mt-4 max-w-2xl leading-7 text-slate-300">
+                Explore debugging, functions, algorithms, and game logic in
+                future LooplyLand worlds.
+              </p>
+
+              <Link
+                href="/upgrade"
+                className="mt-6 inline-block w-full rounded-2xl bg-emerald-400 px-7 py-4 text-center font-bold text-slate-950 transition hover:bg-emerald-300 sm:w-auto"
+              >
+                Join Early Access
+              </Link>
+            </div>
+
+            <div className="grid gap-3">
+              {premiumWorlds.map((world) => (
+                <div
+                  key={world.title}
+                  className="flex items-center gap-4 rounded-2xl border border-white/10 bg-slate-950/60 p-4"
+                >
+                  <div className="text-3xl">{world.emoji}</div>
+
+                  <div className="min-w-0">
+                    <p className="font-extrabold">{world.title}</p>
+                    <p className="mt-1 text-sm font-bold text-emerald-300">
+                      {world.concept}
+                    </p>
+                  </div>
+
+                  <span className="ml-auto text-sm font-bold text-slate-500">
+                    Soon
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* RESET */}
+        <div className="mt-10 text-center">
+          <button
+            onClick={resetProgress}
+            className="text-sm font-bold text-slate-500 transition hover:text-red-300"
+          >
+            Reset learning progress
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+);
 }
