@@ -279,197 +279,215 @@ export default function LearnPage() {
           </div>
         </section>
 
-        {/* QUEST PATH */}
+        {/* QUEST TOWER */}
 <section className="mt-14">
   <div className="text-center">
-    <p className="font-bold text-emerald-300">Quest map</p>
+    <p className="font-bold text-emerald-300">
+      Robo Lab Adventure
+    </p>
 
-    <h2 className="mt-2 text-3xl font-extrabold sm:text-4xl">
-      Follow Robo through the lab
+    <h2 className="mt-2 text-4xl font-extrabold">
+      Follow Robo's Path
     </h2>
 
-    <p className="mx-auto mt-3 max-w-xl leading-7 text-slate-400">
-      Complete each quest to unlock the next stop on the adventure.
+    <p className="mx-auto mt-3 max-w-xl text-slate-400">
+      Complete every quest to reach the Boss Fight.
     </p>
   </div>
 
-  <div className="relative mx-auto mt-12 max-w-4xl">
-    {/* DECORATIVE MAP BACKGROUND */}
-    <div className="absolute inset-0 hidden overflow-hidden rounded-[3rem] sm:block">
-      <div className="absolute left-[8%] top-[6%] h-28 w-28 rounded-full bg-emerald-400/5 blur-2xl" />
-      <div className="absolute right-[8%] top-[36%] h-32 w-32 rounded-full bg-emerald-400/5 blur-2xl" />
-      <div className="absolute left-[18%] bottom-[8%] h-32 w-32 rounded-full bg-emerald-400/5 blur-2xl" />
-    </div>
+  <div className="relative mx-auto mt-14 max-w-md">
 
-    <div className="relative grid gap-5 sm:gap-8">
-      {quests.map((quest, index) => {
-        const isCompleted = completedLessons.includes(quest.id);
-        const isUnlocked =
-          quest.id === 1 || completedLessons.includes(quest.id - 1);
-        const isCurrent = quest.id === currentQuestId && !worldCompleted;
+    {/* ROAD */}
+    <div className="absolute left-1/2 top-10 bottom-10 w-3 -translate-x-1/2 rounded-full bg-white/10"></div>
 
-        const alignment =
-          index % 2 === 0
-            ? "sm:mr-auto sm:translate-x-6"
-            : "sm:ml-auto sm:-translate-x-6";
+   <div className="relative flex flex-col gap-8">
+  {quests.map((quest) => {
+    const isCompleted = completedLessons.includes(quest.id);
 
-        return (
-          <div
-            key={quest.id}
-            className={`relative w-full sm:w-[52%] ${alignment}`}
-          >
-            {/* CURVED CONNECTOR */}
-            {index < quests.length - 1 && (
-              <div
-                className={`pointer-events-none absolute top-[92%] hidden h-20 w-[46%] border-b-[3px] border-dashed sm:block ${
-                  index % 2 === 0
-                    ? "left-[76%] rounded-br-[3rem] border-r-[3px]"
-                    : "right-[76%] rounded-bl-[3rem] border-l-[3px]"
-                } ${
-                  isCompleted
-                    ? "border-emerald-400/60"
-                    : "border-white/10"
-                }`}
+    const isUnlocked =
+      quest.id === 1 || completedLessons.includes(quest.id - 1);
+
+    const isCurrent =
+      quest.id === currentQuestId && !worldCompleted;
+
+    const isBoss = quest.id === quests.length;
+
+    return (
+      <div
+        key={quest.id}
+        className="relative z-10 flex min-h-40 items-center justify-center"
+      >
+        {/* ROBO + GO MARKER */}
+        {isCurrent && (
+          <div className="absolute -left-2 top-1/2 hidden -translate-x-full -translate-y-1/2 items-center gap-2 sm:flex">
+            <div className="relative">
+              <div className="absolute inset-0 animate-pulse rounded-full bg-emerald-400/20 blur-xl" />
+
+              <Image
+                src="/mascot/Robo.png"
+                alt="Robo showing the current quest"
+                width={110}
+                height={110}
+                className="relative h-24 w-24 object-contain drop-shadow-2xl"
               />
-            )}
+            </div>
 
-            {/* CURRENT QUEST MARKER */}
+            <div className="relative flex h-12 w-12 items-center justify-center rounded-full bg-emerald-400 font-black text-slate-950 shadow-[0_0_30px_rgba(52,211,153,0.55)]">
+              <div className="absolute inset-0 animate-ping rounded-full bg-emerald-400/30" />
+              <span className="relative text-xs">GO</span>
+            </div>
+          </div>
+        )}
+
+        {/* ROAD NODE */}
+        <div
+          className={`absolute left-1/2 top-1/2 z-0 h-12 w-12 -translate-x-1/2 -translate-y-1/2 rounded-full border-[8px] border-[#101827] ${
+            isCompleted
+              ? "bg-emerald-400"
+              : isCurrent
+              ? "animate-pulse bg-emerald-300 shadow-[0_0_30px_rgba(52,211,153,0.75)]"
+              : "bg-slate-700"
+          }`}
+        />
+
+        {isUnlocked ? (
+          <Link
+            href={`/lesson/${quest.id}`}
+            className={`group relative ml-24 block w-full max-w-sm rounded-[1.75rem] border p-5 shadow-xl transition duration-300 hover:-translate-y-1 hover:shadow-2xl sm:ml-32 ${
+              isCompleted
+                ? "border-emerald-400/50 bg-emerald-400/15"
+                : isCurrent
+                ? "border-emerald-300 bg-emerald-400/10 shadow-[0_0_35px_rgba(52,211,153,0.15)]"
+                : "border-white/10 bg-white/[0.04] hover:border-emerald-400/30"
+            } ${
+              isBoss
+                ? "border-purple-400/40 bg-purple-400/10"
+                : ""
+            }`}
+          >
             {isCurrent && (
-              <div
-                className={`absolute top-1/2 z-20 hidden -translate-y-1/2 sm:flex ${
-                  index % 2 === 0 ? "-right-14" : "-left-14"
-                }`}
-              >
-                <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-emerald-400 shadow-[0_0_30px_rgba(52,211,153,0.65)]">
-                  <div className="absolute inset-0 animate-ping rounded-full bg-emerald-400/40" />
-                  <span className="relative text-sm font-black text-slate-950">
-                    GO
-                  </span>
-                </div>
-              </div>
+              <div className="absolute inset-0 animate-pulse rounded-[1.75rem] bg-gradient-to-br from-emerald-400/10 to-transparent [animation-duration:3s]" />
             )}
 
-            {isUnlocked ? (
-              <Link
-                href={`/lesson/${quest.id}`}
-                className={`group relative block overflow-hidden rounded-[1.75rem] border p-5 shadow-xl transition duration-300 hover:-translate-y-1 hover:shadow-2xl ${
-                  isCompleted
-                    ? "border-emerald-400/50 bg-emerald-400/15"
-                    : isCurrent
-                    ? "border-emerald-300 bg-emerald-400/10 shadow-[0_0_35px_rgba(52,211,153,0.14)]"
-                    : "border-emerald-400/25 bg-white/[0.04] hover:bg-emerald-400/10"
-                }`}
-              >
-                {isCurrent && (
-                  <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-emerald-400/10 to-transparent [animation-duration:3s]" />
-                )}
+            <div className="relative flex items-start justify-between gap-3">
+              <div className="flex min-w-0 items-center gap-4">
+                <div
+                  className={`flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border ${
+                    isCurrent
+                      ? "border-emerald-400/50 bg-emerald-400/10"
+                      : "border-white/10 bg-slate-950/70"
+                  }`}
+                >
+                  {quest.id === 1 ? (
+                    <Image
+                      src="/mascot/Robo.png"
+                      alt="Robo"
+                      width={70}
+                      height={70}
+                      className="h-14 w-14 object-contain"
+                    />
+                  ) : (
+                    <span className="text-4xl">
+                      {quest.emoji}
+                    </span>
+                  )}
+                </div>
 
-                <div className="relative flex items-start justify-between gap-3">
-                  <div className="flex min-w-0 items-center gap-4">
-                    <div
-                      className={`flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border ${
-                        isCurrent
-                          ? "border-emerald-400/50 bg-emerald-400/10"
-                          : "border-white/5 bg-slate-950/80"
-                      }`}
-                    >
-                      {quest.id === 1 ? (
-                        <Image
-                          src="/mascot/Robo.png"
-                          alt="Robo"
-                          width={70}
-                          height={70}
-                          className="h-14 w-14 object-contain"
-                        />
-                      ) : (
-                        <span className="text-4xl">{quest.emoji}</span>
-                      )}
-                    </div>
-
-                    <div className="min-w-0">
-                      <p className="text-xs font-bold uppercase tracking-[0.15em] text-emerald-300">
-                        Quest {quest.id}
-                      </p>
-
-                      <h3 className="mt-1 text-xl font-extrabold sm:text-2xl">
-                        {quest.title}
-                      </h3>
-
-                      <p className="mt-1 text-sm font-bold text-slate-400">
-                        {quest.concept}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div
-                    className={`shrink-0 rounded-full px-3 py-1 text-xs font-bold ${
-                      isCompleted
-                        ? "bg-emerald-400 text-slate-950"
-                        : isCurrent
-                        ? "bg-emerald-400/20 text-emerald-200"
-                        : "bg-white/10 text-slate-300"
+                <div className="min-w-0">
+                  <p
+                    className={`text-xs font-bold uppercase tracking-[0.15em] ${
+                      isBoss
+                        ? "text-purple-300"
+                        : "text-emerald-300"
                     }`}
                   >
-                    {isCompleted ? "Done" : isCurrent ? "Next" : "Open"}
-                  </div>
+                    {isBoss ? "Final Quest" : `Quest ${quest.id}`}
+                  </p>
+
+                  <h3 className="mt-1 text-xl font-extrabold sm:text-2xl">
+                    {quest.title}
+                  </h3>
+
+                  <p className="mt-1 text-sm font-bold text-slate-400">
+                    {quest.concept}
+                  </p>
                 </div>
-
-                <div className="relative mt-5 flex items-center justify-between border-t border-white/10 pt-4">
-                  <span className="text-sm font-bold text-slate-300">
-                    {isCompleted
-                      ? "Replay quest"
-                      : isCurrent
-                      ? "Continue adventure"
-                      : "Start quest"}
-                  </span>
-
-                  <span className="font-bold text-emerald-300 transition duration-300 group-hover:translate-x-1">
-                    →
-                  </span>
-                </div>
-              </Link>
-            ) : (
-              <div className="relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.03] p-5 opacity-55">
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex min-w-0 items-center gap-4">
-                    <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-white/5 bg-slate-950/70 text-3xl">
-                      🔒
-                    </div>
-
-                    <div className="min-w-0">
-                      <p className="text-xs font-bold uppercase tracking-[0.15em] text-slate-500">
-                        Quest {quest.id}
-                      </p>
-
-                      <h3 className="mt-1 text-xl font-extrabold sm:text-2xl">
-                        {quest.title}
-                      </h3>
-
-                      <p className="mt-1 text-sm font-bold text-slate-500">
-                        {quest.concept}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="shrink-0 rounded-full bg-white/5 px-3 py-1 text-xs font-bold text-slate-500">
-                    Locked
-                  </div>
-                </div>
-
-                <p className="mt-5 border-t border-white/10 pt-4 text-sm font-bold text-slate-500">
-                  Complete the previous quest to unlock.
-                </p>
               </div>
-            )}
-          </div>
-        );
-      })}
-    </div>
 
-    <div className="mx-auto mt-8 flex w-fit items-center gap-3 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-5 py-3 text-sm font-bold text-emerald-300">
-      <span>🏁</span>
-      <span>Complete all 5 quests to finish Robo Lab</span>
-    </div>
+              <div
+                className={`shrink-0 rounded-full px-3 py-1 text-xs font-bold ${
+                  isCompleted
+                    ? "bg-emerald-400 text-slate-950"
+                    : isCurrent
+                    ? "bg-emerald-400/20 text-emerald-200"
+                    : "bg-white/10 text-slate-300"
+                }`}
+              >
+                {isCompleted ? "Done" : isCurrent ? "Next" : "Open"}
+              </div>
+            </div>
+
+            <div className="relative mt-5 flex items-center justify-between border-t border-white/10 pt-4">
+              <span className="text-sm font-bold text-slate-300">
+                {isCompleted
+                  ? "Replay quest"
+                  : isCurrent
+                  ? "Continue adventure"
+                  : "Start quest"}
+              </span>
+
+              <span className="font-bold text-emerald-300 transition duration-300 group-hover:translate-x-1">
+                →
+              </span>
+            </div>
+          </Link>
+        ) : (
+          <div
+            className={`relative ml-24 w-full max-w-sm rounded-[1.75rem] border border-white/10 bg-white/[0.03] p-5 opacity-55 sm:ml-32 ${
+              isBoss ? "border-purple-400/20" : ""
+            }`}
+          >
+            <div className="flex items-start justify-between gap-3">
+              <div className="flex min-w-0 items-center gap-4">
+                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-white/5 bg-slate-950/70 text-3xl">
+                  {isBoss ? "👑" : "🔒"}
+                </div>
+
+                <div className="min-w-0">
+                  <p className="text-xs font-bold uppercase tracking-[0.15em] text-slate-500">
+                    {isBoss ? "Final Quest" : `Quest ${quest.id}`}
+                  </p>
+
+                  <h3 className="mt-1 text-xl font-extrabold sm:text-2xl">
+                    {quest.title}
+                  </h3>
+
+                  <p className="mt-1 text-sm font-bold text-slate-500">
+                    {quest.concept}
+                  </p>
+                </div>
+              </div>
+
+              <div className="shrink-0 rounded-full bg-white/5 px-3 py-1 text-xs font-bold text-slate-500">
+                Locked
+              </div>
+            </div>
+
+            <p className="mt-5 border-t border-white/10 pt-4 text-sm font-bold text-slate-500">
+              Complete the previous quest to unlock.
+            </p>
+          </div>
+        )}
+      </div>
+    );
+  })}
+</div>
+
+<div className="relative z-10 mx-auto mt-8 flex w-fit items-center gap-3 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-5 py-3 text-sm font-bold text-emerald-300">
+  <span>🏁</span>
+  <span>Complete all 5 quests to finish Robo Lab</span>
+</div>
+
   </div>
 </section>
 
