@@ -9,7 +9,7 @@ export default function Home() {
       <Navbar />
 
   {/* HERO */}
-<section className="relative overflow-hidden px-5 pb-8 pt-24 sm:px-6 lg:min-h-[calc(100svh-80px)] lg:pb-6 lg:pt-20">
+<section className="relative overflow-hidden px-5 pb-8 pt-24 sm:px-6 lg:min-h-[calc(100svh-80px)] lg:pb-6 lg:pt-24">
   <div className="absolute left-1/2 top-24 h-72 w-72 -translate-x-1/2 rounded-full bg-emerald-400/15 blur-3xl lg:left-[70%] lg:top-[42%] lg:h-[390px] lg:w-[390px] lg:-translate-y-1/2" />
 
   <div className="relative mx-auto flex min-h-full w-full max-w-6xl flex-col">
@@ -53,7 +53,7 @@ export default function Home() {
       </div>
 
       {/* ROBO */}
-      <div className="relative mx-auto flex w-full max-w-md items-center justify-center lg:-translate-y-2 lg:max-w-lg">
+      <div className="relative mx-auto flex w-full max-w-md items-center justify-center lg:translate-y-4 lg:max-w-lg">
         <div className="absolute h-60 w-60 rounded-full bg-emerald-400/20 blur-3xl sm:h-72 sm:w-72 lg:h-80 lg:w-80" />
 
         <div className="relative flex flex-col items-center">
@@ -63,10 +63,10 @@ export default function Home() {
             width={650}
             height={650}
             priority
-            className="h-auto w-[210px] object-contain drop-shadow-2xl sm:w-[270px] lg:w-[340px] xl:w-[365px]"
+            className="h-auto w-[210px] object-contain drop-shadow-2xl sm:w-[270px] lg:w-[320px] xl:w-[345px]"
           />
 
-          <div className="-mt-2 w-[220px] rounded-2xl border border-emerald-400/20 bg-slate-950/95 px-4 py-2.5 text-center shadow-xl backdrop-blur sm:w-[245px] lg:-mt-4">
+         <div className="mt-1 w-[220px] rounded-2xl border border-emerald-400/20 bg-slate-950/95 px-4 py-2.5 text-center shadow-xl backdrop-blur sm:w-[245px]">
             <p className="text-sm font-extrabold text-emerald-300">
               Hi, I&apos;m Robo! 👋
             </p>
@@ -128,6 +128,8 @@ export default function Home() {
     </div>
   </div>
 </section>
+
+<div className="h-16 bg-gradient-to-b from-[#101827] to-slate-950" />
 
       {/* BENEFITS */}
       <section className="bg-slate-950 px-6 py-20 md:py-24">
