@@ -8,44 +8,44 @@ export default function Home() {
     <main className="min-h-screen bg-[#101827] text-white">
       <Navbar />
 
-    {/* HERO */}
-<section className="relative overflow-hidden px-5 pb-12 pt-24 sm:px-6 lg:flex lg:min-h-[calc(100svh-80px)] lg:items-center lg:pb-12 lg:pt-24">
-  <div className="absolute left-1/2 top-24 h-72 w-72 -translate-x-1/2 rounded-full bg-emerald-400/15 blur-3xl lg:left-[70%] lg:top-1/2 lg:h-[430px] lg:w-[430px] lg:-translate-y-1/2" />
+  {/* HERO */}
+<section className="relative overflow-hidden px-5 pb-8 pt-24 sm:px-6 lg:min-h-[calc(100svh-80px)] lg:pb-6 lg:pt-20">
+  <div className="absolute left-1/2 top-24 h-72 w-72 -translate-x-1/2 rounded-full bg-emerald-400/15 blur-3xl lg:left-[70%] lg:top-[42%] lg:h-[390px] lg:w-[390px] lg:-translate-y-1/2" />
 
-  <div className="relative mx-auto w-full max-w-6xl">
-    <div className="grid items-center gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:gap-12">
+  <div className="relative mx-auto flex min-h-full w-full max-w-6xl flex-col">
+    <div className="grid flex-1 items-center gap-7 lg:grid-cols-[1.08fr_0.92fr] lg:gap-8">
       {/* HERO TEXT */}
       <div className="text-center lg:text-left">
-        <div className="mb-4 inline-flex rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-xs font-bold text-emerald-300 sm:text-sm">
+        <div className="mb-3 inline-flex rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-xs font-bold text-emerald-300 sm:text-sm">
           Coding quests for kids ages 8–12
         </div>
 
-        <h1 className="mx-auto max-w-2xl text-4xl font-extrabold leading-[1.05] sm:text-5xl lg:mx-0 lg:text-[3.6rem] xl:text-[4.2rem]">
+        <h1 className="mx-auto max-w-2xl text-4xl font-extrabold leading-[1.04] sm:text-5xl lg:mx-0 lg:text-[3.35rem] xl:text-[3.8rem]">
           Kids learn coding through short, game-like quests.
         </h1>
 
-        <p className="mx-auto mt-5 max-w-xl text-base leading-7 text-slate-300 sm:text-lg lg:mx-0">
+        <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-slate-300 sm:text-lg lg:mx-0">
           Help Robo solve puzzles while learning real coding skills like
           commands, loops, conditions, and variables.
         </p>
 
-        <div className="mt-6 grid gap-3 sm:flex sm:justify-center lg:justify-start">
+        <div className="mt-5 grid gap-3 sm:flex sm:justify-center lg:justify-start">
           <Link
             href="/learn"
-            className="rounded-2xl bg-emerald-400 px-7 py-4 text-center font-bold text-slate-950 transition hover:bg-emerald-300"
+            className="rounded-2xl bg-emerald-400 px-7 py-3.5 text-center font-bold text-slate-950 transition hover:bg-emerald-300"
           >
             Try Free Demo
           </Link>
 
           <Link
             href="/signup"
-            className="rounded-2xl border border-white/20 px-7 py-4 text-center font-bold text-white transition hover:bg-white/10"
+            className="rounded-2xl border border-white/20 px-7 py-3.5 text-center font-bold text-white transition hover:bg-white/10"
           >
             Create Free Account
           </Link>
         </div>
 
-        <div className="mt-5 flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm font-semibold text-slate-400 lg:justify-start">
+        <div className="mt-4 flex flex-wrap justify-center gap-x-5 gap-y-2 text-xs font-semibold text-slate-400 sm:text-sm lg:justify-start">
           <span>✓ No coding experience needed</span>
           <span>✓ Free Robo Lab world</span>
           <span>✓ Short beginner lessons</span>
@@ -53,78 +53,76 @@ export default function Home() {
       </div>
 
       {/* ROBO */}
-      <div className="relative mx-auto flex w-full max-w-md items-center justify-center lg:-translate-y-4 lg:max-w-lg">
-        <div className="absolute h-64 w-64 rounded-full bg-emerald-400/20 blur-3xl sm:h-80 sm:w-80 lg:h-96 lg:w-96" />
+      <div className="relative mx-auto flex w-full max-w-md items-center justify-center lg:-translate-y-2 lg:max-w-lg">
+        <div className="absolute h-60 w-60 rounded-full bg-emerald-400/20 blur-3xl sm:h-72 sm:w-72 lg:h-80 lg:w-80" />
 
-        <div className="relative">
+        <div className="relative flex flex-col items-center">
           <Image
             src="/mascot/Robo.png"
             alt="Robo, the LooplyLand coding guide"
             width={650}
             height={650}
             priority
-            className="h-auto w-[230px] object-contain drop-shadow-2xl sm:w-[300px] lg:w-[410px]"
+            className="h-auto w-[210px] object-contain drop-shadow-2xl sm:w-[270px] lg:w-[340px] xl:w-[365px]"
           />
 
-          <div className="absolute bottom-4 left-1/2 w-[230px] -translate-x-1/2 rounded-2xl border border-emerald-400/20 bg-slate-950/95 px-4 py-3 text-center shadow-2xl backdrop-blur sm:bottom-7 sm:w-[260px] lg:bottom-8">
-            <p className="font-extrabold text-emerald-300">
+          <div className="-mt-2 w-[220px] rounded-2xl border border-emerald-400/20 bg-slate-950/95 px-4 py-2.5 text-center shadow-xl backdrop-blur sm:w-[245px] lg:-mt-4">
+            <p className="text-sm font-extrabold text-emerald-300">
               Hi, I&apos;m Robo! 👋
             </p>
 
-            <p className="mt-1 text-xs leading-5 text-slate-300 sm:text-sm">
+            <p className="mt-0.5 text-xs leading-5 text-slate-300">
               Let&apos;s solve your first coding quest.
             </p>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-{/* QUICK STEPS */}
-<section className="border-y border-white/10 bg-[#0d1523] px-5 py-8 sm:px-6">
-  <div className="mx-auto grid max-w-6xl gap-3 sm:grid-cols-3">
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-      <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-400 font-extrabold text-slate-950">
-          1
-        </div>
+    {/* QUICK STEPS */}
+    <div className="mt-7 grid gap-3 border-t border-white/10 pt-5 sm:grid-cols-3 lg:mt-2">
+      <div className="rounded-2xl border border-white/10 bg-white/5 p-3.5">
+        <div className="flex items-center gap-3">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-400 font-extrabold text-slate-950">
+            1
+          </div>
 
-        <div>
-          <p className="font-extrabold">Pick a quest</p>
-          <p className="mt-1 text-sm text-slate-400">
-            Start inside Robo Lab.
-          </p>
+          <div>
+            <p className="font-extrabold">Pick a quest</p>
+            <p className="mt-0.5 text-sm text-slate-400">
+              Start inside Robo Lab.
+            </p>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-      <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-400 font-extrabold text-slate-950">
-          2
-        </div>
+      <div className="rounded-2xl border border-white/10 bg-white/5 p-3.5">
+        <div className="flex items-center gap-3">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-400 font-extrabold text-slate-950">
+            2
+          </div>
 
-        <div>
-          <p className="font-extrabold">Solve puzzles</p>
-          <p className="mt-1 text-sm text-slate-400">
-            Answer coding questions.
-          </p>
+          <div>
+            <p className="font-extrabold">Solve puzzles</p>
+            <p className="mt-0.5 text-sm text-slate-400">
+              Answer coding questions.
+            </p>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-      <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-400 font-extrabold text-slate-950">
-          3
-        </div>
+      <div className="rounded-2xl border border-white/10 bg-white/5 p-3.5">
+        <div className="flex items-center gap-3">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-400 font-extrabold text-slate-950">
+            3
+          </div>
 
-        <div>
-          <p className="font-extrabold">Earn XP</p>
-          <p className="mt-1 text-sm text-slate-400">
-            Build progress and streaks.
-          </p>
+          <div>
+            <p className="font-extrabold">Earn XP</p>
+            <p className="mt-0.5 text-sm text-slate-400">
+              Build progress and streaks.
+            </p>
+          </div>
         </div>
       </div>
     </div>
