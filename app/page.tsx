@@ -9,118 +9,119 @@ export default function Home() {
       <Navbar />
 
       {/* HERO */}
-      <section className="relative overflow-hidden px-6 pb-16 pt-28 md:pb-20 md:pt-36">
-        <div className="absolute left-1/2 top-24 h-72 w-72 -translate-x-1/2 rounded-full bg-emerald-400/20 blur-3xl" />
+      <section className="relative overflow-hidden px-5 pb-12 pt-24 sm:px-6 lg:min-h-[calc(100svh-80px)] lg:pb-10 lg:pt-28">
+        <div className="absolute left-1/2 top-20 h-72 w-72 -translate-x-1/2 rounded-full bg-emerald-400/15 blur-3xl lg:left-[68%] lg:top-32 lg:h-96 lg:w-96" />
 
         <div className="relative mx-auto max-w-6xl">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
+          <div className="grid items-center gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:gap-14">
             {/* HERO TEXT */}
             <div className="text-center lg:text-left">
-              <div className="mb-5 inline-flex rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-sm font-bold text-emerald-300 md:mb-6">
-                Coding game for kids ages 8–12
+              <div className="mb-4 inline-flex rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-xs font-bold text-emerald-300 sm:text-sm">
+                Coding quests for kids ages 8–12
               </div>
 
-              <h1 className="text-4xl font-extrabold leading-tight sm:text-5xl md:text-7xl">
-                Kids learn coding by completing short quests.
+              <h1 className="mx-auto max-w-2xl text-4xl font-extrabold leading-[1.06] sm:text-5xl lg:mx-0 lg:text-6xl xl:text-7xl">
+                Kids learn coding through short, game-like quests.
               </h1>
 
-              <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-300 md:mt-6 md:text-xl md:leading-8 lg:mx-0">
-                LooplyLand helps kids practice commands, loops, conditions, and
-                variables through game-like lessons, XP, streaks, and boss
-                fights.
+              <p className="mx-auto mt-5 max-w-xl text-base leading-7 text-slate-300 sm:text-lg lg:mx-0">
+                Kids practice commands, loops, conditions, and variables while
+                helping Robo solve puzzles, earn XP, and complete adventures.
               </p>
 
-              <div className="mt-7 grid gap-3 sm:flex sm:justify-center lg:justify-start">
+              <div className="mt-6 grid gap-3 sm:flex sm:justify-center lg:justify-start">
                 <Link
                   href="/learn"
-                  className="rounded-2xl bg-emerald-400 px-6 py-4 text-center text-base font-bold text-slate-950 transition hover:bg-emerald-300 md:px-8 md:text-lg"
+                  className="rounded-2xl bg-emerald-400 px-7 py-4 text-center font-bold text-slate-950 transition hover:bg-emerald-300"
                 >
                   Try Free Demo
                 </Link>
 
                 <Link
                   href="/signup"
-                  className="rounded-2xl border border-white/20 px-6 py-4 text-center text-base font-bold text-white transition hover:bg-white/10 md:px-8 md:text-lg"
+                  className="rounded-2xl border border-white/20 px-7 py-4 text-center font-bold text-white transition hover:bg-white/10"
                 >
                   Create Free Account
                 </Link>
               </div>
 
-              <div className="mt-6 grid gap-3 text-left sm:grid-cols-3">
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                  <p className="font-bold text-emerald-300">1. Pick a quest</p>
-                  <p className="mt-1 text-sm leading-6 text-slate-400">
-                    Start inside Robo Lab.
-                  </p>
-                </div>
+              <div className="mt-5 flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm font-semibold text-slate-400 lg:justify-start">
+                <span>✓ No coding experience needed</span>
+                <span>✓ Free Robo Lab world</span>
+                <span>✓ Short beginner lessons</span>
+              </div>
+            </div>
 
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                  <p className="font-bold text-emerald-300">
-                    2. Solve puzzles
-                  </p>
-                  <p className="mt-1 text-sm leading-6 text-slate-400">
-                    Answer coding questions.
-                  </p>
-                </div>
+            {/* ROBO */}
+            <div className="relative mx-auto flex w-full max-w-md items-center justify-center lg:max-w-lg">
+              <div className="absolute h-64 w-64 rounded-full bg-emerald-400/20 blur-3xl sm:h-80 sm:w-80" />
 
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                  <p className="font-bold text-emerald-300">3. Earn XP</p>
-                  <p className="mt-1 text-sm leading-6 text-slate-400">
-                    Build progress and streaks.
+              <div className="relative flex flex-col items-center">
+                <Image
+                  src="/mascot/Robo.png"
+                  alt="Robo, the LooplyLand coding guide"
+                  width={650}
+                  height={650}
+                  priority
+                  className="h-auto w-[230px] object-contain drop-shadow-2xl sm:w-[300px] lg:w-[390px]"
+                />
+
+                <div className="-mt-3 w-[250px] rounded-3xl border border-emerald-400/20 bg-slate-950/95 px-5 py-4 text-center shadow-2xl backdrop-blur sm:w-[290px] lg:-mt-6">
+                  <p className="font-extrabold text-emerald-300">
+                    Hi, I&apos;m Robo! 👋
+                  </p>
+
+                  <p className="mt-1 text-sm leading-6 text-slate-300">
+                    Let&apos;s solve your first coding quest.
                   </p>
                 </div>
               </div>
+            </div>
+          </div>
 
-              <p className="mt-5 text-sm font-semibold text-slate-400">
-                No coding experience needed. Starts with Robo Lab.
-              </p>
+          {/* QUICK STEPS */}
+          <div className="mt-10 grid gap-3 sm:grid-cols-3 lg:mt-8">
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-400 font-extrabold text-slate-950">
+                  1
+                </div>
+
+                <div>
+                  <p className="font-extrabold">Pick a quest</p>
+                  <p className="mt-1 text-sm text-slate-400">
+                    Start inside Robo Lab.
+                  </p>
+                </div>
+              </div>
             </div>
 
-            {/* ROBO HERO CARD */}
-            <div className="relative mx-auto w-full max-w-lg">
-              <div className="absolute inset-8 rounded-full bg-emerald-400/20 blur-3xl" />
-
-              <div className="relative overflow-hidden rounded-[2rem] border border-emerald-400/20 bg-gradient-to-b from-emerald-400/10 to-white/5 p-6 shadow-2xl md:p-8">
-                <div className="absolute right-5 top-5 rounded-full border border-emerald-400/30 bg-[#101827]/80 px-4 py-2 text-xs font-extrabold text-emerald-300 backdrop-blur">
-                  YOUR CODING GUIDE
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-400 font-extrabold text-slate-950">
+                  2
                 </div>
 
-                <div className="flex min-h-[360px] items-end justify-center md:min-h-[430px]">
-                  <Image
-                    src="/mascot/Robo.png"
-                    alt="Robo, the LooplyLand coding adventure guide"
-                    width={700}
-                    height={700}
-                    priority
-                    className="h-auto w-full max-w-[340px] object-contain drop-shadow-2xl md:max-w-[420px]"
-                  />
-                </div>
-
-                <div className="relative -mt-5 rounded-3xl border border-white/10 bg-slate-950/90 p-5 text-center backdrop-blur md:p-6">
-                  <p className="font-bold text-emerald-300">Meet Robo</p>
-
-                  <h2 className="mt-2 text-2xl font-extrabold md:text-3xl">
-                    Your coding adventure buddy.
-                  </h2>
-
-                  <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-slate-300 md:text-base">
-                    Robo guides kids through quests, coding puzzles, rewards,
-                    and new worlds.
+                <div>
+                  <p className="font-extrabold">Solve puzzles</p>
+                  <p className="mt-1 text-sm text-slate-400">
+                    Answer coding questions.
                   </p>
+                </div>
+              </div>
+            </div>
 
-                  <div className="mt-5 grid grid-cols-3 gap-2 text-sm font-bold">
-                    <div className="rounded-2xl bg-white/5 px-3 py-3">
-                      🧩 Puzzles
-                    </div>
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-400 font-extrabold text-slate-950">
+                  3
+                </div>
 
-                    <div className="rounded-2xl bg-white/5 px-3 py-3">
-                      ⭐ XP
-                    </div>
-
-                    <div className="rounded-2xl bg-white/5 px-3 py-3">
-                      🏆 Rewards
-                    </div>
-                  </div>
+                <div>
+                  <p className="font-extrabold">Earn XP</p>
+                  <p className="mt-1 text-sm text-slate-400">
+                    Build progress and streaks.
+                  </p>
                 </div>
               </div>
             </div>
@@ -203,14 +204,14 @@ export default function Home() {
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href="/parents"
-                  className="rounded-2xl border border-white/20 px-6 py-4 text-center text-base font-bold text-white transition hover:bg-white/10 md:px-8 md:text-lg"
+                  className="rounded-2xl border border-white/20 px-6 py-4 text-center font-bold text-white transition hover:bg-white/10"
                 >
                   Learn More for Parents
                 </Link>
 
                 <Link
                   href="/learn"
-                  className="rounded-2xl bg-emerald-400 px-6 py-4 text-center text-base font-bold text-slate-950 transition hover:bg-emerald-300 md:px-8 md:text-lg"
+                  className="rounded-2xl bg-emerald-400 px-6 py-4 text-center font-bold text-slate-950 transition hover:bg-emerald-300"
                 >
                   Try Free Demo
                 </Link>
@@ -269,14 +270,14 @@ export default function Home() {
       {/* FINAL CTA */}
       <section className="bg-slate-950 px-6 py-20 md:py-24">
         <div className="mx-auto max-w-4xl overflow-hidden rounded-[2rem] border border-emerald-400/20 bg-emerald-400/10 p-8 md:p-10">
-          <div className="grid items-center gap-8 md:grid-cols-[180px_1fr]">
+          <div className="grid items-center gap-8 md:grid-cols-[150px_1fr]">
             <div className="mx-auto">
               <Image
                 src="/mascot/Robo.png"
-                alt="Robo celebrating a new coding adventure"
-                width={250}
-                height={250}
-                className="h-auto w-40 object-contain drop-shadow-xl md:w-44"
+                alt="Robo inviting kids to start coding"
+                width={220}
+                height={220}
+                className="h-auto w-36 object-contain drop-shadow-xl md:w-40"
               />
             </div>
 
@@ -292,7 +293,7 @@ export default function Home() {
                 first coding adventure.
               </p>
 
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row md:justify-start">
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href="/learn"
                   className="rounded-2xl bg-emerald-400 px-6 py-4 text-center font-bold text-slate-950 transition hover:bg-emerald-300"
