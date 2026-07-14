@@ -175,15 +175,10 @@ export default function LearnPage() {
   const [streak, setStreak] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [pageEntered, setPageEntered] = useState(false);
 
   useEffect(() => {
   loadProgress();
-
-  const timer = window.setTimeout(() => {
-    setPageEntered(true);
-  }, 120);
-
-  return () => window.clearTimeout(timer);
 }, []);
 
   async function loadProgress() {
@@ -201,12 +196,18 @@ export default function LearnPage() {
       const savedXp = Number(localStorage.getItem("xp") || "0");
       const savedStreak = Number(localStorage.getItem("streak") || "0");
 
-      setIsLoggedIn(false);
-      setCompletedLessons(savedLessons);
-      setXp(savedXp);
-      setStreak(savedStreak);
-      setLoading(false);
-      return;
+     setIsLoggedIn(false);
+setCompletedLessons(savedLessons);
+setXp(savedXp);
+setStreak(savedStreak);
+setLoading(false);
+
+window.setTimeout(() => {
+  setPageEntered(true);
+}, 100);
+
+return;
+
     }
 
     setIsLoggedIn(true);
@@ -222,10 +223,15 @@ export default function LearnPage() {
       .select("lesson_id")
       .eq("user_id", user.id);
 
-    setXp(profile?.xp || 0);
-    setStreak(profile?.streak || 0);
-    setCompletedLessons(progress?.map((item) => item.lesson_id) || []);
-    setLoading(false);
+   setXp(profile?.xp || 0);
+setStreak(profile?.streak || 0);
+setCompletedLessons(progress?.map((item) => item.lesson_id) || []);
+setLoading(false);
+
+window.setTimeout(() => {
+  setPageEntered(true);
+}, 100);
+
   }
 
   async function resetProgress() {
@@ -265,14 +271,16 @@ export default function LearnPage() {
     completedLessons.includes(quest.id)
   ).length;
 
-  const [pageEntered, setPageEntered] = useState(false);
+ 
   const progressPercent = (completedCount / quests.length) * 100;
   const roundedProgressPercent = Math.round(progressPercent);
   const worldCompleted = completedCount === quests.length;
   const currentQuestId =
   quests.find((quest) => !completedLessons.includes(quest.id))?.id ??
   quests.length;
-  const gems = completedCount * 10;
+  const gems = quests
+  .filter((quest) => completedLessons.includes(quest.id))
+  .reduce((total, quest) => total + quest.gemReward, 0);
   const pathFillPercent = worldCompleted
   ? 100
   : questPathPositions[currentQuestId - 1].top;
@@ -683,7 +691,7 @@ export default function LearnPage() {
 )}
 
       <div className="relative grid gap-10 sm:gap-12">
-        {quests.map((quest, index) => {
+        {quests.map((quest) => {
           const isCompleted = completedLessons.includes(quest.id);
 
           const isUnlocked =
@@ -872,7 +880,57 @@ export default function LearnPage() {
           return (
             <div key={quest.id} className="relative min-h-44">
        
+              {/* MOBILE CURRENT QUEST GUIDE */}
+{isCurrent && (
+  <div className="mb-4 flex items-center justify-center gap-2 sm:hidden">
+    <div className="relative animate-robo-float">
+      <div
+        className="absolute inset-2 rounded-full blur-xl"
+        style={{
+          backgroundColor: `rgba(${theme.glowColor}, 0.3)`,
+        }}
+      />
 
+      <Image
+        src="/mascot/Robo.png"
+        alt="Robo showing the current quest"
+        width={90}
+        height={90}
+        className="relative h-16 w-16 object-contain drop-shadow-2xl"
+      />
+    </div>
+
+    <div className="relative">
+      <div
+        className="absolute inset-0 animate-go-halo rounded-full"
+        style={{
+          backgroundColor: `rgba(${theme.glowColor}, 0.28)`,
+        }}
+      />
+
+      <div
+        className="relative flex h-12 w-12 animate-go-breathe items-center justify-center rounded-full border-[3px] font-black text-slate-950"
+        style={{
+          backgroundColor: theme.goColor,
+          borderColor: theme.goBorderColor,
+          boxShadow: `0 0 24px rgba(${theme.glowColor}, 0.75)`,
+        }}
+      >
+        <span className="text-xs">GO!</span>
+      </div>
+    </div>
+
+    <div className="ml-1">
+      <p className={`text-xs font-extrabold ${theme.text}`}>
+        Current quest
+      </p>
+
+      <p className="mt-0.5 text-[11px] text-slate-400">
+        Tap the card to continue
+      </p>
+    </div>
+  </div>
+)}
 
               {isUnlocked ? (
                 <Link href={`/lesson/${quest.id}`}>{questCard}</Link>
@@ -898,7 +956,7 @@ export default function LearnPage() {
       </h2>
 
      <div className="mt-5 grid gap-4">
-  {premiumWorlds.map((world) => (
+  {premiumWorlds.slice(1).map((world) => (
     <Link
       key={world.title}
       href="/upgrade"
@@ -934,7 +992,7 @@ export default function LearnPage() {
 </div>
      
       {/* WORLD 2 PREVIEW */}
-      
+
     <div className="mt-5 overflow-hidden rounded-2xl border border-orange-400/25 bg-gradient-to-br from-orange-400/10 via-slate-950/70 to-slate-950 p-4">
   <div className="flex items-center gap-3">
     <div className="relative h-16 w-20 shrink-0 overflow-hidden rounded-xl border border-orange-300/20">
@@ -980,7 +1038,7 @@ export default function LearnPage() {
   </div>
 
   <div className="mt-3 flex items-center justify-center gap-2 text-xs font-bold text-slate-400">
-    <span>{worldCompleted ? "Unlocked" : "Finish Robo Lab"}</span>
+   <span>{worldCompleted ? "Coming soon" : "Finish Robo Lab"}</span>
     <span>→</span>
     <span className={worldCompleted ? "text-orange-300" : "text-slate-600"}>
       Debug Desert
