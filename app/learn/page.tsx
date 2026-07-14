@@ -357,7 +357,7 @@ export default function LearnPage() {
             alt="XP"
             width={60}
             height={60}
-            
+            className="h-9 w-9 object-contain sm:h-11 sm:w-11"
           />
 
           <div>
