@@ -24,3 +24,140 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@keyframes robo-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+
+  50% {
+    transform: translateY(-7px) rotate(2deg);
+  }
+}
+
+@keyframes go-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes go-halo {
+  0% {
+    transform: scale(0.75);
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: scale(1.65);
+    opacity: 0;
+  }
+}
+
+@keyframes quest-sparkle {
+  0% {
+    transform: translateY(5px) scale(0.6);
+    opacity: 0;
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-28px) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes current-card-glow {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+
+  50% {
+    opacity: 0.45;
+  }
+}
+
+.animate-robo-float {
+  animation: robo-float 2.8s ease-in-out infinite;
+}
+
+.animate-go-breathe {
+  animation: go-breathe 1.8s ease-in-out infinite;
+}
+
+.animate-go-halo {
+  animation: go-halo 1.8s ease-out infinite;
+}
+
+.animate-quest-sparkle {
+  animation: quest-sparkle 2.2s ease-in-out infinite;
+}
+
+.animate-current-card-glow {
+  animation: current-card-glow 2.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-robo-float,
+  .animate-go-breathe,
+  .animate-go-halo,
+  .animate-quest-sparkle,
+  .animate-current-card-glow {
+    animation: none;
+  }
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-30px) rotate(0deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(760px) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+@keyframes robo-celebrate {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+
+  30% {
+    transform: translateY(-12px) rotate(3deg);
+  }
+
+  60% {
+    transform: translateY(-5px) rotate(-1deg);
+  }
+}
+
+.animate-confetti {
+  animation: confetti-fall 3.4s linear infinite;
+}
+
+.animate-robo-celebrate {
+  animation: robo-celebrate 2.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-confetti,
+  .animate-robo-celebrate {
+    animation: none;
+  }
+}

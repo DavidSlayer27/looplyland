@@ -13,31 +13,46 @@ const quests = [
     id: 1,
     title: "Move Robo",
     concept: "Commands",
-    emoji: "🤖",
+    image: "/quests/move-robo.png",
+    xpReward: 25,
+    gemReward: 10,
+    accent: "emerald",
   },
   {
     id: 2,
     title: "Loop Forest",
     concept: "Loops",
-    emoji: "🌲",
+    image: "/quests/loop-forest.png",
+    xpReward: 30,
+    gemReward: 15,
+    accent: "emerald",
   },
   {
     id: 3,
     title: "Bug Gate",
     concept: "Conditions",
-    emoji: "🐞",
+    image: "/quests/bug-gate.png",
+    xpReward: 35,
+    gemReward: 20,
+    accent: "purple",
   },
   {
     id: 4,
     title: "Energy Crystals",
     concept: "Variables",
-    emoji: "💎",
+    image: "/quests/energy-crystals.png",
+    xpReward: 40,
+    gemReward: 20,
+    accent: "blue",
   },
   {
     id: 5,
     title: "Boss Fight",
     concept: "Final Challenge",
-    emoji: "👾",
+    image: "/quests/boss-fight.png",
+    xpReward: 100,
+    gemReward: 50,
+    accent: "orange",
   },
 ];
 
@@ -45,24 +60,114 @@ const premiumWorlds = [
   {
     title: "Debug Desert",
     concept: "Debugging",
-    emoji: "🏜️",
+    image: "/premium/debug-desert1.png",
     description: "Find bugs, fix broken code, and help Robo escape the desert.",
   },
   {
     title: "Function Tower",
     concept: "Functions",
-    emoji: "🗼",
+    image: "/premium/function-tower1.png",
     description:
       "Learn how to reuse code and build smarter programs step by step.",
   },
   {
     title: "Game Logic Island",
     concept: "Game Logic",
-    emoji: "🏝️",
+    image: "/premium/game-logic-island1.png",
     description:
       "Use conditions, variables, and loops to understand how games work.",
   },
 ];
+
+const questPathPositions = [
+  { top: 9, left: 4 },
+  { top: 29, left: 4 },
+  { top: 49, left: 4 },
+  { top: 69, left: 4 },
+  { top: 89, left: 4 },
+];
+
+function getQuestTheme(questId: number) {
+  switch (questId) {
+    case 1:
+      return {
+        text: "text-emerald-200",
+        badge: "bg-emerald-300 text-slate-950",
+        border: "border-emerald-200",
+        glow: "shadow-[0_0_30px_rgba(110,231,183,0.75)]",
+        goBackground: "bg-emerald-300",
+        goBorder: "border-emerald-100",
+        goColor: "#6ee7b7",
+        goBorderColor: "#d1fae5",
+        glowColor: "110, 231, 183",
+      };
+
+    case 2:
+      return {
+        text: "text-green-300",
+        badge: "bg-green-400 text-slate-950",
+        border: "border-green-300",
+        glow: "shadow-[0_0_30px_rgba(74,222,128,0.75)]",
+        goBackground: "bg-green-400",
+        goBorder: "border-green-200",
+        goColor: "#4ade80",
+        goBorderColor: "#bbf7d0",
+        glowColor: "74, 222, 128",
+      };
+
+    case 3:
+      return {
+        text: "text-purple-300",
+        badge: "bg-purple-400 text-slate-950",
+        border: "border-purple-300",
+        glow: "shadow-[0_0_30px_rgba(192,132,252,0.75)]",
+        goBackground: "bg-purple-400",
+        goBorder: "border-purple-200",
+        goColor: "#c084fc",
+        goBorderColor: "#e9d5ff",
+        glowColor: "192, 132, 252",
+      };
+
+    case 4:
+      return {
+        text: "text-blue-300",
+        badge: "bg-blue-400 text-slate-950",
+        border: "border-blue-300",
+        glow: "shadow-[0_0_30px_rgba(96,165,250,0.75)]",
+        goBackground: "bg-blue-400",
+        goBorder: "border-blue-200",
+        goColor: "#60a5fa",
+        goBorderColor: "#bfdbfe",
+        glowColor: "96, 165, 250",
+      };
+
+    case 5:
+      return {
+        text: "text-orange-300",
+        badge: "bg-orange-400 text-slate-950",
+        border: "border-orange-300",
+        glow: "shadow-[0_0_30px_rgba(251,146,60,0.75)]",
+        goBackground: "bg-orange-400",
+        goBorder: "border-orange-200",
+        goColor: "#fb923c",
+        goBorderColor: "#fed7aa",
+        glowColor: "251, 146, 60",
+      };
+
+    default:
+      return {
+        text: "text-emerald-300",
+        badge: "bg-emerald-400 text-slate-950",
+        border: "border-emerald-300",
+        glow: "shadow-[0_0_30px_rgba(52,211,153,0.75)]",
+        goBackground: "bg-emerald-400",
+        goBorder: "border-emerald-200",
+        goColor: "#34d399",
+        goBorderColor: "#a7f3d0",
+        glowColor: "52, 211, 153",
+      };
+  }
+}
 
 export default function LearnPage() {
   const [completedLessons, setCompletedLessons] = useState<number[]>([]);
@@ -160,6 +265,11 @@ export default function LearnPage() {
   const currentQuestId =
   quests.find((quest) => !completedLessons.includes(quest.id))?.id ??
   quests.length;
+  const gems = completedCount * 10;
+  const pathFillPercent = worldCompleted
+  ? 100
+  : questPathPositions[currentQuestId - 1].top;
+  const currentTheme = getQuestTheme(currentQuestId);
 
   if (loading) {
     return (
@@ -181,456 +291,776 @@ export default function LearnPage() {
   <main className="min-h-screen bg-[#101827] text-white">
     <Navbar />
 
-    <section className="relative overflow-hidden px-5 pb-24 pt-24 sm:px-6 md:pb-28 md:pt-28">
-      <div className="absolute left-1/2 top-24 h-80 w-80 -translate-x-1/2 rounded-full bg-emerald-400/10 blur-3xl" />
+   <section className="relative overflow-hidden px-3 pb-20 pt-20 sm:px-6 sm:pt-24 md:pb-28 md:pt-28">
+  <div className="absolute inset-0">
+    <Image
+      src="/worlds/robo-lab.png"
+      alt=""
+      fill
+      priority
+      className="object-cover object-top"
+    />
+
+   <div className="absolute inset-0 bg-[#08111f]/40" />
+<div className="absolute inset-0 bg-gradient-to-b from-[#08111f]/10 via-[#08111f]/25 to-[#101827]/70" />
+
+  </div>
+  
+     
 
       <div className="relative mx-auto max-w-6xl">
-        {/* TOP AREA */}
-        <div className="grid gap-8 lg:grid-cols-[1fr_320px] lg:items-center">
+       {/* GAME HUB */}
+<div className="grid gap-8 sm:gap-10 xl:grid-cols-[280px_minmax(0,1fr)_280px] xl:items-start">
+  {/* LEFT HUD */}
+  <aside className="xl:sticky xl:top-28">
+    <div className="rounded-[1.5rem] border border-white/10 bg-slate-950/75 p-4 shadow-2xl backdrop-blur-xl sm:rounded-[2rem] sm:p-5">
+      <div className="inline-flex rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-sm font-bold text-emerald-300">
+        World 1 · Robo Lab
+      </div>
+
+     <h1 className="mt-4 text-3xl font-extrabold leading-tight sm:text-4xl">
+        Robo Lab Journey
+      </h1>
+
+      <p className="mt-3 leading-7 text-slate-300">
+        Complete every quest to reach the Boss Fight.
+      </p>
+
+      {!isLoggedIn && (
+        <div className="mt-5 rounded-2xl border border-yellow-400/30 bg-yellow-400/10 px-4 py-3 text-sm font-bold leading-6 text-yellow-200">
+          Demo progress is saved only on this device.
+        </div>
+      )}
+
+      {/* STATS */}
+      <div className="mt-5 grid grid-cols-3 gap-2 xl:mt-6 xl:grid-cols-1">
+        <div className="flex flex-col items-center gap-2 rounded-2xl border border-emerald-400/20 bg-white/[0.04] p-3 text-center xl:flex-row xl:text-left">
+          <Image
+            src="/icons/gem1.png"
+            alt="Gems"
+            width={60}
+            height={60}
+            className="h-9 w-9 object-contain sm:h-11 sm:w-11"
+          />
+
           <div>
-            <div className="inline-flex rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-sm font-bold text-emerald-300">
-              World 1 · Robo Lab
-            </div>
-
-            <h1 className="mt-4 text-4xl font-extrabold leading-tight sm:text-5xl">
-              Begin your coding adventure.
-            </h1>
-
-            <p className="mt-4 max-w-2xl text-base leading-7 text-slate-300 sm:text-lg">
-              Complete five short quests with Robo and learn commands, loops,
-              conditions, variables, and beginner problem solving.
+            <p className="text-lg font-extrabold">{gems}</p>
+            <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+              Gems
             </p>
-
-            {!isLoggedIn && (
-              <div className="mt-5 max-w-2xl rounded-2xl border border-yellow-400/30 bg-yellow-400/10 px-4 py-3 text-sm font-bold leading-6 text-yellow-200">
-                Demo mode: progress is saved only on this device. Create a free
-                account to keep it permanently.
-              </div>
-            )}
-
-            <div className="mt-6 flex flex-wrap gap-3">
-              <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 font-bold">
-                🔥 {streak} day streak
-              </div>
-
-              <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 font-bold">
-                ⭐ {xp} XP
-              </div>
-
-              <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 font-bold">
-                ✅ {completedCount}/{quests.length} quests
-              </div>
-            </div>
-          </div>
-
-          {/* ROBO GUIDE */}
-          <div className="relative mx-auto flex max-w-xs flex-col items-center">
-            <div className="absolute h-56 w-56 animate-pulse rounded-full bg-emerald-400/15 blur-2xl [animation-duration:4s]" />
-
-            <Image
-              src="/mascot/Robo.png"
-              alt="Robo guiding the player through Robo Lab"
-              width={420}
-              height={420}
-              priority
-            className="relative h-auto w-52 object-contain drop-shadow-2xl transition duration-500 hover:-translate-y-2 hover:scale-[1.03] sm:w-60"
-            />
-
-            <div className="-mt-3 w-full rounded-2xl border border-emerald-400/20 bg-slate-950/90 px-5 py-4 text-center shadow-xl">
-              <p className="font-extrabold text-emerald-300">
-                Ready for your first quest?
-              </p>
-
-              <p className="mt-1 text-sm leading-6 text-slate-300">
-                Start with Move Robo and unlock the path step by step.
-              </p>
-            </div>
           </div>
         </div>
 
-        {/* PROGRESS */}
-        <section className="mt-10 rounded-[2rem] border border-white/10 bg-white/[0.04] p-5 sm:p-6">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <p className="text-sm font-bold uppercase tracking-[0.18em] text-emerald-300">
-                World progress
-              </p>
+        <div className="flex flex-col items-center gap-2 rounded-2xl border border-yellow-400/20 bg-white/[0.04] p-3 text-center xl:flex-row xl:text-left">
+          <Image
+            src="/icons/xp2.png"
+            alt="XP"
+            width={60}
+            height={60}
+            
+          />
 
-              <h2 className="mt-2 text-2xl font-extrabold">
-                Robo Lab
-              </h2>
-            </div>
-
-            <div className="rounded-2xl bg-emerald-400/10 px-5 py-3 text-center font-extrabold text-emerald-300">
-              {roundedProgressPercent}% complete
-            </div>
-          </div>
-
-          <div className="mt-5 h-4 overflow-hidden rounded-full bg-white/10">
-            <div
-              className="h-full rounded-full bg-emerald-400 transition-all duration-500"
-              style={{ width: `${progressPercent}%` }}
-            />
-          </div>
-
-          <div className="mt-4 flex items-center justify-between text-sm font-semibold text-slate-400">
-            <span>{completedCount} completed</span>
-            <span>{quests.length - completedCount} remaining</span>
-          </div>
-        </section>
-
-        {/* QUEST TOWER */}
-<section className="mt-14">
-  <div className="text-center">
-    <p className="font-bold text-emerald-300">
-      Robo Lab Adventure
-    </p>
-
-    <h2 className="mt-2 text-4xl font-extrabold">
-      Follow Robo's Path
-    </h2>
-
-    <p className="mx-auto mt-3 max-w-xl text-slate-400">
-      Complete every quest to reach the Boss Fight.
-    </p>
-  </div>
-
-  <div className="relative mx-auto mt-14 max-w-md">
-
-    {/* ROAD */}
-    <div className="absolute left-1/2 top-10 bottom-10 w-3 -translate-x-1/2 rounded-full bg-white/10"></div>
-
-   <div className="relative flex flex-col gap-8">
-  {quests.map((quest) => {
-    const isCompleted = completedLessons.includes(quest.id);
-
-    const isUnlocked =
-      quest.id === 1 || completedLessons.includes(quest.id - 1);
-
-    const isCurrent =
-      quest.id === currentQuestId && !worldCompleted;
-
-    const isBoss = quest.id === quests.length;
-
-    return (
-      <div
-        key={quest.id}
-        className="relative z-10 flex min-h-40 items-center justify-center"
-      >
-        {/* ROBO + GO MARKER */}
-        {isCurrent && (
-          <div className="absolute -left-2 top-1/2 hidden -translate-x-full -translate-y-1/2 items-center gap-2 sm:flex">
-            <div className="relative">
-              <div className="absolute inset-0 animate-pulse rounded-full bg-emerald-400/20 blur-xl" />
-
-              <Image
-                src="/mascot/Robo.png"
-                alt="Robo showing the current quest"
-                width={110}
-                height={110}
-                className="relative h-24 w-24 object-contain drop-shadow-2xl"
-              />
-            </div>
-
-            <div className="relative flex h-12 w-12 items-center justify-center rounded-full bg-emerald-400 font-black text-slate-950 shadow-[0_0_30px_rgba(52,211,153,0.55)]">
-              <div className="absolute inset-0 animate-ping rounded-full bg-emerald-400/30" />
-              <span className="relative text-xs">GO</span>
-            </div>
-          </div>
-        )}
-
-        {/* ROAD NODE */}
-        <div
-          className={`absolute left-1/2 top-1/2 z-0 h-12 w-12 -translate-x-1/2 -translate-y-1/2 rounded-full border-[8px] border-[#101827] ${
-            isCompleted
-              ? "bg-emerald-400"
-              : isCurrent
-              ? "animate-pulse bg-emerald-300 shadow-[0_0_30px_rgba(52,211,153,0.75)]"
-              : "bg-slate-700"
-          }`}
-        />
-
-        {isUnlocked ? (
-          <Link
-            href={`/lesson/${quest.id}`}
-            className={`group relative ml-24 block w-full max-w-sm rounded-[1.75rem] border p-5 shadow-xl transition duration-300 hover:-translate-y-1 hover:shadow-2xl sm:ml-32 ${
-              isCompleted
-                ? "border-emerald-400/50 bg-emerald-400/15"
-                : isCurrent
-                ? "border-emerald-300 bg-emerald-400/10 shadow-[0_0_35px_rgba(52,211,153,0.15)]"
-                : "border-white/10 bg-white/[0.04] hover:border-emerald-400/30"
-            } ${
-              isBoss
-                ? "border-purple-400/40 bg-purple-400/10"
-                : ""
-            }`}
-          >
-            {isCurrent && (
-              <div className="absolute inset-0 animate-pulse rounded-[1.75rem] bg-gradient-to-br from-emerald-400/10 to-transparent [animation-duration:3s]" />
-            )}
-
-            <div className="relative flex items-start justify-between gap-3">
-              <div className="flex min-w-0 items-center gap-4">
-                <div
-                  className={`flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border ${
-                    isCurrent
-                      ? "border-emerald-400/50 bg-emerald-400/10"
-                      : "border-white/10 bg-slate-950/70"
-                  }`}
-                >
-                  {quest.id === 1 ? (
-                    <Image
-                      src="/mascot/Robo.png"
-                      alt="Robo"
-                      width={70}
-                      height={70}
-                      className="h-14 w-14 object-contain"
-                    />
-                  ) : (
-                    <span className="text-4xl">
-                      {quest.emoji}
-                    </span>
-                  )}
-                </div>
-
-                <div className="min-w-0">
-                  <p
-                    className={`text-xs font-bold uppercase tracking-[0.15em] ${
-                      isBoss
-                        ? "text-purple-300"
-                        : "text-emerald-300"
-                    }`}
-                  >
-                    {isBoss ? "Final Quest" : `Quest ${quest.id}`}
-                  </p>
-
-                  <h3 className="mt-1 text-xl font-extrabold sm:text-2xl">
-                    {quest.title}
-                  </h3>
-
-                  <p className="mt-1 text-sm font-bold text-slate-400">
-                    {quest.concept}
-                  </p>
-                </div>
-              </div>
-
-              <div
-                className={`shrink-0 rounded-full px-3 py-1 text-xs font-bold ${
-                  isCompleted
-                    ? "bg-emerald-400 text-slate-950"
-                    : isCurrent
-                    ? "bg-emerald-400/20 text-emerald-200"
-                    : "bg-white/10 text-slate-300"
-                }`}
-              >
-                {isCompleted ? "Done" : isCurrent ? "Next" : "Open"}
-              </div>
-            </div>
-
-            <div className="relative mt-5 flex items-center justify-between border-t border-white/10 pt-4">
-              <span className="text-sm font-bold text-slate-300">
-                {isCompleted
-                  ? "Replay quest"
-                  : isCurrent
-                  ? "Continue adventure"
-                  : "Start quest"}
-              </span>
-
-              <span className="font-bold text-emerald-300 transition duration-300 group-hover:translate-x-1">
-                →
-              </span>
-            </div>
-          </Link>
-        ) : (
-          <div
-            className={`relative ml-24 w-full max-w-sm rounded-[1.75rem] border border-white/10 bg-white/[0.03] p-5 opacity-55 sm:ml-32 ${
-              isBoss ? "border-purple-400/20" : ""
-            }`}
-          >
-            <div className="flex items-start justify-between gap-3">
-              <div className="flex min-w-0 items-center gap-4">
-                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-white/5 bg-slate-950/70 text-3xl">
-                  {isBoss ? "👑" : "🔒"}
-                </div>
-
-                <div className="min-w-0">
-                  <p className="text-xs font-bold uppercase tracking-[0.15em] text-slate-500">
-                    {isBoss ? "Final Quest" : `Quest ${quest.id}`}
-                  </p>
-
-                  <h3 className="mt-1 text-xl font-extrabold sm:text-2xl">
-                    {quest.title}
-                  </h3>
-
-                  <p className="mt-1 text-sm font-bold text-slate-500">
-                    {quest.concept}
-                  </p>
-                </div>
-              </div>
-
-              <div className="shrink-0 rounded-full bg-white/5 px-3 py-1 text-xs font-bold text-slate-500">
-                Locked
-              </div>
-            </div>
-
-            <p className="mt-5 border-t border-white/10 pt-4 text-sm font-bold text-slate-500">
-              Complete the previous quest to unlock.
+          <div>
+            <p className="text-lg font-extrabold">{xp}</p>
+            <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+              XP
             </p>
           </div>
-        )}
+        </div>
+
+        <div className="flex flex-col items-center gap-2 rounded-2xl border border-orange-400/20 bg-white/[0.04] p-3 text-center xl:flex-row xl:text-left">
+          <Image
+            src="/icons/streak2.png"
+            alt="Day streak"
+            width={60}
+            height={60}
+            className="h-9 w-9 object-contain sm:h-11 sm:w-11"
+          />
+
+          <div>
+            <p className="text-lg font-extrabold">{streak}</p>
+            <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+              Day streak
+            </p>
+          </div>
+        </div>
       </div>
-    );
-  })}
-</div>
 
-<div className="relative z-10 mx-auto mt-8 flex w-fit items-center gap-3 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-5 py-3 text-sm font-bold text-emerald-300">
-  <span>🏁</span>
-  <span>Complete all 5 quests to finish Robo Lab</span>
-</div>
+      {/* PROGRESS */}
+      <div className="mt-6 rounded-2xl border border-white/10 bg-black/20 p-4">
+        <div className="flex items-center justify-between gap-4">
+          <p className="font-bold text-emerald-300">World progress</p>
 
+          <p className="font-extrabold text-emerald-300">
+            {roundedProgressPercent}%
+          </p>
+        </div>
+
+        <div className="mt-4 h-3 overflow-hidden rounded-full bg-white/10">
+          <div
+            className="h-full rounded-full bg-emerald-400 shadow-[0_0_18px_rgba(52,211,153,0.65)] transition-all duration-500"
+            style={{ width: `${progressPercent}%` }}
+          />
+        </div>
+
+        <p className="mt-3 text-sm font-semibold text-slate-400">
+          {completedCount}/{quests.length} completed
+        </p>
+      </div>
+    </div>
+
+  </aside>
+
+  {/* CENTER QUEST PATH */}
+  <section>
+    <div className="text-center">
+      <p className="font-bold text-emerald-300">Robo Lab Adventure</p>
+
+      <h2 className="mt-2 text-3xl font-extrabold sm:text-4xl">
+        Follow Robo&apos;s Path
+      </h2>
+
+      <p className="mx-auto mt-3 max-w-xl text-slate-300">
+        Complete each coding quest to power the laboratory and unlock the final
+        battle.
+      </p>
+    </div>
+
+    <div className="relative mx-auto mt-10 max-w-xl pb-10">
+    
+ {/* STRAIGHT PROGRESS PATH */}
+<div className="pointer-events-none absolute bottom-0 left-[50px] top-0 hidden w-3 overflow-hidden rounded-full bg-slate-600/60 sm:block">
+  {/* Partea colorată până la GO */}
+  <div
+    className="absolute left-0 top-0 w-full overflow-hidden rounded-full transition-[height] duration-700"
+    style={{
+      height: `${pathFillPercent}%`,
+    }}
+  >
+    {/* Gradientul păstrează dimensiunea întregului path */}
+    <div
+      className="absolute left-0 top-0 w-full"
+      style={{
+        height: `${10000 / pathFillPercent}%`,
+        background: `
+  linear-gradient(
+    to bottom,
+    #a7f3d0 0%,
+    #34d399 17%,
+    #22c55e 25%,
+    #15803d 37%,
+    #a855f7 49%,
+    #7c3aed 58%,
+    #38bdf8 68%,
+    #2563eb 78%,
+    #fb923c 88%,
+    #ef4444 100%
+  )
+`,
+      }}
+    />
   </div>
-</section>
+
+  {/* Strălucirea secțiunii completate */}
+  <div
+    className="absolute left-0 top-0 w-full rounded-full shadow-[0_0_24px_rgba(52,211,153,0.7)] transition-[height] duration-700"
+    style={{
+      height: `${pathFillPercent}%`,
+    }}
+  />
+
+  {/* Reflexie albă pe întreaga bară */}
+  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-50" />
+</div>
+
+{/* ROBO + GO FOLLOW THE PATH */}
+{!worldCompleted && (
+  <div
+    className="pointer-events-none absolute z-40 hidden -translate-x-1/2 -translate-y-1/2 items-center transition-[top,left] duration-700 ease-out sm:flex"
+    style={{
+      top: `${questPathPositions[currentQuestId - 1].top}%`,
+      left: `${questPathPositions[currentQuestId - 1].left}%`,
+    }}
+  >
+    
+    {currentQuestId >= 4 && (
+  <div className="absolute right-full mr-3 hidden w-[180px] rounded-2xl border border-white/10 bg-slate-950/90 px-4 py-3 text-left shadow-xl backdrop-blur xl:block">
+    <p className={`text-sm font-extrabold ${currentTheme.text}`}>
+      {currentQuestId === 4
+        ? "You’re almost there!"
+        : "Final challenge ahead!"}
+    </p>
+
+    <p className="mt-1 text-xs leading-5 text-slate-300">
+      {currentQuestId === 4
+        ? "Keep going — the Boss Fight is just one quest away."
+        : "Use everything you learned and finish Robo Lab."}
+    </p>
+
+    <div className="absolute right-[-8px] top-1/2 h-4 w-4 -translate-y-1/2 rotate-45 border-r border-t border-white/10 bg-slate-950/90" />
+  </div>
+)}
+
+    {/* ROBO */}
+    <div className="relative animate-robo-float">
+      <div
+        className="absolute inset-2 rounded-full blur-2xl"
+        style={{
+          backgroundColor: `rgba(${currentTheme.glowColor}, 0.3)`,
+        }}
+      />
+
+      <Image
+        src="/mascot/Robo.png"
+        alt="Robo showing the current quest"
+        width={130}
+        height={130}
+        priority
+        className="relative h-20 w-20 object-contain drop-shadow-2xl"
+      />
+    </div>
+
+    {/* GO AREA */}
+    <div className="relative -ml-2">
+     
+      {/* HALO 1 */}
+      <div
+        className="absolute inset-0 animate-go-halo rounded-full"
+        style={{
+          backgroundColor: `rgba(${currentTheme.glowColor}, 0.3)`,
+        }}
+      />
+
+      {/* HALO 2 */}
+      <div
+        className="absolute inset-0 animate-go-halo rounded-full [animation-delay:0.9s]"
+        style={{
+          backgroundColor: `rgba(${currentTheme.glowColor}, 0.22)`,
+        }}
+      />
+
+      {/* PARTICULE */}
+      <span
+        className="animate-quest-sparkle absolute -left-2 top-2 h-2 w-2 rounded-full [animation-delay:0.2s]"
+        style={{
+          backgroundColor: currentTheme.goColor,
+          boxShadow: `0 0 10px rgba(${currentTheme.glowColor}, 0.9)`,
+        }}
+      />
+
+      <span
+        className="animate-quest-sparkle absolute right-0 top-0 h-1.5 w-1.5 rounded-full [animation-delay:0.8s]"
+        style={{
+          backgroundColor: currentTheme.goColor,
+          boxShadow: `0 0 10px rgba(${currentTheme.glowColor}, 0.9)`,
+        }}
+      />
+
+      <span
+        className="animate-quest-sparkle absolute left-3 top-1 h-1 w-1 rounded-full [animation-delay:1.4s]"
+        style={{
+          backgroundColor: "#ffffff",
+          boxShadow: `0 0 8px rgba(${currentTheme.glowColor}, 0.9)`,
+        }}
+      />
+
+      {/* BUTON GO */}
+      <div
+        className="relative flex h-14 w-14 animate-go-breathe items-center justify-center rounded-full border-4 font-black text-slate-950"
+        style={{
+          backgroundColor: currentTheme.goColor,
+          borderColor: currentTheme.goBorderColor,
+          boxShadow: `0 0 30px rgba(${currentTheme.glowColor}, 0.85)`,
+        }}
+      >
+        <span className="relative z-10 text-sm">GO!</span>
+
+        <span className="absolute -bottom-5 text-base text-white">↓</span>
+      </div>
+    </div>
+  </div>
+)}
+
+      <div className="relative grid gap-10 sm:gap-12">
+        {quests.map((quest, index) => {
+          const isCompleted = completedLessons.includes(quest.id);
+
+          const isUnlocked =
+            quest.id === 1 || completedLessons.includes(quest.id - 1);
+
+          const isCurrent =
+            quest.id === currentQuestId && !worldCompleted;
+
+          const isBoss = quest.id === quests.length;
+
+          const theme = getQuestTheme(quest.id);
+
+         const cardColor = isBoss
+  ? "border-orange-400/70 bg-gradient-to-br from-orange-500/20 via-red-500/10 to-purple-500/20 shadow-[0_0_35px_rgba(249,115,22,0.2)]"
+  : quest.id === 4
+    ? "border-blue-400/50 bg-blue-500/10"
+    : quest.id === 3
+      ? "border-purple-400/60 bg-purple-500/15 shadow-[0_0_28px_rgba(168,85,247,0.12)]"
+      : quest.id === 2
+        ? "border-green-400/60 bg-gradient-to-br from-green-500/18 via-emerald-500/10 to-lime-500/10 shadow-[0_0_28px_rgba(34,197,94,0.12)]"
+        : "border-emerald-200/70 bg-gradient-to-br from-emerald-300/20 via-emerald-400/12 to-cyan-300/10 shadow-[0_0_30px_rgba(110,231,183,0.16)]";
+
+        const questCard = (
+  <div
+    className={`group relative overflow-hidden rounded-[1.75rem] border p-4 backdrop-blur-xl transition duration-300 sm:ml-24 sm:p-5 ${
+      !isUnlocked
+        ? "border-white/10 bg-slate-950/65 opacity-55"
+        : isCompleted
+          ? `${cardColor} opacity-75 shadow-lg hover:-translate-y-1 hover:opacity-95`
+          : `${cardColor} shadow-2xl hover:-translate-y-1`
+    } ${
+      isCurrent
+        ? quest.id === 3
+          ? "opacity-100 ring-2 ring-purple-300/80 shadow-[0_0_45px_rgba(168,85,247,0.35)]"
+          : quest.id === 4
+            ? "opacity-100 ring-2 ring-blue-300/80 shadow-[0_0_45px_rgba(59,130,246,0.35)]"
+            : quest.id === 5
+              ? "opacity-100 ring-2 ring-orange-300/80 shadow-[0_0_45px_rgba(249,115,22,0.35)]"
+              : "opacity-100 ring-2 ring-emerald-300/80 shadow-[0_0_45px_rgba(52,211,153,0.35)]"
+        : ""
+    }`}
+  >
+             {isCurrent && (
+  <div
+    className="pointer-events-none absolute inset-0 animate-current-card-glow"
+    style={{
+      background: `radial-gradient(
+        circle at 15% 50%,
+        rgba(${theme.glowColor}, 0.28),
+        transparent 65%
+      )`,
+    }}
+  />
+)}
+
+              <div className="relative flex items-center gap-4">
+               <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-slate-950/70 sm:h-24 sm:w-24">
+  <Image
+    src={quest.image}
+    alt={quest.title}
+    fill
+    sizes="96px"
+    className={`object-contain ${
+      quest.id === 1 || quest.id === 3 ? "scale-[1.22] p-0" : "p-1"
+    }`}
+  />
+</div>
+
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                     
+                     <div className="flex flex-wrap items-center gap-2">
+  <p
+    className={`text-xs font-bold uppercase tracking-[0.15em] ${theme.text}`}
+  >
+    {isBoss ? "Final Quest" : `Quest ${quest.id}`}
+  </p>
+
+  {isCurrent && (
+    <span
+      className={`rounded-full border px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-wider ${theme.text} ${theme.border} bg-slate-950/40`}
+    >
+      Current quest
+    </span>
+  )}
+</div>
+
+                      <h3 className="mt-1 text-xl font-extrabold sm:text-2xl">
+                        {quest.title}
+                      </h3>
+                    </div>
+
+                    <span
+  className={`rounded-full px-3 py-1 text-xs font-bold ${
+    
+    isCurrent
+  ? `${theme.badge} animate-pulse [animation-duration:2.4s]`
+  : isCompleted
+    ? "border border-white/10 bg-white/10 text-slate-300"
+
+      : "bg-white/10 text-slate-300"
+  }`}
+>
+  {isCompleted
+    ? "Done"
+    : isCurrent
+      ? "Next"
+      : isUnlocked
+        ? "Open"
+        : "Locked"}
+</span>
+                  </div>
+
+                  <p className="mt-1 font-semibold text-slate-300">
+                    {quest.concept}
+                  </p>
+
+                 <div className="mt-3 flex flex-wrap gap-2">
+  <div className="flex items-center gap-2 rounded-xl border border-yellow-400/20 bg-slate-950/35 px-3 py-2">
+    <Image
+      src="/icons/xp2.png"
+      alt="XP reward"
+      width={28}
+      height={28}
+      className="h-6 w-6 object-contain"
+    />
+
+    <div className="leading-none">
+      <p className="text-sm font-extrabold text-yellow-300">
+        +{quest.xpReward}
+      </p>
+
+      <p className="mt-1 text-[9px] font-bold uppercase tracking-wider text-slate-400">
+        XP
+      </p>
+    </div>
+  </div>
+
+  <div className="flex items-center gap-2 rounded-xl border border-emerald-400/20 bg-slate-950/35 px-3 py-2">
+    <Image
+      src="/icons/gem1.png"
+      alt="Gem reward"
+      width={28}
+      height={28}
+      className="h-6 w-6 object-contain"
+    />
+
+    <div className="leading-none">
+      <p className={`text-sm font-extrabold ${theme.text}`}>
+        +{quest.gemReward}
+      </p>
+
+      <p className="mt-1 text-[9px] font-bold uppercase tracking-wider text-slate-400">
+        Gems
+      </p>
+    </div>
+  </div>
+</div>
+
+                </div>
+              </div>
+
+              <div className="relative mt-4 flex items-center justify-between border-t border-white/10 pt-4">
+                <span className="text-sm font-bold text-slate-300">
+                  {!isUnlocked
+                    ? "Complete the previous quest"
+                    : isCompleted
+                      ? "Practice again"
+                      : isCurrent
+                        ? "Continue adventure"
+                        : "Start quest"}
+                </span>
+
+                {isUnlocked && (
+                 <span
+  className={`text-xl font-bold transition group-hover:translate-x-1 ${theme.text}`}
+>
+  →
+</span>
+                )}
+              </div>
+            </div>
+          );
+
+          return (
+            <div key={quest.id} className="relative min-h-44">
+       
+
+
+              {isUnlocked ? (
+                <Link href={`/lesson/${quest.id}`}>{questCard}</Link>
+              ) : (
+                questCard
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  {/* RIGHT WORLDS */}
+  <aside className="xl:sticky xl:top-28">
+    <div className="rounded-[2rem] border border-white/10 bg-slate-950/80 p-4 shadow-2xl backdrop-blur-xl sm:p-5">
+      <p className="text-center font-bold text-emerald-300">
+        What&apos;s next?
+      </p>
+
+      <h2 className="mt-1 text-center text-xl font-extrabold">
+        Upcoming Worlds
+      </h2>
+
+     <div className="mt-5 grid gap-4">
+  {premiumWorlds.map((world) => (
+    <Link
+      key={world.title}
+      href="/upgrade"
+      className="group relative block h-36 overflow-hidden rounded-2xl border border-white/10 shadow-xl transition duration-300 hover:-translate-y-1 hover:border-emerald-400/40 hover:shadow-2xl"
+    >
+      <Image
+        src={world.image}
+        alt={world.title}
+        fill
+        sizes="280px"
+        className="object-cover transition duration-500 group-hover:scale-105"
+      />
+
+      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/35 to-transparent transition group-hover:via-slate-950/20" />
+
+      <div className="absolute inset-x-0 bottom-0 p-4">
+        <div className="flex items-end justify-between gap-3">
+          <div>
+            <p className="font-extrabold">{world.title}</p>
+
+            <p className="mt-1 text-sm text-slate-300">
+              {world.concept}
+            </p>
+          </div>
+
+          <span className="rounded-full border border-white/10 bg-slate-950/80 px-3 py-1 text-xs font-bold transition group-hover:border-emerald-400/30 group-hover:text-emerald-300">
+            🔒
+          </span>
+        </div>
+      </div>
+    </Link>
+  ))}
+</div>
+
+      <Link
+        href="/upgrade"
+        className="mt-5 block rounded-2xl border border-emerald-400/30 bg-emerald-400/10 px-5 py-3 text-center font-bold text-emerald-300 transition hover:bg-emerald-400/20"
+      >
+        See all worlds →
+      </Link>
+    </div>
+  </aside>
+</div>
 
         {/* WORLD COMPLETE */}
-        {worldCompleted && (
-          <section className="mt-14 overflow-hidden rounded-[2rem] border border-emerald-400/30 bg-emerald-400/10 p-6 sm:p-8">
-            <div className="grid gap-8 lg:grid-cols-[220px_1fr] lg:items-center">
-              <div className="mx-auto">
-                <Image
-                  src="/mascot/Robo.png"
-                  alt="Robo celebrating completion of Robo Lab"
-                  width={260}
-                  height={260}
-                  className="h-auto w-48 object-contain drop-shadow-xl"
-                />
-              </div>
+{worldCompleted && (
+  <section className="relative mt-16 overflow-hidden rounded-[2rem] border border-emerald-300/40 bg-slate-950/90 p-6 shadow-[0_0_60px_rgba(52,211,153,0.2)] backdrop-blur-xl sm:p-10">
+    {/* CONFETTI */}
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      {Array.from({ length: 24 }).map((_, index) => (
+        <span
+          key={index}
+          className="absolute top-[-20px] h-3 w-2 animate-confetti rounded-sm"
+          style={{
+            left: `${(index * 17) % 100}%`,
+            animationDelay: `${(index % 8) * 0.22}s`,
+            animationDuration: `${2.8 + (index % 5) * 0.35}s`,
+            backgroundColor: [
+              "#34d399",
+              "#60a5fa",
+              "#c084fc",
+              "#facc15",
+              "#fb923c",
+            ][index % 5],
+          }}
+        />
+      ))}
+    </div>
 
-              <div className="text-center lg:text-left">
-                <p className="font-bold text-emerald-300">
-                  World complete
-                </p>
+    <div className="relative grid gap-10 lg:grid-cols-[300px_minmax(0,1fr)] lg:items-center">
+      {/* ROBO CELEBRATION */}
+      <div className="relative mx-auto flex min-h-[320px] w-full max-w-sm items-end justify-center">
+        <div className="absolute bottom-8 h-52 w-52 rounded-full bg-emerald-400/20 blur-3xl" />
 
-                <h2 className="mt-2 text-3xl font-extrabold sm:text-4xl">
-                  You became a Robo Lab Graduate!
-                </h2>
+        <Image
+          src="/mascot/Robo.png"
+          alt="Robo celebrating completion of Robo Lab"
+          width={420}
+          height={420}
+          className="relative z-10 h-auto w-64 animate-robo-celebrate object-contain drop-shadow-2xl sm:w-72"
+        />
 
-                <p className="mt-4 leading-7 text-slate-300">
-                  You completed all five quests and learned commands, loops,
-                  conditions, variables, and final challenge logic.
-                </p>
+      </div>
 
-                <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
-                  <a
-                    href="#certificate-preview"
-                    className="rounded-2xl border border-white/20 px-6 py-3 text-center font-bold text-white transition hover:bg-white/10"
-                  >
-                    View Certificate
-                  </a>
+      {/* CONTENT */}
+      <div className="text-center lg:text-left">
+        <p className="font-bold uppercase tracking-[0.2em] text-emerald-300">
+          Robo Lab completed
+        </p>
 
-                  <Link
-                    href="/upgrade"
-                    className="rounded-2xl bg-emerald-400 px-6 py-3 text-center font-bold text-slate-950 transition hover:bg-emerald-300"
-                  >
-                    Explore Next Worlds
-                  </Link>
-                </div>
-              </div>
-            </div>
+        <h2 className="mt-3 text-4xl font-extrabold leading-tight sm:text-5xl">
+          You became a Robo Lab Graduate!
+        </h2>
 
-            <div
-              id="certificate-preview"
-              className="mt-8 rounded-[1.5rem] border border-white/10 bg-slate-950/90 p-6 text-center"
-            >
-              <p className="text-xs font-bold uppercase tracking-[0.25em] text-emerald-300">
-                Certificate Preview
-              </p>
+        <p className="mt-5 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
+          You completed every quest, defeated the final challenge, and learned
+          commands, loops, conditions, variables, and beginner coding logic.
+        </p>
 
-              <h3 className="mt-4 text-2xl font-extrabold sm:text-3xl">
-                Robo Lab Graduate
-              </h3>
+        <div className="mt-7 grid gap-3 sm:grid-cols-3">
+          <div className="rounded-2xl border border-yellow-400/20 bg-yellow-400/10 p-4">
+            <Image
+              src="/icons/xp2.png"
+              alt="XP"
+              width={44}
+              height={44}
+              className="mx-auto h-10 w-10 object-contain lg:mx-0"
+            />
 
-              <p className="mt-3 text-slate-300">
-                Awarded for completing World 1 in LooplyLand.
-              </p>
+            <p className="mt-2 text-xl font-extrabold text-yellow-300">
+              {xp} XP
+            </p>
 
-              <div className="mx-auto mt-6 grid max-w-2xl gap-3 sm:grid-cols-2">
-                {[
-                  "Commands",
-                  "Loops",
-                  "Conditions",
-                  "Variables",
-                  "Final Challenge",
-                ].map((skill) => (
-                  <div
-                    key={skill}
-                    className="rounded-2xl bg-white/5 p-4 text-left font-bold"
-                  >
-                    ✅ {skill}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* PREMIUM TEASER */}
-        <section className="mt-14 rounded-[2rem] border border-emerald-400/20 bg-gradient-to-br from-emerald-400/10 to-white/[0.03] p-6 sm:p-8">
-          <div className="grid gap-8 lg:grid-cols-[1fr_320px] lg:items-center">
-            <div>
-              <p className="font-bold text-emerald-300">
-                The adventure continues
-              </p>
-
-              <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl">
-                New coding worlds are coming.
-              </h2>
-
-              <p className="mt-4 max-w-2xl leading-7 text-slate-300">
-                Explore debugging, functions, algorithms, and game logic in
-                future LooplyLand worlds.
-              </p>
-
-              <Link
-                href="/upgrade"
-                className="mt-6 inline-block w-full rounded-2xl bg-emerald-400 px-7 py-4 text-center font-bold text-slate-950 transition hover:bg-emerald-300 sm:w-auto"
-              >
-                Join Early Access
-              </Link>
-            </div>
-
-            <div className="grid gap-3">
-              {premiumWorlds.map((world) => (
-                <div
-                  key={world.title}
-                  className="flex items-center gap-4 rounded-2xl border border-white/10 bg-slate-950/60 p-4"
-                >
-                  <div className="text-3xl">{world.emoji}</div>
-
-                  <div className="min-w-0">
-                    <p className="font-extrabold">{world.title}</p>
-                    <p className="mt-1 text-sm font-bold text-emerald-300">
-                      {world.concept}
-                    </p>
-                  </div>
-
-                  <span className="ml-auto text-sm font-bold text-slate-500">
-                    Soon
-                  </span>
-                </div>
-              ))}
-            </div>
+            <p className="mt-1 text-xs font-bold uppercase tracking-wider text-slate-400">
+              Total earned
+            </p>
           </div>
-        </section>
+
+          <div className="rounded-2xl border border-emerald-400/20 bg-emerald-400/10 p-4">
+            <Image
+              src="/icons/gem1.png"
+              alt="Gems"
+              width={44}
+              height={44}
+              className="mx-auto h-10 w-10 object-contain lg:mx-0"
+            />
+
+            <p className="mt-2 text-xl font-extrabold text-emerald-300">
+              {gems} Gems
+            </p>
+
+            <p className="mt-1 text-xs font-bold uppercase tracking-wider text-slate-400">
+              Collected
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-orange-400/20 bg-orange-400/10 p-4">
+            <Image
+              src="/icons/streak2.png"
+              alt="Day streak"
+              width={44}
+              height={44}
+              className="mx-auto h-10 w-10 object-contain lg:mx-0"
+            />
+
+            <p className="mt-2 text-xl font-extrabold text-orange-300">
+              {streak} days
+            </p>
+
+            <p className="mt-1 text-xs font-bold uppercase tracking-wider text-slate-400">
+              Current streak
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
+          <a
+            href="#certificate-preview"
+            className="rounded-2xl border border-white/20 bg-white/5 px-6 py-4 text-center font-extrabold text-white transition hover:-translate-y-1 hover:bg-white/10"
+          >
+            View Certificate
+          </a>
+
+          <Link
+            href="/upgrade"
+            className="rounded-2xl bg-emerald-400 px-6 py-4 text-center font-extrabold text-slate-950 transition hover:-translate-y-1 hover:bg-emerald-300"
+          >
+            Explore Premium Worlds
+          </Link>
+        </div>
+      </div>
+    </div>
+
+    {/* CERTIFICATE */}
+    <div
+      id="certificate-preview"
+      className="relative mt-12 overflow-hidden rounded-[2rem] border border-yellow-300/30 bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 p-6 text-center shadow-2xl sm:p-10"
+    >
+
+      <Image
+  src="/ui/gold_left.png"
+  alt=""
+  width={360}
+  height={700}
+  className="pointer-events-none absolute bottom-0 left-5 hidden h-auto w-44 object-contain opacity-70 sm:block lg:w-52"
+/>
+
+<Image
+  src="/ui/gold_right.png"
+  alt=""
+  width={360}
+  height={700}
+  className="pointer-events-none absolute bottom-0 right-7 hidden h-auto w-80 object-contain opacity-70 sm:block lg:w-52"
+/>
+
+      <div className="absolute left-[-80px] top-[-80px] h-56 w-56 rounded-full bg-yellow-300/10 blur-3xl" />
+      <div className="absolute bottom-[-80px] right-[-80px] h-56 w-56 rounded-full bg-emerald-400/15 blur-3xl" />
+
+      <div className="relative">
+        <p className="text-xs font-extrabold uppercase tracking-[0.35em] text-yellow-300 sm:text-sm">
+          Certificate of Completion
+        </p>
+
+        <div className="mx-auto mt-6 flex h-20 w-20 items-center justify-center rounded-full border border-yellow-300/30 bg-yellow-300/10 text-4xl shadow-[0_0_35px_rgba(250,204,21,0.18)]">
+          🎓
+        </div>
+
+        <p className="mt-6 text-sm uppercase tracking-[0.2em] text-slate-400">
+          This certifies that
+        </p>
+
+        <h3 className="mt-3 text-2xl font-extrabold sm:text-5xl">
+          Robo Lab Graduate
+        </h3>
+
+        <p className="mx-auto mt-5 max-w-2xl leading-8 text-slate-300">
+          successfully completed World 1 of LooplyLand and demonstrated
+          beginner knowledge of commands, loops, conditions, variables, and
+          coding logic.
+        </p>
+
+        <div className="mx-auto mt-8 grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-5">
+          {[
+            "Commands",
+            "Loops",
+            "Conditions",
+            "Variables",
+            "Final Challenge",
+          ].map((skill) => (
+            <div
+              key={skill}
+              className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-bold text-slate-200"
+            >
+              ✓ {skill}
+            </div>
+          ))}
+        </div>
+
+        <div className="mx-auto mt-10 h-px max-w-xl bg-gradient-to-r from-transparent via-yellow-300/50 to-transparent" />
+
+        <p className="mt-6 text-sm font-bold text-emerald-300">
+          LooplyLand · World 1
+        </p>
+
+        <p className="mt-2 text-xs text-slate-500">
+          Printable certificates are coming with Premium.
+        </p>
+      </div>
+    </div>
+  </section>
+)}
 
         {/* RESET */}
-        <div className="mt-10 text-center">
-          <button
-            onClick={resetProgress}
-            className="text-sm font-bold text-slate-500 transition hover:text-red-300"
-          >
-            Reset learning progress
-          </button>
-        </div>
+      {!isLoggedIn && (
+  <div className="mt-12 flex justify-center">
+    <button
+      onClick={resetProgress}
+      className="rounded-xl border border-white/10 bg-slate-950/50 px-4 py-2 text-xs font-bold text-slate-400 transition hover:border-red-400/30 hover:bg-red-400/10 hover:text-red-300"
+    >
+      Reset demo progress
+    </button>
+  </div>
+)}
       </div>
     </section>
 
