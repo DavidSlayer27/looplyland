@@ -177,8 +177,14 @@ export default function LearnPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    loadProgress();
-  }, []);
+  loadProgress();
+
+  const timer = window.setTimeout(() => {
+    setPageEntered(true);
+  }, 120);
+
+  return () => window.clearTimeout(timer);
+}, []);
 
   async function loadProgress() {
     setLoading(true);
@@ -259,6 +265,7 @@ export default function LearnPage() {
     completedLessons.includes(quest.id)
   ).length;
 
+  const [pageEntered, setPageEntered] = useState(false);
   const progressPercent = (completedCount / quests.length) * 100;
   const roundedProgressPercent = Math.round(progressPercent);
   const worldCompleted = completedCount === quests.length;
@@ -306,17 +313,81 @@ export default function LearnPage() {
 
   </div>
   
-     
+     {/* AMBIENT BACKGROUND EFFECTS */}
+<div className="pointer-events-none absolute inset-0 overflow-hidden">
+  {/* Lumini mari */}
+  <div className="absolute left-[8%] top-[15%] h-64 w-64 animate-pulse rounded-full bg-emerald-400/10 blur-3xl [animation-duration:6s]" />
 
-      <div className="relative mx-auto max-w-6xl">
+  <div className="absolute right-[8%] top-[42%] h-72 w-72 animate-pulse rounded-full bg-purple-400/10 blur-3xl [animation-delay:1.5s] [animation-duration:7s]" />
+
+  <div className="absolute bottom-[8%] left-[35%] h-80 w-80 animate-pulse rounded-full bg-blue-400/10 blur-3xl [animation-delay:2.5s] [animation-duration:8s]" />
+
+  {/* Stele și licurici */}
+  {Array.from({ length: 22 }).map((_, index) => (
+    <span
+      key={index}
+      className="absolute animate-world-particle rounded-full bg-white"
+      style={{
+        left: `${(index * 37) % 100}%`,
+        top: `${8 + ((index * 23) % 84)}%`,
+        width: `${2 + (index % 3)}px`,
+        height: `${2 + (index % 3)}px`,
+        animationDelay: `${(index % 7) * 0.6}s`,
+        animationDuration: `${4 + (index % 5)}s`,
+        opacity: 0.25 + (index % 4) * 0.12,
+        boxShadow:
+          index % 3 === 0
+            ? "0 0 10px rgba(52,211,153,0.9)"
+            : index % 3 === 1
+              ? "0 0 10px rgba(96,165,250,0.8)"
+              : "0 0 10px rgba(255,255,255,0.7)",
+      }}
+    />
+  ))}
+</div>
+
+      <div
+  className={`relative mx-auto max-w-6xl transition-all duration-700 ${
+    pageEntered
+      ? "translate-y-0 opacity-100"
+      : "translate-y-4 opacity-0"
+  }`}
+>
        {/* GAME HUB */}
 <div className="grid gap-8 sm:gap-10 xl:grid-cols-[280px_minmax(0,1fr)_280px] xl:items-start">
   {/* LEFT HUD */}
   <aside className="xl:sticky xl:top-28">
     <div className="rounded-[1.5rem] border border-white/10 bg-slate-950/75 p-4 shadow-2xl backdrop-blur-xl sm:rounded-[2rem] sm:p-5">
-      <div className="inline-flex rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-sm font-bold text-emerald-300">
-        World 1 · Robo Lab
-      </div>
+     
+     <div className="inline-flex items-center gap-3 rounded-2xl border border-emerald-400/30 bg-gradient-to-r from-emerald-400/15 to-cyan-400/10 px-4 py-3 shadow-[0_0_25px_rgba(52,211,153,0.12)]">
+  <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-emerald-300/30 bg-slate-950/50 text-xl">
+    🌍
+  </div>
+
+  <div>
+    <p className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-emerald-300">
+      World 1
+    </p>
+
+    <p className="mt-0.5 font-extrabold text-white">
+      Robo Lab
+    </p>
+  </div>
+
+  <div className="ml-2 hidden border-l border-white/10 pl-3 sm:block">
+    <p className="text-[9px] font-bold uppercase tracking-wider text-slate-500">
+      Difficulty
+    </p>
+
+    <div className="mt-1 flex gap-0.5 text-xs">
+      <span className="text-yellow-300">★</span>
+      <span className="text-yellow-300">★</span>
+      <span className="text-slate-700">★</span>
+      <span className="text-slate-700">★</span>
+      <span className="text-slate-700">★</span>
+    </div>
+  </div>
+</div>
 
      <h1 className="mt-4 text-3xl font-extrabold leading-tight sm:text-4xl">
         Robo Lab Journey
@@ -403,9 +474,34 @@ export default function LearnPage() {
           />
         </div>
 
-        <p className="mt-3 text-sm font-semibold text-slate-400">
-          {completedCount}/{quests.length} completed
-        </p>
+      <div className="mt-3 flex items-center justify-between gap-3">
+  <p className="text-sm font-semibold text-slate-400">
+    {completedCount}/{quests.length} completed
+  </p>
+
+  <div
+    className="flex gap-1"
+    aria-label={`${completedCount} of ${quests.length} quests completed`}
+  >
+    {quests.map((quest) => {
+      const completed = completedLessons.includes(quest.id);
+
+      return (
+        <span
+          key={quest.id}
+          className={`text-lg transition duration-500 ${
+            completed
+              ? "scale-110 text-yellow-300 drop-shadow-[0_0_8px_rgba(250,204,21,0.7)]"
+              : "text-slate-700"
+          }`}
+        >
+          ★
+        </span>
+      );
+    })}
+  </div>
+</div>
+
       </div>
     </div>
 
@@ -476,7 +572,12 @@ export default function LearnPage() {
 {/* ROBO + GO FOLLOW THE PATH */}
 {!worldCompleted && (
   <div
-    className="pointer-events-none absolute z-40 hidden -translate-x-1/2 -translate-y-1/2 items-center transition-[top,left] duration-700 ease-out sm:flex"
+    className={`pointer-events-none absolute z-40 hidden -translate-x-1/2 -translate-y-1/2 items-center transition-all duration-700 ease-out sm:flex ${
+  pageEntered
+    ? "opacity-100"
+    : "-translate-x-[65%] opacity-0"
+}`}
+
     style={{
       top: `${questPathPositions[currentQuestId - 1].top}%`,
       left: `${questPathPositions[currentQuestId - 1].left}%`,
@@ -830,6 +931,61 @@ export default function LearnPage() {
       </div>
     </Link>
   ))}
+</div>
+     
+      {/* WORLD 2 PREVIEW */}
+      
+    <div className="mt-5 overflow-hidden rounded-2xl border border-orange-400/25 bg-gradient-to-br from-orange-400/10 via-slate-950/70 to-slate-950 p-4">
+  <div className="flex items-center gap-3">
+    <div className="relative h-16 w-20 shrink-0 overflow-hidden rounded-xl border border-orange-300/20">
+      <Image
+        src="/premium/debug-desert1.png"
+        alt="Debug Desert preview"
+        fill
+        sizes="80px"
+        className="object-cover"
+      />
+
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent to-slate-950/40" />
+    </div>
+
+    <div className="min-w-0 flex-1">
+      <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-orange-300">
+        Next destination
+      </p>
+
+      <p className="mt-1 font-extrabold text-white">
+        Debug Desert
+      </p>
+
+      <p className="mt-1 text-xs text-slate-400">
+        Complete Robo Lab to continue the adventure.
+      </p>
+    </div>
+  </div>
+
+  <div className="mt-4 flex items-center gap-2">
+    <div className="h-2 flex-1 overflow-hidden rounded-full bg-white/10">
+      <div
+        className="h-full rounded-full bg-gradient-to-r from-emerald-400 to-orange-400 transition-all duration-700"
+        style={{
+          width: `${progressPercent}%`,
+        }}
+      />
+    </div>
+
+    <span className="text-xs font-extrabold text-orange-300">
+      {roundedProgressPercent}%
+    </span>
+  </div>
+
+  <div className="mt-3 flex items-center justify-center gap-2 text-xs font-bold text-slate-400">
+    <span>{worldCompleted ? "Unlocked" : "Finish Robo Lab"}</span>
+    <span>→</span>
+    <span className={worldCompleted ? "text-orange-300" : "text-slate-600"}>
+      Debug Desert
+    </span>
+  </div>
 </div>
 
       <Link
