@@ -977,22 +977,6 @@ export default function LearnPage() {
       className="relative mt-12 overflow-hidden rounded-[2rem] border border-yellow-300/30 bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 p-6 text-center shadow-2xl sm:p-10"
     >
 
-      <Image
-  src="/ui/gold_left.png"
-  alt=""
-  width={360}
-  height={700}
-  className="pointer-events-none absolute bottom-0 left-5 hidden h-auto w-44 object-contain opacity-70 sm:block lg:w-52"
-/>
-
-<Image
-  src="/ui/gold_right.png"
-  alt=""
-  width={360}
-  height={700}
-  className="pointer-events-none absolute bottom-0 right-7 hidden h-auto w-80 object-contain opacity-70 sm:block lg:w-52"
-/>
-
       <div className="absolute left-[-80px] top-[-80px] h-56 w-56 rounded-full bg-yellow-300/10 blur-3xl" />
       <div className="absolute bottom-[-80px] right-[-80px] h-56 w-56 rounded-full bg-emerald-400/15 blur-3xl" />
 
