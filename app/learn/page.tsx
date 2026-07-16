@@ -542,10 +542,10 @@ setStreak(0);
       </p>
     </div>
 
-    <div className="relative mx-auto mt-10 max-w-xl pb-10">
+   <div className="relative mx-auto mt-10 max-w-xl">
     
  {/* STRAIGHT PROGRESS PATH */}
-<div className="pointer-events-none absolute bottom-0 left-[50px] top-0 hidden w-3 overflow-hidden rounded-full bg-slate-600/60 sm:block">
+<div className="pointer-events-none absolute bottom-2 left-[50px] top-0 hidden w-3 overflow-hidden rounded-full bg-slate-600/60 sm:block">
   {/* Partea colorată până la GO */}
   <div
     className="absolute left-0 top-0 w-full overflow-hidden rounded-full transition-[height] duration-700"
@@ -1124,7 +1124,7 @@ setStreak(0);
         </p>
 
         <div className="mt-7 grid gap-3 sm:grid-cols-3">
-          <div className="rounded-2xl border border-yellow-400/20 bg-yellow-400/10 p-4">
+          <div className="rounded-2xl border border-yellow-400/20 bg-yellow-400/10 p-3">
             <Image
               src="/icons/xp2.png"
               alt="XP"
@@ -1142,7 +1142,7 @@ setStreak(0);
             </p>
           </div>
 
-          <div className="rounded-2xl border border-emerald-400/20 bg-emerald-400/10 p-4">
+          <div className="rounded-2xl border border-emerald-400/20 bg-emerald-400/10 p-3">
             <Image
               src="/icons/gem1.png"
               alt="Gems"
@@ -1151,7 +1151,7 @@ setStreak(0);
               className="mx-auto h-10 w-10 object-contain lg:mx-0"
             />
 
-            <p className="mt-2 text-xl font-extrabold text-emerald-300">
+            <p className="mt-1 text-lg font-extrabold text-emerald-300">
               {gems} Gems
             </p>
 
@@ -1160,7 +1160,7 @@ setStreak(0);
             </p>
           </div>
 
-          <div className="rounded-2xl border border-orange-400/20 bg-orange-400/10 p-4">
+          <div className="rounded-2xl border border-orange-400/20 bg-orange-400/10 p-3">
             <Image
               src="/icons/streak2.png"
               alt="Day streak"

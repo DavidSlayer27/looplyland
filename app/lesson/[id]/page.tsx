@@ -301,6 +301,7 @@ export default function LessonPage() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [earnedXp, setEarnedXp] = useState(0);
+  const [earnedGems, setEarnedGems] = useState(0);
   const [rewardGranted, setRewardGranted] = useState<boolean | null>(null);
   const [lessonCompleted, setLessonCompleted] = useState(false);
   const [lives, setLives] = useState(3);
@@ -334,7 +335,10 @@ export default function LessonPage() {
   const theme = getLessonTheme(lesson.id);
   const currentQuestion = lesson.questions[currentQuestionIndex];
   const totalQuestions = lesson.questions.length;
-  const progress = ((currentQuestionIndex + 1) / totalQuestions) * 100;
+
+const progress = lessonCompleted
+  ? 100
+  : (currentQuestionIndex / totalQuestions) * 100;
 
   const isCorrect = selectedAnswer === currentQuestion.correctAnswer;
   const isWrong =
@@ -527,9 +531,10 @@ export default function LessonPage() {
     return;
   }
 
-  setRewardGranted(receivedReward);
-  setEarnedXp(receivedReward ? lesson.xp : 0);
-  setLessonCompleted(true);
+ setRewardGranted(receivedReward);
+setEarnedXp(receivedReward ? lesson.xp : 0);
+setEarnedGems(receivedReward ? lesson.gems : 0);
+setLessonCompleted(true);
 
   return;
 }
@@ -542,6 +547,7 @@ export default function LessonPage() {
     setCurrentQuestionIndex(0);
     setSelectedAnswer(null);
     setEarnedXp(0);
+    setEarnedGems(0);
     setRewardGranted(null);
     setLessonCompleted(false);
     setLives(3);
@@ -554,7 +560,7 @@ export default function LessonPage() {
   }
 
  return (
-  <main className="relative min-h-screen overflow-hidden bg-[#101827] px-4 pb-10 pt-5 text-white sm:px-5 md:px-6 md:py-8">
+  <main className="relative min-h-dvh overflow-x-hidden bg-[#101827] px-3 py-2 text-white sm:px-4 sm:py-3">
   <div className="fixed inset-0">
     <Image
       src="/worlds/robo-lab.png"
@@ -575,48 +581,53 @@ export default function LessonPage() {
       backgroundColor: `rgba(${theme.rgb}, 0.12)`,
     }}
   />
-    <div className="relative z-10 mx-auto max-w-2xl">
+    <div className="relative z-10 mx-auto max-w-3xl">
      
-     <div className="mb-5 flex items-center justify-between gap-3">
+    <div className="mb-2 flex items-center justify-between gap-2">
   <Link
     href="/learn"
-    className="rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-2 text-sm font-bold text-slate-300 shadow-lg backdrop-blur transition hover:border-white/20 hover:bg-white/10 md:text-base"
+    className="shrink-0 rounded-xl border border-white/10 bg-slate-950/60 px-3 py-1.5 text-xs font-bold text-slate-300 shadow-lg backdrop-blur transition hover:bg-white/10"
   >
     ← Map
   </Link>
 
-  <div className="flex items-center gap-2">
-    <div className="flex items-center gap-2 rounded-2xl border border-red-400/20 bg-red-400/10 px-3 py-2 shadow-lg backdrop-blur sm:px-4">
-      <span className="text-lg">❤️</span>
-
-      <div>
-        <p className="text-sm font-extrabold text-white">{lives}</p>
-        <p className="hidden text-[9px] font-bold uppercase tracking-wider text-red-200 sm:block">
-          Hearts
-        </p>
-      </div>
+  <div className="flex items-center gap-1.5">
+    <div className="flex items-center gap-1 rounded-xl border border-red-400/20 bg-red-400/10 px-2 py-1.5">
+      <span className="text-sm">❤️</span>
+      <span className="text-xs font-extrabold text-white">{lives}</span>
     </div>
 
-    <div className="flex items-center gap-2 rounded-2xl border border-yellow-400/20 bg-yellow-400/10 px-3 py-2 shadow-lg backdrop-blur sm:px-4">
+    <div className="flex items-center gap-1 rounded-xl border border-yellow-400/20 bg-yellow-400/10 px-2 py-1.5">
       <Image
         src="/icons/xp2.png"
         alt="XP earned"
-        width={28}
-        height={28}
-        className="h-7 w-7 object-contain"
+        width={20}
+        height={20}
+        className="h-5 w-5 object-contain"
       />
 
-      <div>
-        <p className="text-sm font-extrabold text-yellow-300">{earnedXp}</p>
-        <p className="hidden text-[9px] font-bold uppercase tracking-wider text-slate-400 sm:block">
-          XP earned
-        </p>
-      </div>
+      <span className="text-xs font-extrabold text-yellow-300">
+        {earnedXp}
+      </span>
+    </div>
+
+    <div className="flex items-center gap-1 rounded-xl border border-emerald-400/20 bg-emerald-400/10 px-2 py-1.5">
+      <Image
+        src="/icons/gem1.png"
+        alt="Gems earned"
+        width={20}
+        height={20}
+        className="h-5 w-5 object-contain"
+      />
+
+      <span className="text-xs font-extrabold text-emerald-300">
+        {earnedGems}
+      </span>
     </div>
   </div>
 </div>
 
-     <div className="mb-5">
+     <div className="mb-2">
   <div className="flex items-center justify-between gap-3">
     <p className={`text-xs font-extrabold uppercase tracking-[0.16em] ${theme.text}`}>
       Quest progress
@@ -627,7 +638,7 @@ export default function LessonPage() {
     </p>
   </div>
 
-  <div className="mt-2 h-3 overflow-hidden rounded-full border border-white/10 bg-slate-950/60">
+  <div className="mt-1 h-2 overflow-hidden rounded-full border border-white/10 bg-slate-950/60">
     <div
       className={`h-full rounded-full transition-all duration-500 ${theme.progress}`}
       style={{
@@ -639,7 +650,7 @@ export default function LessonPage() {
 </div>
 
      <div
-  className={`relative overflow-hidden rounded-[2rem] border p-5 backdrop-blur-xl md:p-7 ${theme.card} ${theme.glow}`}
+  className={`relative overflow-hidden rounded-[1.5rem] border p-3.5 backdrop-blur-xl sm:p-4 ${theme.card} ${theme.glow}`}
 >
   <div
     className="pointer-events-none absolute inset-0"
@@ -658,16 +669,16 @@ export default function LessonPage() {
           <div className="text-center">
             <div className="text-6xl md:text-7xl">💔</div>
 
-            <h1 className="mt-5 text-3xl font-extrabold md:text-4xl">
+            <h1 className="mt-2 text-2xl font-extrabold md:text-3xl">
               Out of hearts!
             </h1>
 
-            <p className="mt-3 text-base leading-7 text-slate-300">
+            <p className="mt-1.5 text-xs leading-5 text-slate-300 sm:text-sm">
               Don&apos;t worry. Try the quest again and help Robo continue the
               adventure.
             </p>
 
-            <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
+            <div className="mt-4 flex flex-col justify-center gap-2 sm:flex-row">
               <button
                 onClick={restartLesson}
                 className="rounded-2xl bg-emerald-400 px-6 py-3 text-center font-bold text-slate-950 transition hover:bg-emerald-300"
@@ -677,7 +688,7 @@ export default function LessonPage() {
 
               <Link
                 href="/learn"
-                className="rounded-2xl border border-white/10 px-6 py-3 text-center font-bold text-white transition hover:bg-white/10"
+               className="rounded-xl border border-white/10 px-5 py-2.5 text-center text-sm font-bold text-white transition hover:bg-white/10"
               >
                 Back to Map
               </Link>
@@ -687,7 +698,7 @@ export default function LessonPage() {
           <>
             <div className="flex items-center justify-between gap-4">
              <div
-  className={`relative h-20 w-20 overflow-hidden rounded-2xl border bg-slate-950/70 sm:h-24 sm:w-24 ${theme.border}`}
+  className={`relative h-14 w-14 shrink-0 overflow-hidden rounded-xl border bg-slate-950/70 sm:h-16 sm:w-16 ${theme.border}`}
 >
   <Image
     src={lesson.image}
@@ -708,7 +719,7 @@ export default function LessonPage() {
 </div>
 
              <div
-  className={`rounded-full border px-4 py-2 text-xs font-bold md:text-sm ${theme.badge}`}
+  className={`rounded-full border px-2.5 py-1 text-[9px] font-bold sm:text-[10px] ${theme.badge}`}
 >
 
                 Quest {lesson.id} · Question {currentQuestionIndex + 1}/
@@ -716,20 +727,20 @@ export default function LessonPage() {
               </div>
             </div>
 
-            <h1 className="mt-5 text-3xl font-extrabold md:text-4xl">
+            <h1 className="mt-2 text-2xl font-extrabold md:text-3xl">
               {lesson.title}
             </h1>
 
-            <p className={`mt-2 text-sm font-extrabold uppercase tracking-[0.18em] ${theme.text}`}>
+            <p className={`mt-1 text-[10px] font-extrabold uppercase tracking-[0.16em] ${theme.text}`}>
   {lesson.concept}
 </p>
 
-            <p className="mt-3 text-base leading-7 text-slate-300">
+           <p className="mt-1.5 text-xs leading-5 text-slate-300 sm:text-sm">
               {lesson.story}
             </p>
 
-           <div className="mt-6 overflow-hidden rounded-2xl border border-white/10 bg-[#050914] shadow-xl">
-  <div className="flex items-center gap-2 border-b border-white/10 bg-white/[0.03] px-4 py-3">
+           <div className="mt-3 overflow-hidden rounded-xl border border-white/10 bg-[#050914] shadow-xl">
+  <div className="flex items-center gap-1.5 border-b border-white/10 bg-white/[0.03] px-3 py-1.5">
     <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
     <span className="h-2.5 w-2.5 rounded-full bg-yellow-400" />
     <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
@@ -739,7 +750,7 @@ export default function LessonPage() {
     </span>
   </div>
 
-  <div className="overflow-x-auto p-4 text-left font-mono text-sm">
+<div className="overflow-x-auto p-2.5 text-left font-mono text-xs">
     <p className="text-slate-500"># Complete the code</p>
 
     <p className={`mt-2 whitespace-nowrap font-bold ${theme.text}`}>
@@ -755,11 +766,11 @@ export default function LessonPage() {
   </div>
 </div>
 
-            <h2 className="mt-6 text-xl font-bold leading-7 md:text-2xl">
+            <h2 className="mt-3 text-base font-bold leading-5 sm:text-lg">
               {currentQuestion.question}
             </h2>
 
-            <div className="mt-5 grid gap-3">
+           <div className="mt-2.5 grid gap-1.5">
   {currentQuestion.answers.map((answer, answerIndex) => {
     const selected = selectedAnswer === answer;
     const correct = answer === currentQuestion.correctAnswer;
@@ -782,10 +793,10 @@ export default function LessonPage() {
         key={answer}
         onClick={() => handleAnswer(answer)}
         disabled={selectedAnswer !== null}
-        className={`group flex w-full items-center gap-3 rounded-2xl border px-4 py-3 text-left font-mono text-base font-bold transition duration-200 md:px-5 ${buttonStyle} disabled:cursor-default`}
+       className={`group flex w-full items-center gap-2 rounded-xl border px-3 py-2 text-left font-mono text-sm font-bold transition duration-200 ${buttonStyle} disabled:cursor-default`}
       >
         <span
-          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border text-xs font-extrabold ${
+          className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[9px] font-extrabold ${
             selectedAnswer !== null && correct
               ? "border-emerald-900/20 bg-emerald-950/20"
               : selected && !correct
@@ -810,13 +821,13 @@ export default function LessonPage() {
 
            {isCorrect && (
  <div
-  className={`mt-5 rounded-2xl border p-4 ${theme.feedback}`}
+  className={`mt-2.5 rounded-xl border p-2.5 ${theme.feedback}`}
 >
-    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
       <div>
        <p className={`font-bold ${theme.text}`}>Correct!</p>
 
-        <p className="mt-1 text-sm leading-6 text-slate-300">
+        <p className="mt-1 text-xs leading-5 text-slate-300 sm:text-sm">
           {currentQuestion.successMessage}
         </p>
       </div>
@@ -824,7 +835,7 @@ export default function LessonPage() {
       <button
   onClick={handleContinue}
   disabled={saving}
-  className={`rounded-2xl px-6 py-3 font-bold transition disabled:cursor-not-allowed disabled:opacity-60 ${theme.button}`}
+ className={`rounded-xl px-4 py-2 text-sm font-bold transition disabled:cursor-not-allowed disabled:opacity-60 ${theme.button}`}
 >
   {saving ? "Saving..." : "Continue →"}
 </button>
@@ -840,21 +851,21 @@ export default function LessonPage() {
 )}
 
             {isWrong && !lessonFailed && (
-  <div className="mt-5 rounded-2xl bg-red-400/10 p-4">
-    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+  <div className="mt-2.5 rounded-xl border border-red-400/20 bg-red-400/10 p-2.5">
+    <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
       <div>
         <p className="font-bold text-red-300">
           Not quite. You lost 1 heart.
         </p>
 
-        <p className="mt-1 text-sm leading-6 text-slate-300">
+        <p className="mt-1 text-xs leading-5 text-slate-300 sm:text-sm">
           Try again and choose the best answer.
         </p>
       </div>
 
       <button
         onClick={tryAgain}
-        className="rounded-2xl bg-red-400 px-6 py-3 font-bold text-slate-950 transition hover:bg-red-300"
+        className="rounded-xl bg-red-400 px-4 py-2 text-sm font-bold text-slate-950 transition hover:bg-red-300"
       >
         Try Again
       </button>
@@ -866,7 +877,7 @@ export default function LessonPage() {
           <div className="text-center">
             
             <div
-  className={`relative mx-auto h-28 w-28 overflow-hidden rounded-[2rem] border bg-slate-950/70 ${theme.border}`}
+  className={`relative mx-auto h-20 w-20 overflow-hidden rounded-2xl border bg-slate-950/70 sm:h-24 sm:w-24 ${theme.border}`}
 >
   <Image
     src={lesson.image}
@@ -892,11 +903,11 @@ export default function LessonPage() {
   Quest {lesson.id} completed
 </p>
 
-            <h1 className="mt-5 text-3xl font-extrabold md:text-4xl">
+            <h1 className="mt-2 text-2xl font-extrabold md:text-3xl">
               {isFinalLesson ? "Robo Lab Complete!" : "Quest Complete!"}
             </h1>
 
-           <p className="mt-3 text-base leading-7 text-slate-300 md:text-lg">
+           <p className="mx-auto mt-2 max-w-lg text-sm leading-6 text-slate-300">
   {rewardGranted
     ? isFinalLesson
       ? "Amazing! You completed the first LooplyLand world and collected your rewards."
@@ -905,17 +916,17 @@ export default function LessonPage() {
 </p>
 
 {rewardGranted ? (
-  <div className="mx-auto mt-6 grid max-w-md grid-cols-2 gap-3">
-    <div className="rounded-2xl border border-yellow-400/20 bg-yellow-400/10 p-4">
+  <div className="mx-auto mt-3 grid max-w-sm grid-cols-2 gap-2">
+    <div className="rounded-2xl border border-yellow-400/20 bg-yellow-400/10 p-3">
       <Image
         src="/icons/xp2.png"
         alt="XP reward"
         width={52}
         height={52}
-        className="mx-auto h-12 w-12 object-contain"
+        className="mx-auto h-9 w-9 object-contain sm:h-10 sm:w-10"
       />
 
-      <p className="mt-2 text-xl font-extrabold text-yellow-300">
+      <p className="mt-1 text-lg font-extrabold text-yellow-300">
         +{lesson.xp}
       </p>
 
@@ -924,16 +935,16 @@ export default function LessonPage() {
       </p>
     </div>
 
-    <div className="rounded-2xl border border-emerald-400/20 bg-emerald-400/10 p-4">
+    <div className="rounded-2xl border border-emerald-400/20 bg-emerald-400/10 p-3">
       <Image
         src="/icons/gem1.png"
         alt="Gem reward"
         width={52}
         height={52}
-        className="mx-auto h-12 w-12 object-contain"
+        className="mx-auto h-9 w-9 object-contain sm:h-10 sm:w-10"
       />
 
-      <p className="mt-2 text-xl font-extrabold text-emerald-300">
+      <p className="mt-1 text-lg font-extrabold text-emerald-300">
         +{lesson.gems}
       </p>
 
@@ -968,12 +979,12 @@ export default function LessonPage() {
               </p>
             )}
 
-            <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
+            <div className="mt-4 flex flex-col justify-center gap-2 sm:flex-row">
               {hasNextLesson ? (
              
              <Link
   href={`/lesson/${nextLessonId}`}
-  className={`rounded-2xl px-6 py-3 text-center font-bold transition ${theme.button}`}
+  className={`rounded-xl px-5 py-2.5 text-sm text-center font-bold transition ${theme.button}`}
 >
   Next Quest →
 </Link>
@@ -982,7 +993,7 @@ export default function LessonPage() {
                
                 <Link
        href="/upgrade"
-       className={`rounded-2xl px-6 py-3 text-center font-bold transition ${theme.button}`}
+       className={`rounded-xl px-5 py-2.5 text-sm text-center font-bold transition ${theme.button}`}
 >
   Unlock Premium Worlds
 </Link>
@@ -990,11 +1001,12 @@ export default function LessonPage() {
               )}
 
               <Link
-                href="/learn"
-                className="rounded-2xl border border-white/10 px-6 py-3 text-center font-bold text-white transition hover:bg-white/10"
-              >
-                Back to Map
-              </Link>
+  href="/learn"
+  className="rounded-xl border border-white/10 px-5 py-2.5 text-center text-sm font-bold text-white transition hover:bg-white/10"
+>
+  Back to Map
+</Link>
+
             </div>
           </div>
         )}
