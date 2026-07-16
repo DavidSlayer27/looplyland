@@ -151,8 +151,6 @@ export default function UpgradePage() {
             </div>
 
             <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-left md:p-8">
-              <div className="text-5xl">🔥</div>
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-left md:p-8">
   <div className="text-5xl">📊</div>
 
   <h3 className="mt-5 text-2xl font-extrabold">
@@ -164,11 +162,6 @@ export default function UpgradePage() {
     and progress across multiple coding worlds.
   </p>
 </div>
-              <p className="mt-3 leading-7 text-slate-300">
-                Short daily quests help children build consistency without long
-                study sessions.
-              </p>
-            </div>
 
             <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-left md:p-8">
               <div className="text-5xl">💻</div>

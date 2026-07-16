@@ -1,9 +1,24 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 export default function Home() {
+  const [demoAnswer, setDemoAnswer] = useState<string | null>(null);
+
+  const demoAnswers = ["move_forward()", "turn_left()", "sleep()"];
+
+  function handleDemoAnswer(answer: string) {
+    setDemoAnswer(answer);
+
+    window.setTimeout(() => {
+      setDemoAnswer(null);
+    }, 1000);
+  }
+
   return (
     <main className="min-h-screen bg-[#101827] text-white">
       <Navbar />
@@ -212,8 +227,8 @@ export default function Home() {
 
       <div className="mt-5 rounded-2xl border border-white/10 bg-[#050914] p-4 font-mono">
         <p className="text-xs text-slate-500"># Complete the code</p>
-        <p className="mt-2 font-bold text-emerald-200">
-          robot.__________
+       <p className="mt-2 font-bold text-emerald-200">
+        {demoAnswer ? `robot.${demoAnswer}` : "robot.__________"}
         </p>
       </div>
 
@@ -222,21 +237,49 @@ export default function Home() {
       </p>
 
       <div className="mt-4 grid gap-2">
-        {["move_forward()", "turn_left()", "sleep()"].map(
-          (answer, index) => (
-            <div
-              key={answer}
-              className="flex items-center gap-3 rounded-xl border border-white/10 bg-slate-950/50 px-4 py-3 font-mono text-sm font-bold"
-            >
-              <span className="flex h-7 w-7 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-xs text-emerald-300">
-                {String.fromCharCode(65 + index)}
-              </span>
+  {demoAnswers.map((answer, index) => {
+    const selected = demoAnswer === answer;
+    const correct = answer === "move_forward()";
 
-              {answer}
-            </div>
-          )
-        )}
-      </div>
+    let answerStyle =
+      "border-white/10 bg-slate-950/50 text-white hover:border-emerald-300/40 hover:bg-white/[0.07]";
+
+    if (selected && correct) {
+      answerStyle =
+        "border-emerald-300 bg-emerald-400 text-slate-950 shadow-[0_0_22px_rgba(52,211,153,0.25)]";
+    }
+
+    if (selected && !correct) {
+      answerStyle =
+        "border-red-300 bg-red-400 text-slate-950 shadow-[0_0_22px_rgba(248,113,113,0.22)]";
+    }
+
+    return (
+      <button
+        key={answer}
+        type="button"
+        onClick={() => handleDemoAnswer(answer)}
+        className={`flex w-full items-center gap-3 rounded-xl border px-4 py-3 text-left font-mono text-sm font-bold transition duration-200 ${answerStyle}`}
+      >
+        <span
+          className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border text-xs ${
+            selected
+              ? "border-slate-950/20 bg-slate-950/15"
+              : "border-white/10 bg-white/5 text-emerald-300"
+          }`}
+        >
+          {String.fromCharCode(65 + index)}
+        </span>
+
+        <span className="flex-1">{answer}</span>
+
+        {selected && correct && <span className="text-lg">✓</span>}
+
+        {selected && !correct && <span className="text-lg">✕</span>}
+      </button>
+    );
+  })}
+</div>
 
       <Link
         href="/learn"
