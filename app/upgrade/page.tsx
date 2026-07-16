@@ -19,6 +19,11 @@ export default function UpgradePage() {
     setErrorMessage("");
 
     const cleanedEmail = email.trim().toLowerCase();
+    if (!cleanedEmail) {
+  setErrorMessage("Please enter a valid email address.");
+  setLoading(false);
+  return;
+}
 
     const { error } = await supabase.from("waitlist").insert([
       {
@@ -60,9 +65,9 @@ export default function UpgradePage() {
             </h1>
 
             <p className="mx-auto mt-5 max-w-3xl text-base leading-7 text-slate-300 md:mt-6 md:text-xl md:leading-8">
-              Premium will give kids ages 8–12 access to new coding worlds,
-              harder quests, boss fights, certificates, and a parent progress
-              dashboard.
+            Premium will give kids ages 8–12 access to new coding worlds,
+            harder quests, boss fights, certificates, and more detailed parent
+            progress insights.
             </p>
 
             <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row md:mt-8">
@@ -110,8 +115,7 @@ export default function UpgradePage() {
                 More Coding Worlds
               </h3>
               <p className="mt-3 leading-7 text-slate-300">
-                New areas like Debug Desert, Function Tower, Algorithm Arena,
-                and Game Logic Island.
+                New areas like Debug Desert, Function Tower, and Game Logic Island.
               </p>
             </div>
 
@@ -148,7 +152,18 @@ export default function UpgradePage() {
 
             <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-left md:p-8">
               <div className="text-5xl">🔥</div>
-              <h3 className="mt-5 text-2xl font-extrabold">Daily Streaks</h3>
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-left md:p-8">
+  <div className="text-5xl">📊</div>
+
+  <h3 className="mt-5 text-2xl font-extrabold">
+    Detailed Progress Insights
+  </h3>
+
+  <p className="mt-3 leading-7 text-slate-300">
+    Parents can review learning history, completed concepts, milestones,
+    and progress across multiple coding worlds.
+  </p>
+</div>
               <p className="mt-3 leading-7 text-slate-300">
                 Short daily quests help children build consistency without long
                 study sessions.
@@ -161,8 +176,7 @@ export default function UpgradePage() {
                 Advanced Beginner Skills
               </h3>
               <p className="mt-3 leading-7 text-slate-300">
-                Loops, conditions, variables, debugging, functions, algorithms,
-                and beginner project logic.
+                Debugging, functions, game logic, reusable code, and beginner project skills.
               </p>
             </div>
           </div>
@@ -213,7 +227,7 @@ export default function UpgradePage() {
                 </div>
 
                 <div className="rounded-2xl bg-slate-950/60 p-4 md:p-5">
-                  ✅ XP and streak tracking
+                  ✅ XP, Gems, and streak tracking
                 </div>
 
                 <div className="rounded-2xl bg-slate-950/60 p-4 md:p-5">
@@ -288,11 +302,11 @@ export default function UpgradePage() {
                 </div>
 
                 <div className="rounded-2xl bg-slate-950/60 p-4 md:p-5">
-                  ✅ Parent progress dashboard
+                  ✅ Advanced parent progress insights
                 </div>
 
                 <div className="rounded-2xl bg-slate-950/60 p-4 md:p-5">
-                  ✅ Future worlds: debugging, functions, algorithms, game logic
+                  ✅ Future worlds: debugging, functions, and game logic
                 </div>
               </div>
 
@@ -355,7 +369,7 @@ export default function UpgradePage() {
                 </div>
 
                 <div className="rounded-2xl bg-slate-950/60 p-4 md:p-5">
-                  ✅ Track XP, streak, and consistency
+                  ✅ Track XP, Gems, streak, and consistency
                 </div>
 
                 <div className="rounded-2xl bg-slate-950/60 p-4 md:p-5">
@@ -393,13 +407,18 @@ export default function UpgradePage() {
                 className="mt-8 flex flex-col gap-3 sm:flex-row"
               >
                 <input
-                  type="email"
-                  required
-                  placeholder="Parent email"
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                  className="min-w-0 flex-1 rounded-2xl border border-white/10 bg-slate-950 px-5 py-4 text-white outline-none placeholder:text-slate-500 focus:border-emerald-400"
-                />
+  type="email"
+  required
+  autoComplete="email"
+  maxLength={254}
+  placeholder="Parent email"
+  value={email}
+  onChange={(event) => {
+    setEmail(event.target.value);
+    setErrorMessage("");
+  }}
+  className="min-w-0 flex-1 rounded-2xl border border-white/10 bg-slate-950 px-5 py-4 text-white outline-none placeholder:text-slate-500 focus:border-emerald-400"
+/>
 
                 <button
                   type="submit"

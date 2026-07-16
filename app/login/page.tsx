@@ -17,25 +17,41 @@ export default function LoginPage() {
   const [errorMessage, setErrorMessage] = useState("");
 
   async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  event.preventDefault();
 
-    setLoading(true);
-    setErrorMessage("");
+  if (loading) return;
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email: email.trim().toLowerCase(),
-      password,
-    });
+  setLoading(true);
+  setErrorMessage("");
 
+  const cleanedEmail = email.trim().toLowerCase();
+
+  if (!cleanedEmail) {
+    setErrorMessage("Please enter a valid email address.");
     setLoading(false);
-
-    if (error) {
-      setErrorMessage(error.message);
-      return;
-    }
-
-    router.push("/learn");
+    return;
   }
+
+  if (!password) {
+    setErrorMessage("Please enter your password.");
+    setLoading(false);
+    return;
+  }
+
+  const { error } = await supabase.auth.signInWithPassword({
+    email: cleanedEmail,
+    password,
+  });
+
+  setLoading(false);
+
+  if (error) {
+    setErrorMessage("Invalid email or password.");
+    return;
+  }
+
+  router.push("/learn");
+}
 
   return (
     <main className="min-h-screen bg-[#101827] text-white">
@@ -56,26 +72,38 @@ export default function LoginPage() {
               <label className="font-bold text-slate-200">Email</label>
 
               <input
-                type="email"
-                required
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-                placeholder="parent@email.com"
-                className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-950 px-5 py-4 text-white outline-none transition placeholder:text-slate-500 focus:border-emerald-400"
-              />
+  type="email"
+  required
+  autoComplete="email"
+  maxLength={254}
+  value={email}
+  onChange={(event) => {
+    setEmail(event.target.value);
+    setErrorMessage("");
+  }}
+  placeholder="parent@email.com"
+  className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-950 px-5 py-4 text-white outline-none transition placeholder:text-slate-500 focus:border-emerald-400"
+/>
+
             </div>
 
             <div>
               <label className="font-bold text-slate-200">Password</label>
 
               <input
-                type="password"
-                required
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                placeholder="Your password"
-                className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-950 px-5 py-4 text-white outline-none transition placeholder:text-slate-500 focus:border-emerald-400"
-              />
+  type="password"
+  required
+  autoComplete="current-password"
+  maxLength={72}
+  value={password}
+  onChange={(event) => {
+    setPassword(event.target.value);
+    setErrorMessage("");
+  }}
+  placeholder="Your password"
+  className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-950 px-5 py-4 text-white outline-none transition placeholder:text-slate-500 focus:border-emerald-400"
+/>
+
             </div>
 
             <button

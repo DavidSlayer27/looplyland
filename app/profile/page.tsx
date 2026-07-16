@@ -50,6 +50,7 @@ export default function ProfilePage() {
 
   const [email, setEmail] = useState("");
   const [xp, setXp] = useState(0);
+  const [gems, setGems] = useState(0);
   const [streak, setStreak] = useState(0);
   const [completedLessons, setCompletedLessons] = useState<number[]>([]);
   const [loading, setLoading] = useState(true);
@@ -84,6 +85,7 @@ export default function ProfilePage() {
       .eq("user_id", user.id);
 
     setXp(profile?.xp || 0);
+    setGems(profile?.gems || 0);
     setStreak(profile?.streak || 0);
     setCompletedLessons(progress?.map((item) => item.lesson_id) || []);
 
@@ -138,8 +140,8 @@ export default function ProfilePage() {
               </h1>
 
               <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-300 md:text-base md:leading-7">
-                Track your child&apos;s coding journey, completed quests,
-                learning streak, and skills learned in LooplyLand.
+              Track your child&apos;s coding journey, completed quests, XP,
+              Gems, learning streak, and skills learned in LooplyLand.
               </p>
 
               <p className="mt-3 break-words text-sm font-semibold text-slate-500">
@@ -164,7 +166,7 @@ export default function ProfilePage() {
             </div>
           </div>
 
-          <div className="grid gap-5 md:grid-cols-3">
+          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
             <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
               <p className="text-sm text-slate-300 md:text-base">Total XP</p>
               <h2 className="mt-3 text-4xl font-extrabold">⭐ {xp}</h2>
@@ -216,7 +218,7 @@ export default function ProfilePage() {
                 </div>
               ) : (
                 <Link
-                  href={nextQuest ? `/lesson/${nextQuest.id}` : "/learn"}
+                  href="/learn"
                   className="w-full rounded-2xl bg-emerald-400 px-6 py-3 text-center font-bold text-slate-950 transition hover:bg-emerald-300 sm:w-auto"
                 >
                   Next Quest →
@@ -254,11 +256,12 @@ export default function ProfilePage() {
                     </div>
                   </div>
 
-                  <Link
-                    href={`/lesson/${nextQuest.id}`}
+                  
+                    <Link
+                      href="/learn"
                     className="w-full rounded-2xl bg-emerald-400 px-6 py-3 text-center font-bold text-slate-950 transition hover:bg-emerald-300 sm:w-auto"
                   >
-                    Start
+                    View on Map
                   </Link>
                 </div>
               </div>
@@ -366,6 +369,10 @@ export default function ProfilePage() {
 
                 <div className="rounded-2xl bg-slate-950/50 p-4 md:p-5">
                   ⭐ Total XP earned: {xp}
+                </div>
+
+                <div className="rounded-2xl bg-slate-950/50 p-4 md:p-5">
+                  💎 Total Gems collected: {gems}
                 </div>
 
                 <div className="rounded-2xl bg-slate-950/50 p-4 md:p-5">

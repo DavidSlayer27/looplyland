@@ -21,7 +21,7 @@ export default function ParentsPage() {
 
           <p className="mx-auto mt-5 max-w-3xl text-base leading-7 text-slate-300 md:mt-6 md:text-xl md:leading-8">
             LooplyLand turns coding basics into short quests, puzzles, XP,
-            streaks, and boss fights — helping kids build logic and
+            Gems, streaks, and boss fights — helping kids build logic and
             problem-solving skills while having fun.
           </p>
 
@@ -93,7 +93,7 @@ export default function ParentsPage() {
                 Feels like a game
               </h3>
               <p className="mt-3 leading-7 text-slate-300">
-                XP, hearts, streaks, quests, locked worlds, and boss fights keep
+                XP, Gems, streaks, quests, locked worlds, and boss fights keep
                 kids motivated to continue.
               </p>
             </div>
@@ -196,7 +196,7 @@ export default function ParentsPage() {
               <div className="text-5xl">3️⃣</div>
               <h3 className="mt-4 text-xl font-extrabold">Earn rewards</h3>
               <p className="mt-2 text-slate-300">
-                XP, hearts, streaks, and completed quests show progress.
+               XP, Gems, streaks, and completed quests show progress.
               </p>
             </div>
 
@@ -233,7 +233,7 @@ export default function ParentsPage() {
                 </div>
 
                 <div className="rounded-2xl bg-slate-950/60 p-4 md:p-5">
-                  ✅ Progress, XP, and streak tracking
+                  ✅ Progress, XP, Gems, and streak tracking
                 </div>
 
                 <div className="rounded-2xl bg-slate-950/60 p-4 md:p-5">
@@ -246,13 +246,13 @@ export default function ParentsPage() {
               <p className="font-bold text-emerald-300">What is coming next</p>
 
               <h2 className="mt-4 text-3xl font-extrabold md:text-4xl">
-                Premium worlds and parent progress dashboard.
-              </h2>
+                More coding worlds and advanced learning features.
+                </h2>
 
-              <p className="mt-5 text-base leading-7 text-slate-300 md:text-lg md:leading-8">
-                The free Robo Lab world is just the beginning. Future worlds can
-                include debugging, game logic, algorithms, creative coding, and
-                a dashboard where parents can see progress.
+             <p className="mt-5 text-base leading-7 text-slate-300 md:text-lg md:leading-8">
+                The free Robo Lab world is just the beginning. Future worlds will
+                introduce debugging, functions, game logic, algorithms, creative
+                coding, certificates, and more detailed progress insights.
               </p>
 
               <Link
@@ -265,6 +265,97 @@ export default function ParentsPage() {
           </div>
         </div>
       </section>
+
+      <section className="bg-slate-950 px-6 py-20 md:py-24">
+  <div className="mx-auto max-w-6xl">
+    <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+      <div>
+        <p className="font-bold text-emerald-300">
+          Parent learning overview
+        </p>
+
+        <h2 className="mt-4 text-3xl font-extrabold md:text-5xl">
+          See what your child is learning.
+        </h2>
+
+        <p className="mt-5 text-base leading-7 text-slate-300 md:text-lg md:leading-8">
+          A free account keeps progress connected to the child&apos;s profile,
+          so parents can review completed quests, coding concepts, XP, Gems,
+          and learning consistency.
+        </p>
+
+        <Link
+          href="/profile"
+          className="mt-7 inline-block rounded-2xl border border-emerald-400/30 bg-emerald-400/10 px-6 py-4 text-center font-bold text-emerald-300 transition hover:bg-emerald-400/20"
+        >
+          View Parent Dashboard
+        </Link>
+      </div>
+
+      <div className="rounded-[2rem] border border-white/10 bg-white/5 p-5 shadow-2xl md:p-7">
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <p className="text-sm font-bold text-emerald-300">
+              Learning progress
+            </p>
+
+            <h3 className="mt-1 text-2xl font-extrabold">
+              Robo Lab
+            </h3>
+          </div>
+
+          <div className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 text-sm font-bold text-emerald-300">
+            3 / 5 quests
+          </div>
+        </div>
+
+        <div className="mt-6 h-3 overflow-hidden rounded-full bg-white/10">
+          <div className="h-full w-3/5 rounded-full bg-emerald-400 shadow-[0_0_18px_rgba(52,211,153,0.6)]" />
+        </div>
+
+        <div className="mt-6 grid grid-cols-3 gap-3">
+          <div className="rounded-2xl border border-yellow-400/20 bg-yellow-400/10 p-4 text-center">
+            <p className="text-xl font-extrabold text-yellow-300">90</p>
+            <p className="mt-1 text-xs font-bold uppercase text-slate-400">
+              XP
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-emerald-400/20 bg-emerald-400/10 p-4 text-center">
+            <p className="text-xl font-extrabold text-emerald-300">45</p>
+            <p className="mt-1 text-xs font-bold uppercase text-slate-400">
+              Gems
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-orange-400/20 bg-orange-400/10 p-4 text-center">
+            <p className="text-xl font-extrabold text-orange-300">3</p>
+            <p className="mt-1 text-xs font-bold uppercase text-slate-400">
+              Streak
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-5 rounded-2xl border border-white/10 bg-slate-950/60 p-4">
+          <p className="text-xs font-bold uppercase tracking-wider text-slate-500">
+            Concepts completed
+          </p>
+
+          <div className="mt-3 flex flex-wrap gap-2">
+            {["Commands", "Loops", "Conditions"].map((skill) => (
+              <span
+                key={skill}
+                className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1.5 text-xs font-bold text-emerald-300"
+              >
+                ✓ {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
       <section className="bg-slate-950 px-6 py-20 md:py-24">
         <div className="mx-auto max-w-4xl rounded-[2rem] border border-emerald-400/20 bg-emerald-400/10 p-8 text-center md:p-10">

@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <footer className="border-t border-white/10 bg-slate-950 px-6 py-10 text-white">
-      <div className="mx-auto flex max-w-6xl flex-col gap-8 md:flex-row md:items-center md:justify-between">
+      <div className="mx-auto flex max-w-6xl flex-col gap-8 md:flex-row md:items-start md:justify-between">
         <div>
           <Link href="/" className="text-2xl font-extrabold">
             Looply<span className="text-emerald-300">Land</span>
@@ -16,23 +16,23 @@ export default function Footer() {
         </div>
 
         <div className="grid grid-cols-2 gap-4 text-sm font-bold text-slate-300 sm:flex sm:flex-wrap sm:items-center">
-          <Link href="/learn" className="transition hover:text-white">
+          <Link href="/learn" className="transition hover:text-emerald-300">
             Learn
           </Link>
 
-          <Link href="/parents" className="transition hover:text-white">
+          <Link href="/parents" className="transition hover:text-emerald-300">
             Parents
           </Link>
 
-          <Link href="/upgrade" className="transition hover:text-white">
+          <Link href="/upgrade" className="transition hover:text-emerald-300">
             Premium
           </Link>
 
-          <Link href="/privacy" className="transition hover:text-white">
+          <Link href="/privacy" className="transition hover:text-emerald-300">
             Privacy Policy
           </Link>
 
-          <Link href="/contact" className="transition hover:text-white">
+          <Link href="/contact" className="transition hover:text-emerald-300">
             Contact
           </Link>
         </div>

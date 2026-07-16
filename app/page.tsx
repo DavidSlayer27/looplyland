@@ -118,10 +118,10 @@ export default function Home() {
           </div>
 
           <div>
-            <p className="font-extrabold">Earn XP</p>
-            <p className="mt-0.5 text-sm text-slate-400">
-              Build progress and streaks.
-            </p>
+           <p className="font-extrabold">Earn XP & Gems</p>
+<p className="mt-0.5 text-sm text-slate-400">
+  Collect rewards and build streaks.
+</p>
           </div>
         </div>
       </div>
@@ -130,6 +130,123 @@ export default function Home() {
 </section>
 
 <div className="h-10 bg-gradient-to-b from-[#101827] to-slate-950" />
+
+<section className="bg-slate-950 px-5 pb-20 pt-10 sm:px-6 md:pb-24">
+  <div className="mx-auto max-w-5xl">
+    <div className="text-center">
+      <p className="font-bold text-emerald-300">
+        See the adventure in action
+      </p>
+
+      <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl">
+        Short coding puzzles. Clear rewards. Real progress.
+      </h2>
+
+      <p className="mx-auto mt-4 max-w-2xl leading-7 text-slate-300">
+        Each quest introduces one beginner coding concept through a simple,
+        game-like challenge.
+      </p>
+    </div>
+
+    <div className="relative mx-auto mt-10 max-w-2xl overflow-hidden rounded-[2rem] border border-emerald-300/30 bg-gradient-to-br from-emerald-400/10 via-slate-950 to-cyan-400/10 p-5 shadow-[0_0_50px_rgba(52,211,153,0.14)] sm:p-7">
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <div className="relative h-16 w-16 overflow-hidden rounded-2xl border border-emerald-300/30 bg-slate-950/70">
+            <Image
+              src="/quests/move-robo.png"
+              alt="Move Robo quest"
+              fill
+              sizes="64px"
+              className="scale-[1.2] object-contain"
+            />
+          </div>
+
+          <div>
+            <p className="text-xs font-extrabold uppercase tracking-wider text-emerald-300">
+              Quest 1
+            </p>
+
+            <p className="mt-1 text-xl font-extrabold">Move Robo</p>
+          </div>
+        </div>
+
+        <div className="flex gap-2">
+          <div className="flex items-center gap-1 rounded-xl border border-yellow-400/20 bg-yellow-400/10 px-2 py-1.5">
+            <Image
+              src="/icons/xp2.png"
+              alt="XP"
+              width={20}
+              height={20}
+              className="h-5 w-5 object-contain"
+            />
+            <span className="text-xs font-extrabold text-yellow-300">
+              +25
+            </span>
+          </div>
+
+          <div className="flex items-center gap-1 rounded-xl border border-emerald-400/20 bg-emerald-400/10 px-2 py-1.5">
+            <Image
+              src="/icons/gem1.png"
+              alt="Gems"
+              width={20}
+              height={20}
+              className="h-5 w-5 object-contain"
+            />
+            <span className="text-xs font-extrabold text-emerald-300">
+              +10
+            </span>
+          </div>
+        </div>
+      </div>
+
+     <div className="mt-5">
+  <div className="flex items-center justify-between text-xs font-bold">
+    <span className="text-emerald-300">Quest progress</span>
+    <span className="text-slate-400">1 of 3</span>
+  </div>
+
+  <div className="mt-2 h-2 overflow-hidden rounded-full bg-white/10">
+    <div className="h-full w-0 rounded-full bg-emerald-300 shadow-[0_0_16px_rgba(110,231,183,0.7)]" />
+  </div>
+</div>
+
+      <div className="mt-5 rounded-2xl border border-white/10 bg-[#050914] p-4 font-mono">
+        <p className="text-xs text-slate-500"># Complete the code</p>
+        <p className="mt-2 font-bold text-emerald-200">
+          robot.__________
+        </p>
+      </div>
+
+      <p className="mt-5 text-lg font-extrabold">
+        Which command moves Robo forward?
+      </p>
+
+      <div className="mt-4 grid gap-2">
+        {["move_forward()", "turn_left()", "sleep()"].map(
+          (answer, index) => (
+            <div
+              key={answer}
+              className="flex items-center gap-3 rounded-xl border border-white/10 bg-slate-950/50 px-4 py-3 font-mono text-sm font-bold"
+            >
+              <span className="flex h-7 w-7 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-xs text-emerald-300">
+                {String.fromCharCode(65 + index)}
+              </span>
+
+              {answer}
+            </div>
+          )
+        )}
+      </div>
+
+      <Link
+        href="/learn"
+        className="mt-5 block rounded-xl bg-emerald-300 px-5 py-3 text-center font-extrabold text-slate-950 transition hover:bg-emerald-200"
+      >
+        Start Your First Quest →
+      </Link>
+    </div>
+  </div>
+</section>
 
       {/* BENEFITS */}
       <section className="bg-slate-950 px-6 py-20 md:py-24">
@@ -150,7 +267,15 @@ export default function Home() {
 
           <div className="mt-10 grid gap-6 md:mt-12 md:grid-cols-3">
             <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-left md:p-8">
-              <div className="text-5xl">🧠</div>
+              <div className="relative h-16 w-16 overflow-hidden rounded-2xl border border-blue-400/20 bg-blue-400/10">
+  <Image
+    src="/quests/energy-crystals.png"
+    alt="Logic and problem solving"
+    fill
+    sizes="64px"
+    className="object-contain p-1"
+  />
+</div>
 
               <h3 className="mt-5 text-2xl font-extrabold">Logic Skills</h3>
 
@@ -161,114 +286,78 @@ export default function Home() {
             </div>
 
             <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-left md:p-8">
-              <div className="text-5xl">🎮</div>
+             <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-emerald-300/30 bg-emerald-400/10 shadow-[0_0_24px_rgba(52,211,153,0.12)]">
+  <Image
+    src="/icons/gem1.png"
+    alt="LooplyLand Gems"
+    width={54}
+    height={54}
+    className="h-12 w-12 object-contain"
+  />
+</div>
 
               <h3 className="mt-5 text-2xl font-extrabold">
                 Game-like Learning
               </h3>
 
               <p className="mt-3 leading-7 text-slate-300">
-                Quests, XP, streaks, levels, and boss fights keep children
-                engaged.
+                Quests, XP, Gems, streaks, and boss fights keep children engaged.
               </p>
             </div>
 
             <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-left md:p-8">
-              <div className="text-5xl">💻</div>
+              
+              <div className="relative h-16 w-16 overflow-hidden rounded-2xl border border-purple-400/20 bg-purple-400/10">
+  <Image
+    src="/quests/bug-gate.png"
+    alt="Coding basics"
+    fill
+    sizes="64px"
+    className="scale-[1.15] object-contain"
+  />
+</div>
 
               <h3 className="mt-5 text-2xl font-extrabold">Coding Basics</h3>
 
               <p className="mt-3 leading-7 text-slate-300">
-                Commands, loops, conditions, variables, debugging, and beginner
-                coding concepts.
+                Commands, loops, conditions, variables, and beginner coding logic.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* HOW IT WORKS */}
-      <section className="px-6 py-20 md:py-24">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-            <div>
-              <p className="font-bold text-emerald-300">How it works</p>
+      {/* TRUST BAR */}
+<section className="bg-slate-950 px-6 pb-12">
+  <div className="mx-auto grid max-w-5xl gap-4 rounded-3xl border border-white/10 bg-white/[0.04] p-5 text-center sm:grid-cols-3 sm:p-6">
+    <div>
+      <p className="text-2xl font-extrabold text-emerald-300">Ages 8–12</p>
 
-              <h2 className="mt-4 text-3xl font-extrabold md:text-5xl">
-                A simple daily adventure system.
-              </h2>
+      <p className="mt-1 text-sm leading-6 text-slate-400">
+        Designed for beginner learners.
+      </p>
+    </div>
 
-              <p className="mt-5 text-base leading-7 text-slate-300 md:text-lg md:leading-8">
-                Children complete short quests, answer coding puzzles, earn XP,
-                build streaks, and unlock new worlds.
-              </p>
+    <div>
+      <p className="text-2xl font-extrabold text-emerald-300">5 free quests</p>
 
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Link
-                  href="/parents"
-                  className="rounded-2xl border border-white/20 px-6 py-4 text-center font-bold text-white transition hover:bg-white/10"
-                >
-                  Learn More for Parents
-                </Link>
+      <p className="mt-1 text-sm leading-6 text-slate-400">
+        Included in the Robo Lab world.
+      </p>
+    </div>
 
-                <Link
-                  href="/learn"
-                  className="rounded-2xl bg-emerald-400 px-6 py-4 text-center font-bold text-slate-950 transition hover:bg-emerald-300"
-                >
-                  Try Free Demo
-                </Link>
-              </div>
-            </div>
+    <div>
+      <p className="text-2xl font-extrabold text-emerald-300">
+        No experience needed
+      </p>
 
-            <div className="grid gap-5">
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
-                <p className="text-sm font-extrabold text-emerald-300">
-                  STEP 1
-                </p>
-
-                <h3 className="mt-3 text-2xl font-extrabold">
-                  Start with Robo Lab
-                </h3>
-
-                <p className="mt-2 leading-7 text-slate-300">
-                  Kids begin with simple commands and friendly coding puzzles.
-                </p>
-              </div>
-
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
-                <p className="text-sm font-extrabold text-emerald-300">
-                  STEP 2
-                </p>
-
-                <h3 className="mt-3 text-2xl font-extrabold">
-                  Complete short quests
-                </h3>
-
-                <p className="mt-2 leading-7 text-slate-300">
-                  Each quest teaches one coding idea through interactive
-                  questions.
-                </p>
-              </div>
-
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
-                <p className="text-sm font-extrabold text-emerald-300">
-                  STEP 3
-                </p>
-
-                <h3 className="mt-3 text-2xl font-extrabold">
-                  Track learning progress
-                </h3>
-
-                <p className="mt-2 leading-7 text-slate-300">
-                  XP, streaks, and completed quests help children stay
-                  consistent.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      <p className="mt-1 text-sm leading-6 text-slate-400">
+        Children can start immediately.
+      </p>
+    </div>
+  </div>
+</section>
+      
       {/* FINAL CTA */}
       <section className="bg-slate-950 px-6 py-20 md:py-24">
         <div className="mx-auto max-w-4xl overflow-hidden rounded-[2rem] border border-emerald-400/20 bg-emerald-400/10 p-8 md:p-10">

@@ -56,15 +56,15 @@ export default function Navbar() {
           </Link>
 
           <nav className="hidden items-center gap-6 font-bold text-slate-300 md:flex">
-            <Link href="/learn" className="transition hover:text-white">
+            <Link href="/learn" className="transition hover:text-emerald-300">
               Learn
             </Link>
 
-            <Link href="/parents" className="transition hover:text-white">
+            <Link href="/parents" className="transition hover:text-emerald-300">
               Parents
             </Link>
 
-            <Link href="/upgrade" className="transition hover:text-white">
+            <Link href="/upgrade" className="transition hover:text-emerald-300">
               Premium
             </Link>
           </nav>
@@ -84,11 +84,12 @@ export default function Navbar() {
                 </Link>
 
                 <button
-                  onClick={handleLogout}
-                  className="rounded-2xl border border-white/10 px-5 py-3 font-bold text-white transition hover:bg-white/10"
-                >
-                  Logout
-                </button>
+  type="button"
+  onClick={handleLogout}
+  className="rounded-2xl border border-white/10 px-5 py-3 font-bold text-white transition hover:bg-white/10"
+>
+  Logout
+</button>
               </>
             ) : (
               <>
@@ -110,11 +111,14 @@ export default function Navbar() {
           </div>
 
           <button
-            onClick={() => setMenuOpen((currentValue) => !currentValue)}
-            className="rounded-2xl border border-white/10 px-5 py-3 text-sm font-bold text-white transition hover:bg-white/10 md:hidden"
-          >
-            {menuOpen ? "Close" : "Menu"}
-          </button>
+  type="button"
+  onClick={() => setMenuOpen((currentValue) => !currentValue)}
+  aria-expanded={menuOpen}
+  aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+  className="rounded-2xl border border-white/10 px-5 py-3 text-sm font-bold text-white transition hover:bg-white/10 md:hidden"
+>
+  {menuOpen ? "Close" : "Menu"}
+</button>
         </div>
       </header>
 
@@ -167,11 +171,12 @@ export default function Navbar() {
                   </Link>
 
                   <button
-                    onClick={handleLogout}
-                    className="rounded-2xl border border-white/20 px-5 py-4 text-center font-bold text-white transition hover:bg-white/10"
-                  >
-                    Logout
-                  </button>
+  type="button"
+  onClick={handleLogout}
+  className="rounded-2xl border border-white/20 px-5 py-4 text-center font-bold text-white transition hover:bg-white/10"
+>
+  Logout
+</button>
                 </>
               ) : (
                 <>

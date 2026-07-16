@@ -18,14 +18,29 @@ export default function SignupPage() {
 
   async function handleSignup(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (loading) return;
 
     setLoading(true);
     setErrorMessage("");
 
+    const cleanedEmail = email.trim().toLowerCase();
+
+if (!cleanedEmail) {
+  setErrorMessage("Please enter a valid email address.");
+  setLoading(false);
+  return;
+}
+
+if (password.length < 6) {
+  setErrorMessage("Password must contain at least 6 characters.");
+  setLoading(false);
+  return;
+}
+
     const { error } = await supabase.auth.signUp({
-      email: email.trim().toLowerCase(),
-      password,
-    });
+  email: cleanedEmail,
+  password,
+});
 
     setLoading(false);
 
@@ -58,27 +73,38 @@ export default function SignupPage() {
               <label className="font-bold text-slate-200">Email</label>
 
               <input
-                type="email"
-                required
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-                placeholder="parent@email.com"
-                className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-950 px-5 py-4 text-white outline-none transition placeholder:text-slate-500 focus:border-emerald-400"
-              />
+  type="email"
+  required
+  autoComplete="email"
+  maxLength={254}
+  value={email}
+  onChange={(event) => {
+    setEmail(event.target.value);
+    setErrorMessage("");
+  }}
+  placeholder="parent@email.com"
+  className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-950 px-5 py-4 text-white outline-none transition placeholder:text-slate-500 focus:border-emerald-400"
+/>
             </div>
 
             <div>
               <label className="font-bold text-slate-200">Password</label>
 
               <input
-                type="password"
-                required
-                minLength={6}
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                placeholder="At least 6 characters"
-                className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-950 px-5 py-4 text-white outline-none transition placeholder:text-slate-500 focus:border-emerald-400"
-              />
+  type="password"
+  required
+  minLength={6}
+  maxLength={72}
+  autoComplete="new-password"
+  value={password}
+  onChange={(event) => {
+    setPassword(event.target.value);
+    setErrorMessage("");
+  }}
+  placeholder="At least 6 characters"
+  className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-950 px-5 py-4 text-white outline-none transition placeholder:text-slate-500 focus:border-emerald-400"
+/>
+
             </div>
 
             <button

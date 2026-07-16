@@ -24,7 +24,7 @@ export default function ContactPage() {
             want to help shape LooplyLand.
           </p>
 
-          <div className="mx-auto mt-8 max-w-2xl rounded-[2rem] border border-white/10 bg-white/5 p-6 text-left md:mt-10 md:p-8">
+          <div className="mx-auto mt-8 max-w-2xl rounded-[2rem] border border-white/10 bg-slate-950/70 p-6 text-left shadow-2xl backdrop-blur-xl md:mt-10 md:p-8">
             <p className="font-bold text-emerald-300">Email us</p>
 
             <h2 className="mt-3 break-words text-2xl font-extrabold md:text-3xl">
