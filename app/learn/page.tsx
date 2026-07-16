@@ -172,14 +172,25 @@ function getQuestTheme(questId: number) {
 export default function LearnPage() {
   const [completedLessons, setCompletedLessons] = useState<number[]>([]);
   const [xp, setXp] = useState(0);
+  const [gems, setGems] = useState(0);
   const [streak, setStreak] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
   const [pageEntered, setPageEntered] = useState(false);
 
-  useEffect(() => {
+ useEffect(() => {
   loadProgress();
 }, []);
+
+useEffect(() => {
+  if (loading) return;
+
+  const timer = window.setTimeout(() => {
+    setPageEntered(true);
+  }, 100);
+
+  return () => window.clearTimeout(timer);
+}, [loading]);
 
   async function loadProgress() {
     setLoading(true);
@@ -194,17 +205,16 @@ export default function LearnPage() {
       );
 
       const savedXp = Number(localStorage.getItem("xp") || "0");
+      const savedGems = Number(localStorage.getItem("gems") || "0");
       const savedStreak = Number(localStorage.getItem("streak") || "0");
 
      setIsLoggedIn(false);
 setCompletedLessons(savedLessons);
 setXp(savedXp);
+setGems(savedGems);
 setStreak(savedStreak);
 setLoading(false);
 
-window.setTimeout(() => {
-  setPageEntered(true);
-}, 100);
 
 return;
 
@@ -214,7 +224,7 @@ return;
 
     const { data: profile } = await supabase
       .from("profiles")
-      .select("xp, streak")
+      .select("xp, gems, streak")
       .eq("id", user.id)
       .single();
 
@@ -223,14 +233,12 @@ return;
       .select("lesson_id")
       .eq("user_id", user.id);
 
+  setGems(profile?.gems || 0);
    setXp(profile?.xp || 0);
 setStreak(profile?.streak || 0);
 setCompletedLessons(progress?.map((item) => item.lesson_id) || []);
 setLoading(false);
 
-window.setTimeout(() => {
-  setPageEntered(true);
-}, 100);
 
   }
 
@@ -240,31 +248,36 @@ window.setTimeout(() => {
     } = await supabase.auth.getUser();
 
     if (!user) {
-      localStorage.removeItem("completedLessons");
-      localStorage.removeItem("xp");
-      localStorage.removeItem("streak");
-      localStorage.removeItem("lastStreakDate");
+  localStorage.removeItem("completedLessons");
+  localStorage.removeItem("xp");
+  localStorage.removeItem("gems");
+  localStorage.removeItem("streak");
+  localStorage.removeItem("lastStreakDate");
 
-      setCompletedLessons([]);
-      setXp(0);
-      setStreak(0);
-      return;
-    }
+  setCompletedLessons([]);
+  setXp(0);
+  setGems(0);
+  setStreak(0);
+  return;
+}
 
     await supabase.from("lesson_progress").delete().eq("user_id", user.id);
 
-    await supabase
-      .from("profiles")
-      .update({
-        xp: 0,
-        streak: 0,
-        last_streak_date: null,
-      })
-      .eq("id", user.id);
+   await supabase
+  .from("profiles")
+  .update({
+    xp: 0,
+    gems: 0,
+    streak: 0,
+    last_streak_date: null,
+  })
+  .eq("id", user.id);
 
-    setCompletedLessons([]);
-    setXp(0);
-    setStreak(0);
+setCompletedLessons([]);
+setXp(0);
+setGems(0);
+setStreak(0);
+
   }
 
   const completedCount = quests.filter((quest) =>
@@ -278,9 +291,6 @@ window.setTimeout(() => {
   const currentQuestId =
   quests.find((quest) => !completedLessons.includes(quest.id))?.id ??
   quests.length;
-  const gems = quests
-  .filter((quest) => completedLessons.includes(quest.id))
-  .reduce((total, quest) => total + quest.gemReward, 0);
   const pathFillPercent = worldCompleted
   ? 100
   : questPathPositions[currentQuestId - 1].top;
@@ -355,10 +365,12 @@ window.setTimeout(() => {
 </div>
 
       <div
-  className={`relative mx-auto max-w-6xl transition-all duration-700 ${
+  className={`relative mx-auto max-w-6xl transition-all duration-1000 ease-out ${
+   
     pageEntered
-      ? "translate-y-0 opacity-100"
-      : "translate-y-4 opacity-0"
+  ? "translate-y-0 scale-100 opacity-100"
+  : "translate-y-8 scale-[0.985] opacity-0"
+
   }`}
 >
        {/* GAME HUB */}
@@ -1064,7 +1076,7 @@ window.setTimeout(() => {
       {Array.from({ length: 24 }).map((_, index) => (
         <span
           key={index}
-          className="absolute top-[-20px] h-3 w-2 animate-confetti rounded-sm"
+         className="absolute top-[-20px] h-3 w-2 animate-confetti rounded-sm [animation-iteration-count:3] sm:[animation-iteration-count:1]"
           style={{
             left: `${(index * 17) % 100}%`,
             animationDelay: `${(index % 8) * 0.22}s`,

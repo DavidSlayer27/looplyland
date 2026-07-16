@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState } from "react";
@@ -10,10 +11,11 @@ const lessons = {
     id: 1,
     title: "Move Robo",
     concept: "Commands",
-    emoji: "🤖",
+    image: "/quests/move-robo.png",
     story:
       "Robo is stuck in the lab. Help him learn basic commands so he can reach the door.",
-    xp: 10,
+    xp: 25,
+    gems: 10,
     questions: [
       {
         question: "Which command moves Robo forward?",
@@ -42,10 +44,11 @@ const lessons = {
     id: 2,
     title: "Loop Forest",
     concept: "Loops",
-    emoji: "🌲",
+    image: "/quests/loop-forest.png",
     story:
       "Robo enters Loop Forest. He needs to repeat actions without writing the same code again and again.",
-    xp: 15,
+    xp: 30,
+    gems: 15,
     questions: [
       {
         question: "Which word helps repeat an action?",
@@ -74,10 +77,11 @@ const lessons = {
     id: 3,
     title: "Bug Gate",
     concept: "Conditions",
-    emoji: "🐞",
+    image: "/quests/bug-gate.png",
     story:
       "A bug is guarding the gate. Robo can pass only if he has enough energy.",
-    xp: 20,
+    xp: 35,
+    gems: 20,
     questions: [
       {
         question: "Which keyword checks a condition?",
@@ -110,10 +114,11 @@ const lessons = {
     id: 4,
     title: "Energy Crystals",
     concept: "Variables",
-    emoji: "💎",
+    image: "/quests/energy-crystals.png",
     story:
       "Robo finds energy crystals. To keep track of his power, he needs to store numbers using variables.",
-    xp: 25,
+    xp: 40,
+    gems: 20,
     questions: [
       {
         question: "What is a variable used for?",
@@ -147,10 +152,11 @@ const lessons = {
     id: 5,
     title: "Boss Fight",
     concept: "Final Challenge",
-    emoji: "👾",
+    image: "/quests/boss-fight.png",
     story:
       "The Bug King blocks the exit. Robo must use commands, loops, conditions, and variables to win the final battle.",
-    xp: 50,
+    xp: 100,
+    gems: 50,
     questions: [
       {
         question: "Robo needs to move forward. Which command should he use?",
@@ -194,6 +200,99 @@ const lessons = {
   },
 };
 
+function getLessonTheme(lessonId: number) {
+  switch (lessonId) {
+    case 1:
+      return {
+        text: "text-emerald-200",
+        border: "border-emerald-200/70",
+        badge: "border-emerald-300/30 bg-emerald-400/10 text-emerald-200",
+        progress: "bg-emerald-300",
+        card:
+          "border-emerald-200/60 bg-gradient-to-br from-emerald-300/15 via-emerald-400/8 to-cyan-300/10",
+        glow: "shadow-[0_0_45px_rgba(110,231,183,0.22)]",
+        rgb: "110, 231, 183",
+        button: "bg-emerald-300 hover:bg-emerald-200 text-slate-950",
+feedback:
+  "border-emerald-300/25 bg-emerald-400/10 text-emerald-200",
+      };
+
+    case 2:
+      return {
+        text: "text-green-300",
+        border: "border-green-400/60",
+        badge: "border-green-400/30 bg-green-400/10 text-green-300",
+        progress: "bg-green-400",
+        card:
+          "border-green-400/60 bg-gradient-to-br from-green-500/15 via-emerald-500/8 to-lime-400/10",
+        glow: "shadow-[0_0_45px_rgba(74,222,128,0.22)]",
+        rgb: "74, 222, 128",
+        button: "bg-green-400 hover:bg-green-300 text-slate-950",
+feedback:
+  "border-green-300/25 bg-green-400/10 text-green-200",
+      };
+
+    case 3:
+      return {
+        text: "text-purple-300",
+        border: "border-purple-400/60",
+        badge: "border-purple-400/30 bg-purple-400/10 text-purple-300",
+        progress: "bg-purple-400",
+        card:
+          "border-purple-400/60 bg-gradient-to-br from-purple-500/18 via-violet-500/10 to-fuchsia-500/10",
+        glow: "shadow-[0_0_50px_rgba(192,132,252,0.28)]",
+        rgb: "192, 132, 252",
+        button: "bg-purple-400 hover:bg-purple-300 text-slate-950",
+feedback:
+  "border-purple-300/25 bg-purple-400/10 text-purple-200",
+      };
+
+    case 4:
+      return {
+        text: "text-blue-300",
+        border: "border-blue-400/60",
+        badge: "border-blue-400/30 bg-blue-400/10 text-blue-300",
+        progress: "bg-blue-400",
+        card:
+          "border-blue-400/60 bg-gradient-to-br from-blue-500/18 via-cyan-500/10 to-indigo-500/10",
+        glow: "shadow-[0_0_50px_rgba(96,165,250,0.28)]",
+        rgb: "96, 165, 250",
+        button: "bg-blue-400 hover:bg-blue-300 text-slate-950",
+feedback:
+  "border-blue-300/25 bg-blue-400/10 text-blue-200",
+      };
+
+    case 5:
+      return {
+        text: "text-orange-300",
+        border: "border-orange-400/60",
+        badge: "border-orange-400/30 bg-orange-400/10 text-orange-300",
+        progress: "bg-orange-400",
+        card:
+          "border-orange-400/60 bg-gradient-to-br from-orange-500/18 via-red-500/10 to-purple-500/10",
+        glow: "shadow-[0_0_55px_rgba(251,146,60,0.3)]",
+        rgb: "251, 146, 60",
+        button: "bg-orange-400 hover:bg-orange-300 text-slate-950",
+feedback:
+  "border-orange-300/25 bg-orange-400/10 text-orange-200",
+      };
+
+    default:
+      return {
+        text: "text-emerald-300",
+        border: "border-emerald-400/60",
+        badge: "border-emerald-400/30 bg-emerald-400/10 text-emerald-300",
+        progress: "bg-emerald-400",
+        card: "border-emerald-400/60 bg-emerald-400/10",
+        glow: "shadow-[0_0_45px_rgba(52,211,153,0.22)]",
+        rgb: "52, 211, 153",
+        button: "bg-emerald-400 hover:bg-emerald-300 text-slate-950",
+feedback:
+  "border-emerald-300/25 bg-emerald-400/10 text-emerald-200",
+      };
+  }
+}
+
 export default function LessonPage() {
   const params = useParams();
   const lessonId = String(params.id);
@@ -202,6 +301,7 @@ export default function LessonPage() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [earnedXp, setEarnedXp] = useState(0);
+  const [rewardGranted, setRewardGranted] = useState<boolean | null>(null);
   const [lessonCompleted, setLessonCompleted] = useState(false);
   const [lives, setLives] = useState(3);
   const [lessonFailed, setLessonFailed] = useState(false);
@@ -231,6 +331,7 @@ export default function LessonPage() {
     );
   }
 
+  const theme = getLessonTheme(lesson.id);
   const currentQuestion = lesson.questions[currentQuestionIndex];
   const totalQuestions = lesson.questions.length;
   const progress = ((currentQuestionIndex + 1) / totalQuestions) * 100;
@@ -273,23 +374,37 @@ export default function LessonPage() {
     localStorage.setItem("lastStreakDate", today);
   }
 
-  async function saveLocalProgress() {
-    const completedLessons = JSON.parse(
-      localStorage.getItem("completedLessons") || "[]"
+  async function saveLocalProgress(): Promise<boolean> {
+  const completedLessons: number[] = JSON.parse(
+    localStorage.getItem("completedLessons") || "[]"
+  );
+
+  const isFirstCompletion = !completedLessons.includes(lesson.id);
+
+  if (isFirstCompletion) {
+    completedLessons.push(lesson.id);
+
+    localStorage.setItem(
+      "completedLessons",
+      JSON.stringify(completedLessons)
     );
 
-    if (!completedLessons.includes(lesson.id)) {
-      completedLessons.push(lesson.id);
-      localStorage.setItem("completedLessons", JSON.stringify(completedLessons));
+    const currentXp = Number(localStorage.getItem("xp") || "0");
+    const currentGems = Number(localStorage.getItem("gems") || "0");
 
-      const currentXp = Number(localStorage.getItem("xp") || "0");
-      localStorage.setItem("xp", String(currentXp + lesson.xp));
-    }
-
-    updateLocalStreak();
+    localStorage.setItem("xp", String(currentXp + lesson.xp));
+    localStorage.setItem("gems", String(currentGems + lesson.gems));
   }
 
-  async function saveSupabaseProgress(userId: string) {
+  updateLocalStreak();
+
+  return isFirstCompletion;
+}
+
+  async function saveSupabaseProgress(
+  userId: string
+): Promise<boolean> {
+  
     const { data: existingLesson, error: existingLessonError } = await supabase
       .from("lesson_progress")
       .select("id")
@@ -302,10 +417,10 @@ export default function LessonPage() {
     }
 
     const { data: profile, error: profileError } = await supabase
-      .from("profiles")
-      .select("xp, streak, last_streak_date")
-      .eq("id", userId)
-      .single();
+    .from("profiles")
+    .select("xp, gems, streak, last_streak_date")
+    .eq("id", userId)
+    .single();
 
     if (profileError) {
       throw profileError;
@@ -325,58 +440,65 @@ export default function LessonPage() {
     }
 
     let newXp = profile.xp || 0;
+    let newGems = profile.gems || 0;
 
     if (!existingLesson) {
-      const { error: progressError } = await supabase
-        .from("lesson_progress")
-        .insert({
-          user_id: userId,
-          lesson_id: lesson.id,
-          completed: true,
-        });
+  const { error: progressError } = await supabase
+    .from("lesson_progress")
+    .insert({
+      user_id: userId,
+      lesson_id: lesson.id,
+      completed: true,
+    });
 
-      if (progressError) {
-        throw progressError;
-      }
+  if (progressError) {
+    throw progressError;
+  }
 
-      newXp = newXp + lesson.xp;
-    }
+  newXp = newXp + lesson.xp;
+  newGems = newGems + lesson.gems;
+}
 
-    const { error: updateProfileError } = await supabase
-      .from("profiles")
-      .update({
-        xp: newXp,
-        streak: newStreak,
-        last_streak_date: today,
-      })
-      .eq("id", userId);
+   const { error: updateProfileError } = await supabase
+  .from("profiles")
+  .update({
+    xp: newXp,
+    gems: newGems,
+    streak: newStreak,
+    last_streak_date: today,
+  })
+  .eq("id", userId);
 
     if (updateProfileError) {
       throw updateProfileError;
     }
+
+    return !existingLesson;
+
   }
 
-  async function saveProgress() {
-    setSaving(true);
-    setSaveError("");
+ async function saveProgress(): Promise<boolean | null> {
+  setSaving(true);
+  setSaveError("");
 
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-    try {
-      if (!user) {
-        await saveLocalProgress();
-      } else {
-        await saveSupabaseProgress(user.id);
-      }
-    } catch (error) {
-      console.error(error);
-      setSaveError("Progress could not be saved. Please try again.");
-    } finally {
-      setSaving(false);
+  try {
+    if (!user) {
+      return await saveLocalProgress();
     }
+
+    return await saveSupabaseProgress(user.id);
+  } catch (error) {
+    console.error(error);
+    setSaveError("Progress could not be saved. Please try again.");
+    return null;
+  } finally {
+    setSaving(false);
   }
+}
 
   function handleAnswer(answer: string) {
     if (selectedAnswer !== null) return;
@@ -399,11 +521,18 @@ export default function LessonPage() {
     const isLastQuestion = currentQuestionIndex === totalQuestions - 1;
 
     if (isLastQuestion) {
-      setEarnedXp(lesson.xp);
-      setLessonCompleted(true);
-      await saveProgress();
-      return;
-    }
+  const receivedReward = await saveProgress();
+
+  if (receivedReward === null) {
+    return;
+  }
+
+  setRewardGranted(receivedReward);
+  setEarnedXp(receivedReward ? lesson.xp : 0);
+  setLessonCompleted(true);
+
+  return;
+}
 
     setCurrentQuestionIndex(currentQuestionIndex + 1);
     setSelectedAnswer(null);
@@ -413,6 +542,7 @@ export default function LessonPage() {
     setCurrentQuestionIndex(0);
     setSelectedAnswer(null);
     setEarnedXp(0);
+    setRewardGranted(null);
     setLessonCompleted(false);
     setLives(3);
     setLessonFailed(false);
@@ -424,35 +554,106 @@ export default function LessonPage() {
   }
 
  return (
-  <main className="min-h-screen bg-[#101827] px-5 pb-10 pt-5 text-white md:px-6 md:py-8">
-    <div className="mx-auto max-w-xl">
-      <div className="mb-5 flex items-center justify-between gap-3">
-        <Link
-          href="/learn"
-          className="rounded-2xl border border-white/10 px-4 py-2 text-sm font-bold text-slate-300 transition hover:bg-white/10 md:text-base"
-        >
-          ← Map
-        </Link>
+  <main className="relative min-h-screen overflow-hidden bg-[#101827] px-4 pb-10 pt-5 text-white sm:px-5 md:px-6 md:py-8">
+  <div className="fixed inset-0">
+    <Image
+      src="/worlds/robo-lab.png"
+      alt=""
+      fill
+      priority
+      className="object-cover object-center"
+    />
 
-        <div className="flex items-center gap-2">
-          <div className="rounded-2xl bg-white/5 px-4 py-2 text-sm font-bold md:text-base">
-            ❤️ {lives}
-          </div>
+    <div className="absolute inset-0 bg-[#08111f]/60" />
 
-          <div className="rounded-2xl bg-white/5 px-4 py-2 text-sm font-bold md:text-base">
-            XP: {earnedXp}
-          </div>
-        </div>
+    <div className="absolute inset-0 bg-gradient-to-b from-[#08111f]/35 via-[#08111f]/55 to-[#101827]/90" />
+  </div>
+
+  <div
+    className="pointer-events-none fixed left-1/2 top-1/3 h-96 w-96 -translate-x-1/2 rounded-full blur-3xl"
+    style={{
+      backgroundColor: `rgba(${theme.rgb}, 0.12)`,
+    }}
+  />
+    <div className="relative z-10 mx-auto max-w-2xl">
+     
+     <div className="mb-5 flex items-center justify-between gap-3">
+  <Link
+    href="/learn"
+    className="rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-2 text-sm font-bold text-slate-300 shadow-lg backdrop-blur transition hover:border-white/20 hover:bg-white/10 md:text-base"
+  >
+    ← Map
+  </Link>
+
+  <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 rounded-2xl border border-red-400/20 bg-red-400/10 px-3 py-2 shadow-lg backdrop-blur sm:px-4">
+      <span className="text-lg">❤️</span>
+
+      <div>
+        <p className="text-sm font-extrabold text-white">{lives}</p>
+        <p className="hidden text-[9px] font-bold uppercase tracking-wider text-red-200 sm:block">
+          Hearts
+        </p>
       </div>
+    </div>
 
-      <div className="mb-5 h-3 overflow-hidden rounded-full bg-white/10">
-        <div
-          className="h-full rounded-full bg-emerald-400 transition-all"
-          style={{ width: `${progress}%` }}
-        />
+    <div className="flex items-center gap-2 rounded-2xl border border-yellow-400/20 bg-yellow-400/10 px-3 py-2 shadow-lg backdrop-blur sm:px-4">
+      <Image
+        src="/icons/xp2.png"
+        alt="XP earned"
+        width={28}
+        height={28}
+        className="h-7 w-7 object-contain"
+      />
+
+      <div>
+        <p className="text-sm font-extrabold text-yellow-300">{earnedXp}</p>
+        <p className="hidden text-[9px] font-bold uppercase tracking-wider text-slate-400 sm:block">
+          XP earned
+        </p>
       </div>
+    </div>
+  </div>
+</div>
 
-      <div className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-2xl md:p-6">
+     <div className="mb-5">
+  <div className="flex items-center justify-between gap-3">
+    <p className={`text-xs font-extrabold uppercase tracking-[0.16em] ${theme.text}`}>
+      Quest progress
+    </p>
+
+    <p className="text-xs font-bold text-slate-400">
+      {currentQuestionIndex + 1} of {totalQuestions}
+    </p>
+  </div>
+
+  <div className="mt-2 h-3 overflow-hidden rounded-full border border-white/10 bg-slate-950/60">
+    <div
+      className={`h-full rounded-full transition-all duration-500 ${theme.progress}`}
+      style={{
+        width: `${progress}%`,
+        boxShadow: `0 0 18px rgba(${theme.rgb}, 0.7)`,
+      }}
+    />
+  </div>
+</div>
+
+     <div
+  className={`relative overflow-hidden rounded-[2rem] border p-5 backdrop-blur-xl md:p-7 ${theme.card} ${theme.glow}`}
+>
+  <div
+    className="pointer-events-none absolute inset-0"
+    style={{
+      background: `radial-gradient(
+        circle at 15% 15%,
+        rgba(${theme.rgb}, 0.18),
+        transparent 48%
+      )`,
+    }}
+  />
+  
+  <div className="relative">
+
         {lessonFailed ? (
           <div className="text-center">
             <div className="text-6xl md:text-7xl">💔</div>
@@ -485,9 +686,31 @@ export default function LessonPage() {
         ) : !lessonCompleted ? (
           <>
             <div className="flex items-center justify-between gap-4">
-              <div className="text-5xl md:text-6xl">{lesson.emoji}</div>
+             <div
+  className={`relative h-20 w-20 overflow-hidden rounded-2xl border bg-slate-950/70 sm:h-24 sm:w-24 ${theme.border}`}
+>
+  <Image
+    src={lesson.image}
+    alt={lesson.title}
+    fill
+    sizes="96px"
+    className={`object-contain ${
+      lesson.id === 1 || lesson.id === 3 ? "scale-[1.2]" : "p-1"
+    }`}
+  />
 
-              <div className="rounded-full bg-emerald-400/10 px-4 py-2 text-xs font-bold text-emerald-300 md:text-sm">
+  <div
+    className="pointer-events-none absolute inset-0"
+    style={{
+      boxShadow: `inset 0 0 24px rgba(${theme.rgb}, 0.18)`,
+    }}
+  />
+</div>
+
+             <div
+  className={`rounded-full border px-4 py-2 text-xs font-bold md:text-sm ${theme.badge}`}
+>
+
                 Quest {lesson.id} · Question {currentQuestionIndex + 1}/
                 {totalQuestions}
               </div>
@@ -497,58 +720,101 @@ export default function LessonPage() {
               {lesson.title}
             </h1>
 
+            <p className={`mt-2 text-sm font-extrabold uppercase tracking-[0.18em] ${theme.text}`}>
+  {lesson.concept}
+</p>
+
             <p className="mt-3 text-base leading-7 text-slate-300">
               {lesson.story}
             </p>
 
-            <div className="mt-6 overflow-x-auto rounded-2xl bg-slate-950 p-4 text-left font-mono text-sm text-emerald-300">
-              <p># Complete the code</p>
-              <p className="whitespace-nowrap">
-                {selectedAnswer
-                  ? currentQuestion.codePreview.replace(
-                      "__________",
-                      selectedAnswer
-                    )
-                  : currentQuestion.codePreview}
-              </p>
-            </div>
+           <div className="mt-6 overflow-hidden rounded-2xl border border-white/10 bg-[#050914] shadow-xl">
+  <div className="flex items-center gap-2 border-b border-white/10 bg-white/[0.03] px-4 py-3">
+    <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
+    <span className="h-2.5 w-2.5 rounded-full bg-yellow-400" />
+    <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
+
+    <span className="ml-2 text-[10px] font-bold uppercase tracking-wider text-slate-500">
+      Robo Code Console
+    </span>
+  </div>
+
+  <div className="overflow-x-auto p-4 text-left font-mono text-sm">
+    <p className="text-slate-500"># Complete the code</p>
+
+    <p className={`mt-2 whitespace-nowrap font-bold ${theme.text}`}>
+      <span className="mr-3 text-slate-600">01</span>
+
+      {selectedAnswer
+        ? currentQuestion.codePreview.replace(
+            "__________",
+            selectedAnswer
+          )
+        : currentQuestion.codePreview}
+    </p>
+  </div>
+</div>
 
             <h2 className="mt-6 text-xl font-bold leading-7 md:text-2xl">
               {currentQuestion.question}
             </h2>
 
             <div className="mt-5 grid gap-3">
-              {currentQuestion.answers.map((answer) => {
-                const selected = selectedAnswer === answer;
-                const correct = answer === currentQuestion.correctAnswer;
+  {currentQuestion.answers.map((answer, answerIndex) => {
+    const selected = selectedAnswer === answer;
+    const correct = answer === currentQuestion.correctAnswer;
 
-                let buttonStyle = "bg-white/10 text-white hover:bg-white/20";
+    let buttonStyle =
+      "border-white/10 bg-slate-950/45 text-white hover:border-white/20 hover:bg-white/10";
 
-                if (selected && correct) {
-                  buttonStyle = "bg-emerald-400 text-slate-950";
-                }
+    if (selectedAnswer !== null && correct) {
+      buttonStyle =
+        "border-emerald-300 bg-emerald-400 text-slate-950 shadow-[0_0_22px_rgba(52,211,153,0.25)]";
+    }
 
-                if (selected && !correct) {
-                  buttonStyle = "bg-red-400 text-slate-950";
-                }
+    if (selected && !correct) {
+      buttonStyle =
+        "border-red-300 bg-red-400 text-slate-950 shadow-[0_0_22px_rgba(248,113,113,0.2)]";
+    }
 
-                return (
-                  <button
-                    key={answer}
-                    onClick={() => handleAnswer(answer)}
-                   className={`rounded-2xl px-5 py-3 text-left font-mono text-base font-bold transition md:text-base ${buttonStyle}`}
-                  >
-                    {answer}
-                  </button>
-                );
-              })}
-            </div>
+    return (
+      <button
+        key={answer}
+        onClick={() => handleAnswer(answer)}
+        disabled={selectedAnswer !== null}
+        className={`group flex w-full items-center gap-3 rounded-2xl border px-4 py-3 text-left font-mono text-base font-bold transition duration-200 md:px-5 ${buttonStyle} disabled:cursor-default`}
+      >
+        <span
+          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border text-xs font-extrabold ${
+            selectedAnswer !== null && correct
+              ? "border-emerald-900/20 bg-emerald-950/20"
+              : selected && !correct
+                ? "border-red-900/20 bg-red-950/20"
+                : `border-white/10 bg-white/5 ${theme.text}`
+          }`}
+        >
+          {String.fromCharCode(65 + answerIndex)}
+        </span>
+
+        <span className="min-w-0 flex-1">{answer}</span>
+
+        {selectedAnswer !== null && correct && (
+          <span className="text-lg">✓</span>
+        )}
+
+        {selected && !correct && <span className="text-lg">✕</span>}
+      </button>
+    );
+  })}
+</div>
 
            {isCorrect && (
-  <div className="mt-5 rounded-2xl bg-emerald-400/10 p-4">
+ <div
+  className={`mt-5 rounded-2xl border p-4 ${theme.feedback}`}
+>
     <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <div>
-        <p className="font-bold text-emerald-300">Correct!</p>
+       <p className={`font-bold ${theme.text}`}>Correct!</p>
 
         <p className="mt-1 text-sm leading-6 text-slate-300">
           {currentQuestion.successMessage}
@@ -556,12 +822,13 @@ export default function LessonPage() {
       </div>
 
       <button
-        onClick={handleContinue}
-        disabled={saving}
-        className="rounded-2xl bg-emerald-400 px-6 py-3 font-bold text-slate-950 transition hover:bg-emerald-300 disabled:cursor-not-allowed disabled:opacity-60"
-      >
-        {saving ? "Saving..." : "Continue →"}
-      </button>
+  onClick={handleContinue}
+  disabled={saving}
+  className={`rounded-2xl px-6 py-3 font-bold transition disabled:cursor-not-allowed disabled:opacity-60 ${theme.button}`}
+>
+  {saving ? "Saving..." : "Continue →"}
+</button>
+
     </div>
 
     {saveError && (
@@ -597,19 +864,103 @@ export default function LessonPage() {
           </>
         ) : (
           <div className="text-center">
-            <div className="text-6xl md:text-7xl">
-              {isFinalLesson ? "🏆" : "🎉"}
-            </div>
+            
+            <div
+  className={`relative mx-auto h-28 w-28 overflow-hidden rounded-[2rem] border bg-slate-950/70 ${theme.border}`}
+>
+  <Image
+    src={lesson.image}
+    alt={`${lesson.title} completed`}
+    fill
+    sizes="112px"
+    className={`object-contain ${
+      lesson.id === 1 || lesson.id === 3 ? "scale-[1.2]" : "p-2"
+    }`}
+  />
+
+  <div
+    className="pointer-events-none absolute inset-0"
+    style={{
+      boxShadow: `inset 0 0 30px rgba(${theme.rgb}, 0.25)`,
+    }}
+  />
+</div>
+
+<p
+  className={`mt-5 text-sm font-extrabold uppercase tracking-[0.2em] ${theme.text}`}
+>
+  Quest {lesson.id} completed
+</p>
 
             <h1 className="mt-5 text-3xl font-extrabold md:text-4xl">
               {isFinalLesson ? "Robo Lab Complete!" : "Quest Complete!"}
             </h1>
 
-            <p className="mt-3 text-base leading-7 text-slate-300 md:text-lg">
-              {isFinalLesson
-                ? `Amazing! You completed the first LooplyLand world and earned +${lesson.xp} XP.`
-                : `You earned +${lesson.xp} XP and unlocked new coding powers.`}
-            </p>
+           <p className="mt-3 text-base leading-7 text-slate-300 md:text-lg">
+  {rewardGranted
+    ? isFinalLesson
+      ? "Amazing! You completed the first LooplyLand world and collected your rewards."
+      : "You completed the quest and collected new rewards."
+    : "Great practice! You already collected the rewards for this quest."}
+</p>
+
+{rewardGranted ? (
+  <div className="mx-auto mt-6 grid max-w-md grid-cols-2 gap-3">
+    <div className="rounded-2xl border border-yellow-400/20 bg-yellow-400/10 p-4">
+      <Image
+        src="/icons/xp2.png"
+        alt="XP reward"
+        width={52}
+        height={52}
+        className="mx-auto h-12 w-12 object-contain"
+      />
+
+      <p className="mt-2 text-xl font-extrabold text-yellow-300">
+        +{lesson.xp}
+      </p>
+
+      <p className="mt-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">
+        XP earned
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-emerald-400/20 bg-emerald-400/10 p-4">
+      <Image
+        src="/icons/gem1.png"
+        alt="Gem reward"
+        width={52}
+        height={52}
+        className="mx-auto h-12 w-12 object-contain"
+      />
+
+      <p className="mt-2 text-xl font-extrabold text-emerald-300">
+        +{lesson.gems}
+      </p>
+
+      <p className="mt-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">
+        Gems earned
+      </p>
+    </div>
+  </div>
+) : (
+  <div className="mx-auto mt-6 max-w-md rounded-2xl border border-white/10 bg-slate-950/45 p-5">
+    <div className="flex items-center justify-center gap-3">
+      <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-2xl">
+        ✓
+      </div>
+
+      <div className="text-left">
+        <p className="font-extrabold text-white">
+          Practice complete
+        </p>
+
+        <p className="mt-1 text-sm text-slate-400">
+          XP and Gems were already collected.
+        </p>
+      </div>
+    </div>
+  </div>
+)}
 
             {saveError && (
               <p className="mt-5 rounded-2xl bg-red-400/10 p-4 text-sm font-bold leading-6 text-red-300">
@@ -619,19 +970,23 @@ export default function LessonPage() {
 
             <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
               {hasNextLesson ? (
-                <Link
-                  href={`/lesson/${nextLessonId}`}
-                  className="rounded-2xl bg-emerald-400 px-6 py-3 text-center font-bold text-slate-950 transition hover:bg-emerald-300"
-                >
-                  Next Quest →
-                </Link>
+             
+             <Link
+  href={`/lesson/${nextLessonId}`}
+  className={`rounded-2xl px-6 py-3 text-center font-bold transition ${theme.button}`}
+>
+  Next Quest →
+</Link>
+
               ) : (
+               
                 <Link
-                  href="/upgrade"
-                  className="rounded-2xl bg-emerald-400 px-6 py-3 text-center font-bold text-slate-950 transition hover:bg-emerald-300"
-                >
-                  Unlock Premium Worlds
-                </Link>
+       href="/upgrade"
+       className={`rounded-2xl px-6 py-3 text-center font-bold transition ${theme.button}`}
+>
+  Unlock Premium Worlds
+</Link>
+
               )}
 
               <Link
@@ -645,6 +1000,7 @@ export default function LessonPage() {
         )}
       </div>
     </div>
+   </div>
   </main>
 );
 

@@ -74,7 +74,7 @@ export default function ProfilePage() {
 
     const { data: profile } = await supabase
       .from("profiles")
-      .select("xp, streak")
+      .select("xp, gems, streak")
       .eq("id", user.id)
       .single();
 
