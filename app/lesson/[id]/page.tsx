@@ -212,7 +212,7 @@ function getLessonTheme(lessonId: number) {
           "border-emerald-200/60 bg-gradient-to-br from-emerald-300/15 via-emerald-400/8 to-cyan-300/10",
         glow: "shadow-[0_0_45px_rgba(110,231,183,0.22)]",
         rgb: "110, 231, 183",
-        button: "bg-emerald-300 hover:bg-emerald-200 text-slate-950",
+       button: "bg-emerald-300 hover:bg-emerald-200 text-slate-950",
 feedback:
   "border-emerald-300/25 bg-emerald-400/10 text-emerald-200",
       };
@@ -982,31 +982,30 @@ setLessonCompleted(true);
             <div className="mt-4 flex flex-col justify-center gap-2 sm:flex-row">
               {hasNextLesson ? (
              
-             <Link
-  href={`/lesson/${nextLessonId}`}
-  className={`rounded-xl px-5 py-2.5 text-sm text-center font-bold transition ${theme.button}`}
+            <Link
+  href="/learn"
+  className={`rounded-xl px-5 py-2.5 text-center text-sm font-bold transition ${theme.button}`}
 >
-  Next Quest →
+  Continue on Map →
 </Link>
 
               ) : (
                
-                <Link
-       href="/upgrade"
-       className={`rounded-xl px-5 py-2.5 text-sm text-center font-bold transition ${theme.button}`}
->
-  Unlock Premium Worlds
-</Link>
+               <Link
+
+      href="/learn"
+
+      className={`rounded-xl px-5 py-2.5 text-center text-sm font-bold transition ${theme.button}`}
+
+    >
+
+      View Completed World →
+
+    </Link>
 
               )}
 
-              <Link
-  href="/learn"
-  className="rounded-xl border border-white/10 px-5 py-2.5 text-center text-sm font-bold text-white transition hover:bg-white/10"
->
-  Back to Map
-</Link>
-
+              
             </div>
           </div>
         )}
