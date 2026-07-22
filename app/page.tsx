@@ -12,12 +12,8 @@ export default function Home() {
   const demoAnswers = ["move_forward()", "turn_left()", "sleep()"];
 
   function handleDemoAnswer(answer: string) {
-    setDemoAnswer(answer);
-
-    window.setTimeout(() => {
-      setDemoAnswer(null);
-    }, 1000);
-  }
+  setDemoAnswer(answer);
+    }
 
   return (
     <main className="min-h-screen bg-[#101827] text-white">
