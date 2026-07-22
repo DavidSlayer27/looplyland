@@ -17,28 +17,28 @@ const lessons = {
     xp: 25,
     gems: 10,
     questions: [
-      {
-        question: "Which command moves Robo forward?",
-        codePreview: "robot.__________",
-        answers: ["move_forward()", "turn_left()", "sleep()"],
-        correctAnswer: "move_forward()",
-        successMessage: "Great! Robo moved forward.",
-      },
-      {
-        question: "Which command turns Robo left?",
-        codePreview: "robot.__________",
-        answers: ["turn_left()", "move_forward()", "eat()"],
-        correctAnswer: "turn_left()",
-        successMessage: "Nice! Robo turned left.",
-      },
-      {
-        question: "Which command should Robo avoid if he wants to move?",
-        codePreview: "robot.__________",
-        answers: ["sleep()", "move_forward()", "turn_left()"],
-        correctAnswer: "sleep()",
-        successMessage: "Correct! sleep() does not help Robo move.",
-      },
-    ],
+  {
+    question: "Which command moves Robo forward?",
+    codePreview: "robot.__________",
+    answers: ["sleep()", "move_forward()", "turn_left()"],
+    correctAnswer: "move_forward()",
+    successMessage: "Great! Robo moved forward.",
+  },
+  {
+    question: "Which command turns Robo left?",
+    codePreview: "robot.__________",
+    answers: ["eat()", "move_forward()", "turn_left()"],
+    correctAnswer: "turn_left()",
+    successMessage: "Nice! Robo turned left.",
+  },
+  {
+    question: "Which command should Robo avoid if he wants to move?",
+    codePreview: "robot.__________",
+    answers: ["sleep()", "turn_left()", "move_forward()"],
+    correctAnswer: "sleep()",
+    successMessage: "Correct! sleep() does not help Robo move.",
+  },
+],
   },
   "2": {
     id: 2,
@@ -50,28 +50,28 @@ const lessons = {
     xp: 30,
     gems: 15,
     questions: [
-      {
-        question: "Which word helps repeat an action?",
-        codePreview: "__________(3): collect_crystal()",
-        answers: ["repeat", "random", "sleep"],
-        correctAnswer: "repeat",
-        successMessage: "Nice! Loops help repeat actions.",
-      },
-      {
-        question: "Why are loops useful?",
-        codePreview: "repeat(3): jump()",
-        answers: ["They repeat code", "They delete code", "They stop the game"],
-        correctAnswer: "They repeat code",
-        successMessage: "Exactly! Loops save time.",
-      },
-      {
-        question: "What does repeat(3) mean?",
-        codePreview: "repeat(3): move_forward()",
-        answers: ["Do it 3 times", "Do it 1 time", "Never do it"],
-        correctAnswer: "Do it 3 times",
-        successMessage: "Correct! Robo repeats the action 3 times.",
-      },
-    ],
+  {
+    question: "Which word helps repeat an action?",
+    codePreview: "__________(3): collect_crystal()",
+    answers: ["random", "repeat", "sleep"],
+    correctAnswer: "repeat",
+    successMessage: "Nice! Loops help repeat actions.",
+  },
+  {
+    question: "Why are loops useful?",
+    codePreview: "repeat(3): jump()",
+    answers: ["They stop the game", "They delete code", "They repeat code"],
+    correctAnswer: "They repeat code",
+    successMessage: "Exactly! Loops save time.",
+  },
+  {
+    question: "What does repeat(3) mean?",
+    codePreview: "repeat(3): move_forward()",
+    answers: ["Do it 3 times", "Never do it", "Do it 1 time"],
+    correctAnswer: "Do it 3 times",
+    successMessage: "Correct! Robo repeats the action 3 times.",
+  },
+],
   },
   "3": {
     id: 3,
@@ -83,32 +83,32 @@ const lessons = {
     xp: 35,
     gems: 20,
     questions: [
-      {
-        question: "Which keyword checks a condition?",
-        codePreview: "___ energy > 5: open_gate()",
-        answers: ["if", "loop", "print"],
-        correctAnswer: "if",
-        successMessage: "Correct! Conditions help programs make decisions.",
-      },
-      {
-        question: "What does this check: energy > 5?",
-        codePreview: "if energy > 5: open_gate()",
-        answers: [
-          "If energy is greater than 5",
-          "If energy is zero",
-          "If Robo is sleeping",
-        ],
-        correctAnswer: "If energy is greater than 5",
-        successMessage: "Yes! The program checks Robo's energy.",
-      },
-      {
-        question: "What happens if the condition is true?",
-        codePreview: "if energy > 5: open_gate()",
-        answers: ["The gate opens", "The game closes", "Nothing ever happens"],
-        correctAnswer: "The gate opens",
-        successMessage: "Exactly! The action runs when the condition is true.",
-      },
+  {
+    question: "Which keyword checks a condition?",
+    codePreview: "___ energy > 5: open_gate()",
+    answers: ["print", "loop", "if"],
+    correctAnswer: "if",
+    successMessage: "Correct! Conditions help programs make decisions.",
+  },
+  {
+    question: "What does this check: energy > 5?",
+    codePreview: "if energy > 5: open_gate()",
+    answers: [
+      "If Robo is sleeping",
+      "If energy is greater than 5",
+      "If energy is zero",
     ],
+    correctAnswer: "If energy is greater than 5",
+    successMessage: "Yes! The program checks Robo's energy.",
+  },
+  {
+    question: "What happens if the condition is true?",
+    codePreview: "if energy > 5: open_gate()",
+    answers: ["The gate opens", "Nothing ever happens", "The game closes"],
+    correctAnswer: "The gate opens",
+    successMessage: "Exactly! The action runs when the condition is true.",
+  },
+],
   },
   "4": {
     id: 4,
@@ -120,33 +120,33 @@ const lessons = {
     xp: 40,
     gems: 20,
     questions: [
-      {
-        question: "What is a variable used for?",
-        codePreview: "energy = 10",
-        answers: [
-          "To store information",
-          "To delete the game",
-          "To make Robo sleep",
-        ],
-        correctAnswer: "To store information",
-        successMessage:
-          "Correct! A variable stores information like numbers or text.",
-      },
-      {
-        question: "Which variable stores Robo's energy?",
-        codePreview: "energy = 10",
-        answers: ["energy", "sleep", "gate"],
-        correctAnswer: "energy",
-        successMessage: "Nice! energy is the variable name.",
-      },
-      {
-        question: "What value is stored inside energy?",
-        codePreview: "energy = 10",
-        answers: ["10", "energy", "robot"],
-        correctAnswer: "10",
-        successMessage: "Exactly! The variable energy stores the value 10.",
-      },
+  {
+    question: "What is a variable used for?",
+    codePreview: "energy = 10",
+    answers: [
+      "To make Robo sleep",
+      "To store information",
+      "To delete the game",
     ],
+    correctAnswer: "To store information",
+    successMessage:
+      "Correct! A variable stores information like numbers or text.",
+  },
+  {
+    question: "Which variable stores Robo's energy?",
+    codePreview: "energy = 10",
+    answers: ["gate", "sleep", "energy"],
+    correctAnswer: "energy",
+    successMessage: "Nice! energy is the variable name.",
+  },
+  {
+    question: "What value is stored inside energy?",
+    codePreview: "energy = 10",
+    answers: ["10", "robot", "energy"],
+    correctAnswer: "10",
+    successMessage: "Exactly! The variable energy stores the value 10.",
+  },
+],
   },
   "5": {
     id: 5,
@@ -158,45 +158,46 @@ const lessons = {
     xp: 100,
     gems: 50,
     questions: [
-      {
-        question: "Robo needs to move forward. Which command should he use?",
-        codePreview: "robot.__________",
-        answers: ["move_forward()", "sleep()", "hide()"],
-        correctAnswer: "move_forward()",
-        successMessage: "Great! Robo moves closer to the Bug King.",
-      },
-      {
-        question: "Robo needs to attack 3 times. What helps repeat actions?",
-        codePreview: "__________(3): attack()",
-        answers: ["repeat", "if", "energy"],
-        correctAnswer: "repeat",
-        successMessage: "Correct! Loops help Robo repeat attacks.",
-      },
-      {
-        question:
-          "Robo can open the shield only if energy is greater than 5. Which keyword checks this?",
-        codePreview: "___ energy > 5: open_shield()",
-        answers: ["if", "sleep", "move"],
-        correctAnswer: "if",
-        successMessage: "Yes! Conditions help Robo make decisions.",
-      },
-      {
-        question: "Which line stores Robo's energy?",
-        codePreview: "__________",
-        answers: ["energy = 10", "repeat(3)", "move_forward()"],
-        correctAnswer: "energy = 10",
-        successMessage:
-          "Perfect! Variables help Robo remember important values.",
-      },
-      {
-        question: "Final move: which concept repeats code?",
-        codePreview: "repeat(3): attack()",
-        answers: ["Loop", "Variable", "Condition"],
-        correctAnswer: "Loop",
-        successMessage:
-          "Amazing! You defeated the Bug King and completed Robo Lab.",
-      },
-    ],
+  {
+    question: "Robo needs to move forward. Which command should he use?",
+    codePreview: "robot.__________",
+    answers: ["hide()", "sleep()", "move_forward()"],
+    correctAnswer: "move_forward()",
+    successMessage: "Great! Robo moves closer to the Bug King.",
+  },
+  {
+    question: "Robo needs to attack 3 times. What helps repeat actions?",
+    codePreview: "__________(3): attack()",
+    answers: ["energy", "repeat", "if"],
+    correctAnswer: "repeat",
+    successMessage: "Correct! Loops help Robo repeat attacks.",
+  },
+  {
+    question:
+      "Robo can open the shield only if energy is greater than 5. Which keyword checks this?",
+    codePreview: "___ energy > 5: open_shield()",
+    answers: ["if", "move", "sleep"],
+    correctAnswer: "if",
+    successMessage: "Yes! Conditions help Robo make decisions.",
+  },
+  {
+    question: "Which line stores Robo's energy?",
+    codePreview: "__________",
+    answers: ["repeat(3)", "move_forward()", "energy = 10"],
+    correctAnswer: "energy = 10",
+    successMessage:
+      "Perfect! Variables help Robo remember important values.",
+  },
+  {
+    question:
+      "Robo wants to attack 5 times without writing attack() again. Which concept should he use?",
+    codePreview: "repeat(5): attack()",
+    answers: ["Variable", "Loop", "Condition"],
+    correctAnswer: "Loop",
+    successMessage:
+      "Amazing! You defeated the Bug King and completed Robo Lab.",
+  },
+],
   },
 };
 
